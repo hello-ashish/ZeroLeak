@@ -1,0 +1,16 @@
+# Dependencies
+**/node_modules/
+
+# Local databases
+db.json
+
+# Builds & Outputs
+**/dist/
+**/.next/
+**/out/
+**/*.log
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
