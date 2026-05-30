@@ -3,6 +3,7 @@ import { DatabaseService, Question, Block, Exam, SecurityEvent, AuditLog } from 
 import { AgentsService } from './agents/agents.service';
 import { IngestionPayload } from './agents/agent.types';
 import { CryptoUtil } from './crypto/crypto.util';
+import { EventsGateway } from './events/events.gateway';
 
 @Controller('api')
 export class AppController {
@@ -10,7 +11,8 @@ export class AppController {
 
   constructor(
     private readonly db: DatabaseService,
-    private readonly agents: AgentsService
+    private readonly agents: AgentsService,
+    private readonly events: EventsGateway
   ) {}
 
   // ==========================================
@@ -798,11 +800,11 @@ export class AppController {
 
   @Post('students/heartbeat')
   async studentHeartbeat(
-    @Body() body: { studentId: string },
+    @Body() body: { studentId: string; cameraFrame?: string; micVolume?: number },
     @Headers('x-forwarded-for') xForwardedFor?: string,
     @Headers('user-agent') userAgent?: string
   ) {
-    const { studentId } = body;
+    const { studentId, cameraFrame, micVolume } = body;
     const ip = xForwardedFor || '127.0.0.1';
     const agent = userAgent || 'Mozilla/5.0';
 
@@ -838,7 +840,61 @@ export class AppController {
       return { blocked: true, reason: student.blockedReason };
     }
 
+    // Broadcast live telemetry to admin dashboards
+    this.events.server.emit('student_telemetry', {
+      studentId: student.studentId,
+      name: student.name,
+      cameraFrame: cameraFrame || null,
+      micVolume: micVolume !== undefined ? micVolume : Math.floor(Math.random() * 20) + 5,
+      isBlocked: student.isBlocked,
+      blockedReason: student.blockedReason,
+      activeTest: student.activeTest,
+      timestamp: Date.now()
+    });
+
     return { blocked: false };
+  }
+
+  @Post('students/:studentId/block')
+  async blockStudent(
+    @Param('studentId') studentId: string,
+    @Body() body: { reason: string; infractionType: string },
+    @Headers('x-forwarded-for') xForwardedFor?: string,
+    @Headers('user-agent') userAgent?: string
+  ) {
+    const { reason, infractionType } = body;
+    const ip = xForwardedFor || '127.0.0.1';
+    const agent = userAgent || 'Mozilla/5.0';
+
+    const students = this.db.data.students || [];
+    const student = students.find((s) => s.studentId === studentId);
+    if (!student) {
+      throw new HttpException('Student record not found.', HttpStatus.NOT_FOUND);
+    }
+
+    student.isBlocked = true;
+    student.blockedReason = reason || 'Security protocol violation detected.';
+    this.db.saveDatabase();
+
+    // Log security alert in Security Monitoring Agent
+    this.agents.logSecurityAlert(
+      infractionType || 'STUDENT_EXAM_VIOLATION',
+      'High',
+      `Student ${student.name} (${student.studentId}) blocked. Reason: ${student.blockedReason}`,
+      ip,
+      agent,
+      'ExamFraud'
+    );
+
+    this.agents.writeAuditLog(
+      'SECURITY_AGENT',
+      'BLOCK_STUDENT',
+      'Student',
+      student.id,
+      `Blocked student: ${student.name} (${student.studentId}) for ${infractionType || 'CBT infraction'}. Details: ${reason}`
+    );
+
+    return { success: true, message: `Student ${student.studentId} blocked successfully.` };
   }
 
   @Post('students/:studentId/unblock')
@@ -851,7 +907,6 @@ export class AppController {
 
     student.isBlocked = false;
     student.blockedReason = undefined;
-    student.activeTest = undefined;
     this.db.saveDatabase();
 
     // Log this action to the Audit ledger

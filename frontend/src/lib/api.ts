@@ -216,11 +216,21 @@ export const apiClient = {
     return res.json();
   },
 
-  async studentHeartbeat(studentId: string) {
+  async blockStudent(studentId: string, payload: { reason: string; infractionType: string }) {
+    const res = await fetch(`${BASE_URL}/students/${studentId}/block`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('Failed to block student');
+    return res.json();
+  },
+
+  async studentHeartbeat(studentId: string, cameraFrame?: string | null, micVolume?: number) {
     const res = await fetch(`${BASE_URL}/students/heartbeat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ studentId })
+      body: JSON.stringify({ studentId, cameraFrame, micVolume })
     });
     if (!res.ok) throw new Error('Failed to fetch heartbeat status');
     return res.json();

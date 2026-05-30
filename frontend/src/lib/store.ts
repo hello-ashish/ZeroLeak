@@ -12,7 +12,8 @@ export type PageType =
   | 'metrics'
   | 'students'
   | 'completed-tests'
-  | 'alerts';
+  | 'alerts'
+  | 'proctoring';
 
 interface User {
   name: string;
@@ -42,6 +43,8 @@ interface BdepgsState {
   nodes: any[];
   students: any[];
   submissions: any[];
+  activeTelemetry: Record<string, any>;
+  consensusLogs: { blockIndex: number; message: string; timestamp: number }[];
   metrics: {
     generationLatency: { timestamp: number; latencyMs: number; examId: string }[];
     encryptionOverhead: { timestamp: number; dataSize: number; overheadMs: number }[];
@@ -67,6 +70,8 @@ interface BdepgsState {
   addStudent: (student: any) => void;
   setSubmissions: (submissions: any[]) => void;
   addSubmission: (submission: any) => void;
+  updateStudentTelemetry: (telemetry: any) => void;
+  addConsensusLog: (log: { blockIndex: number; message: string; timestamp: number }) => void;
   addLatencyMetric: (metric: { timestamp: number; latencyMs: number; examId: string }) => void;
   addOverheadMetric: (metric: { timestamp: number; dataSize: number; overheadMs: number }) => void;
   resetState: () => void;
@@ -94,6 +99,8 @@ export const useStore = create<BdepgsState>((set) => ({
   nodes: [],
   students: [],
   submissions: [],
+  activeTelemetry: {},
+  consensusLogs: [],
   metrics: {
     generationLatency: [],
     encryptionOverhead: []
@@ -120,6 +127,18 @@ export const useStore = create<BdepgsState>((set) => ({
   addStudent: (student) => set((state) => ({ students: [student, ...state.students] })),
   setSubmissions: (submissions) => set({ submissions }),
   addSubmission: (submission) => set((state) => ({ submissions: [submission, ...state.submissions] })),
+  updateStudentTelemetry: (telemetry) => set((state) => {
+    const updated = { ...state.activeTelemetry };
+    updated[telemetry.studentId] = {
+      ...updated[telemetry.studentId],
+      ...telemetry,
+      lastSeen: Date.now()
+    };
+    return { activeTelemetry: updated };
+  }),
+  addConsensusLog: (log) => set((state) => ({
+    consensusLogs: [...state.consensusLogs.slice(-49), log]
+  })),
   addLatencyMetric: (metric) => set((state) => ({
     metrics: {
       ...state.metrics,
@@ -144,6 +163,8 @@ export const useStore = create<BdepgsState>((set) => ({
     securityEvents: [],
     nodes: [],
     students: [],
-    submissions: []
+    submissions: [],
+    activeTelemetry: {},
+    consensusLogs: []
   })
 }));

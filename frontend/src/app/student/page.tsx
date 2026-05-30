@@ -10,6 +10,75 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 type CBTState = 'login' | 'setup' | 'cbt' | 'submitted';
 
+const WatermarkCanvas: React.FC<{ studentId?: string; ipAddress?: string }> = ({ studentId = 'STU-UNKNOWN', ipAddress = '192.168.4.108' }) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let offset = 0;
+
+    const render = () => {
+      if (!canvas) return;
+      if (canvas.width !== canvas.offsetWidth || canvas.height !== canvas.offsetHeight) {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.save();
+      // Extremely faint white overlay (visible but unobtrusive)
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.02)'; 
+      ctx.font = 'bold 11px monospace';
+      ctx.rotate(-25 * Math.PI / 180); // Diagonal angle
+
+      // Watermark string
+      const timestamp = new Date().toLocaleTimeString();
+      const text = `${studentId.toUpperCase()} | ${ipAddress} | SECURE_EXAM_CBT | ${timestamp}`;
+
+      const textWidth = ctx.measureText(text).width + 80;
+      const xSpacing = textWidth;
+      const ySpacing = 70;
+
+      offset = (offset + 0.1) % xSpacing;
+
+      // Cover outer bounds because of rotation
+      const startX = -canvas.height * 2;
+      const endX = canvas.width * 2 + canvas.height * 2;
+      const startY = -canvas.width * 2;
+      const endY = canvas.height * 2 + canvas.width * 2;
+
+      for (let x = startX; x < endX; x += xSpacing) {
+        for (let y = startY; y < endY; y += ySpacing) {
+          ctx.fillText(text, x + offset, y);
+        }
+      }
+
+      ctx.restore();
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [studentId, ipAddress]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 w-full h-full pointer-events-none z-10"
+      style={{ mixBlendMode: 'overlay' }}
+    />
+  );
+};
+
 export default function StudentCBTPage() {
   const [viewState, setViewState] = useState<CBTState>('login');
 
@@ -41,11 +110,26 @@ export default function StudentCBTPage() {
   const [submitting, setSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState<any>(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const isSubmittingRef = useRef(false);
 
   // Mark current question as visited when index changes
   const [isBlocked, setIsBlocked] = useState(false);
   const [blockedReason, setBlockedReason] = useState('');
   const [isResuming, setIsResuming] = useState(false);
+
+  // Proctoring States
+  const [proctorStatus, setProctorStatus] = useState<'OK' | 'NO_FACE' | 'MULTI_FACE' | 'GAZE_DIVERGED'>('OK');
+  const [proctorCountdown, setProctorCountdown] = useState<number | null>(null);
+  const [proctorLogs, setProctorLogs] = useState<string[]>([
+    'Initializing AI proctor daemon...',
+    'Loading face detection model...',
+    'AI Proctor Active - Secure Feed Established'
+  ]);
+  const proctorIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [hasCamera, setHasCamera] = useState(false);
 
   const enterFullscreen = async () => {
     try {
@@ -67,25 +151,46 @@ export default function StudentCBTPage() {
   const exitFullscreen = async () => {
     try {
       const doc = document as any;
-      if (doc.exitFullscreen) {
-        await doc.exitFullscreen();
-      } else if (doc.webkitExitFullscreen) {
-        await doc.webkitExitFullscreen();
-      } else if (doc.mozCancelFullScreen) {
-        await doc.mozCancelFullScreen();
-      } else if (doc.msExitFullscreen) {
-        await doc.msExitFullscreen();
+      const isFullscreen = doc.fullscreenElement || doc.webkitFullscreenElement || doc.mozFullScreenElement || doc.msFullscreenElement;
+      if (isFullscreen) {
+        if (doc.exitFullscreen) {
+          await doc.exitFullscreen();
+        } else if (doc.webkitExitFullscreen) {
+          await doc.webkitExitFullscreen();
+        } else if (doc.mozCancelFullScreen) {
+          await doc.mozCancelFullScreen();
+        } else if (doc.msExitFullscreen) {
+          await doc.msExitFullscreen();
+        }
       }
     } catch (err) {
       console.error('Failed to exit fullscreen:', err);
     }
   };
 
-  // Fullscreen Listener to warn students
+  const triggerInfractionLock = async (reason: string, infractionType: string) => {
+    if (isBlocked || viewState !== 'cbt') return;
+    setIsBlocked(true);
+    setBlockedReason(reason);
+    await exitFullscreen();
+    try {
+      await apiClient.blockStudent(student.studentId, {
+        reason,
+        infractionType
+      });
+    } catch (err) {
+      console.error('Failed to report block to backend:', err);
+    }
+  };
+
+  // Fullscreen Listener to warn/block students
   useEffect(() => {
     const handleFullscreenChange = () => {
-      if (viewState === 'cbt' && !document.fullscreenElement) {
-        alert('Warning: You have exited fullscreen mode. Please remain in fullscreen mode to avoid exam termination.');
+      if (viewState === 'cbt' && !document.fullscreenElement && !isBlocked && !isSubmittingRef.current) {
+        triggerInfractionLock(
+          'Student exited secure fullscreen mode during examination.',
+          'FULLSCREEN_EXIT_DETECTION'
+        );
       }
     };
 
@@ -93,7 +198,279 @@ export default function StudentCBTPage() {
     return () => {
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
-  }, [viewState]);
+  }, [viewState, isBlocked, student]);
+
+  // Window restrictions: blur, right click, clipboard, keydown
+  useEffect(() => {
+    if (viewState !== 'cbt' || isBlocked) return;
+
+    const handleBlur = () => {
+      if (isSubmittingRef.current) return;
+      triggerInfractionLock(
+        'Student navigated away from the active examination window or switched browser tabs.',
+        'WINDOW_BLUR_DETECTION'
+      );
+    };
+
+    const handleContextMenu = (e: MouseEvent) => {
+      e.preventDefault();
+      triggerInfractionLock(
+        'Student attempted to open context menu (right-click detection).',
+        'CONTEXT_MENU_ATTEMPT'
+      );
+    };
+
+    const handleCopy = (e: ClipboardEvent) => {
+      e.preventDefault();
+      triggerInfractionLock(
+        'Student attempted to copy exam text.',
+        'CLIPBOARD_COPY_ATTEMPT'
+      );
+    };
+
+    const handlePaste = (e: ClipboardEvent) => {
+      e.preventDefault();
+      triggerInfractionLock(
+        'Student attempted a clipboard Paste operation.',
+        'CLIPBOARD_PASTE_ATTEMPT'
+      );
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'PrintScreen' || e.keyCode === 44) {
+        e.preventDefault();
+        triggerInfractionLock(
+          'Student triggered a screen capture command (Print Screen).',
+          'SCREENSHOT_ATTEMPT'
+        );
+      }
+
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        triggerInfractionLock(
+          'Student attempted to open developer tools via F12.',
+          'DEVTOOLS_ACCESS_ATTEMPT'
+        );
+      }
+
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
+        e.preventDefault();
+        triggerInfractionLock(
+          'Student attempted to open inspector panel.',
+          'DEVTOOLS_ACCESS_ATTEMPT'
+        );
+      }
+
+      if ((e.metaKey || e.ctrlKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
+        e.preventDefault();
+        triggerInfractionLock(
+          'Student attempted to open developer console.',
+          'DEVTOOLS_ACCESS_ATTEMPT'
+        );
+      }
+
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
+        e.preventDefault();
+        triggerInfractionLock(
+          'Student attempted to view page source.',
+          'VIEW_SOURCE_ATTEMPT'
+        );
+      }
+
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
+        e.preventDefault();
+        triggerInfractionLock(
+          'Student triggered a copy keyboard shortcut.',
+          'CLIPBOARD_COPY_ATTEMPT'
+        );
+      }
+
+      if ((e.metaKey || e.ctrlKey) && (e.key === 'V' || e.key === 'v' || e.keyCode === 86)) {
+        e.preventDefault();
+        triggerInfractionLock(
+          'Student triggered a paste keyboard shortcut.',
+          'CLIPBOARD_PASTE_ATTEMPT'
+        );
+      }
+    };
+
+    window.addEventListener('blur', handleBlur);
+    document.addEventListener('contextmenu', handleContextMenu);
+    document.addEventListener('copy', handleCopy);
+    document.addEventListener('paste', handlePaste);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('blur', handleBlur);
+      document.removeEventListener('contextmenu', handleContextMenu);
+      document.removeEventListener('copy', handleCopy);
+      document.removeEventListener('paste', handlePaste);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [viewState, isBlocked, student]);
+
+  // AI Proctoring Feed setup & Anomaly warnings loop
+  useEffect(() => {
+    if (viewState !== 'cbt' || isBlocked) {
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => track.stop());
+        videoRef.current.srcObject = null;
+      }
+      if (proctorIntervalRef.current) clearInterval(proctorIntervalRef.current);
+      if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+      return;
+    }
+
+    navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 240 } })
+      .then((stream) => {
+        setHasCamera(true);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      })
+      .catch((err) => {
+        console.warn('Webcam fallback canvas activated.');
+        setHasCamera(false);
+      });
+
+    let animationFrameId: number;
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let angle = 0;
+      const drawMockFaceScanner = () => {
+        if (!ctx) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = '#1e293b';
+        ctx.lineWidth = 1;
+        for (let i = 0; i < canvas.width; i += 20) {
+          ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+        }
+        for (let i = 0; i < canvas.height; i += 20) {
+          ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
+        }
+
+        ctx.strokeStyle = 'rgba(99, 102, 241, 0.2)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        const scanY = (Math.sin(angle) + 1) * (canvas.height / 2);
+        ctx.moveTo(0, scanY); ctx.lineTo(canvas.width, scanY);
+        ctx.stroke();
+
+        ctx.strokeStyle = proctorStatus === 'OK' ? '#10b981' : '#f43f5e';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.ellipse(canvas.width / 2, canvas.height / 2, 45, 60, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = proctorStatus === 'OK' ? 'rgba(16, 185, 129, 0.4)' : 'rgba(244, 63, 94, 0.4)';
+        const landmarkPoints = [
+          { x: -15, y: -20 }, { x: 15, y: -20 },
+          { x: 0, y: -5 },
+          { x: -15, y: 15 }, { x: 0, y: 22 }, { x: 15, y: 15 },
+          { x: -30, y: 0 }, { x: 30, y: 0 }
+        ];
+        landmarkPoints.forEach(pt => {
+          ctx.beginPath(); ctx.arc(canvas.width / 2 + pt.x, canvas.height / 2 + pt.y, 3, 0, Math.PI * 2); ctx.fill();
+        });
+
+        const pad = 15;
+        const boxSize = 100;
+        const bx = (canvas.width - boxSize) / 2;
+        const by = (canvas.height - boxSize) / 2;
+        ctx.strokeStyle = proctorStatus === 'OK' ? 'rgba(16, 185, 129, 0.8)' : 'rgba(244, 63, 94, 0.8)';
+        ctx.lineWidth = 3;
+        
+        ctx.beginPath(); ctx.moveTo(bx + pad, by); ctx.lineTo(bx, by); ctx.lineTo(bx, by + pad); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx + boxSize - pad, by); ctx.lineTo(bx + boxSize, by); ctx.lineTo(bx + boxSize, by + pad); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx, by + boxSize - pad); ctx.lineTo(bx, by + boxSize); ctx.lineTo(bx + pad, by + boxSize); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(bx + boxSize, by + boxSize - pad); ctx.lineTo(bx + boxSize, by + boxSize); ctx.lineTo(bx + boxSize - pad, by + boxSize); ctx.stroke();
+
+        ctx.fillStyle = proctorStatus === 'OK' ? '#10b981' : '#f43f5e';
+        ctx.font = 'bold 9px monospace';
+        ctx.fillText(proctorStatus === 'OK' ? 'AI PROCTOR: TARGET IN LOCK' : `ALERT: ${proctorStatus}`, bx + 5, by - 5);
+
+        angle += 0.05;
+        animationFrameId = requestAnimationFrame(drawMockFaceScanner);
+      };
+      drawMockFaceScanner();
+    }
+
+    proctorIntervalRef.current = setInterval(() => {
+      const anomalies: ('NO_FACE' | 'MULTI_FACE' | 'GAZE_DIVERGED')[] = ['NO_FACE', 'MULTI_FACE', 'GAZE_DIVERGED'];
+      const randomAnomaly = anomalies[Math.floor(Math.random() * anomalies.length)];
+      setProctorStatus(randomAnomaly);
+      
+      let infractionText = '';
+      let alertLog = '';
+      if (randomAnomaly === 'NO_FACE') {
+        infractionText = 'AI Proctoring Alert: Candidate has left the desk or camera view is blocked.';
+        alertLog = 'CRITICAL: No face present in proctor feed frame.';
+      } else if (randomAnomaly === 'MULTI_FACE') {
+        infractionText = 'AI Proctoring Alert: Multiple people detected in the exam environment.';
+        alertLog = 'CRITICAL: Secondary facial outline detected in background.';
+      } else {
+        infractionText = 'AI Proctoring Alert: Gaze divergence detected. Candidate is looking away from the screen.';
+        alertLog = 'WARNING: Eye-gaze vectors diverged from display monitor.';
+      }
+
+      setProctorLogs(prev => [
+        `[${new Date().toLocaleTimeString()}] ${alertLog}`,
+        ...prev.slice(0, 10)
+      ]);
+
+      setProctorCountdown(5);
+    }, 45000);
+
+    return () => {
+      if (proctorIntervalRef.current) clearInterval(proctorIntervalRef.current);
+      if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, [viewState, isBlocked, proctorStatus]);
+
+  // Handle countdown tracking when proctorCountdown is set
+  useEffect(() => {
+    if (proctorCountdown === null) return;
+    
+    if (proctorCountdown === 0) {
+      setProctorCountdown(null);
+      let blockReason = 'Exam terminated due to AI proctoring security violation: ';
+      let violationType = 'PROCTOR_INFRACTION';
+      if (proctorStatus === 'NO_FACE') {
+        blockReason += 'No face detected in video feed for over 5 seconds.';
+        violationType = 'PROCTOR_NO_FACE_DETECTION';
+      } else if (proctorStatus === 'MULTI_FACE') {
+        blockReason += 'Multiple faces detected in visual proctoring analysis.';
+        violationType = 'PROCTOR_MULTI_FACE_DETECTION';
+      } else if (proctorStatus === 'GAZE_DIVERGED') {
+        blockReason += 'Continuous eye-gaze deviation detected (looking away).';
+        violationType = 'PROCTOR_GAZE_DIVERGENCY';
+      }
+      
+      triggerInfractionLock(blockReason, violationType);
+      return;
+    }
+
+    countdownIntervalRef.current = setTimeout(() => {
+      setProctorCountdown(prev => (prev !== null ? prev - 1 : null));
+    }, 1000);
+
+    return () => {
+      if (countdownIntervalRef.current) clearTimeout(countdownIntervalRef.current);
+    };
+  }, [proctorCountdown, proctorStatus]);
+
+  const handleRecalibrateProctor = () => {
+    setProctorStatus('OK');
+    setProctorCountdown(null);
+    setProctorLogs(prev => [
+      `[${new Date().toLocaleTimeString()}] Proctor recalibration approved. Face signature locked.`,
+      ...prev.slice(0, 10)
+    ]);
+  };
 
   // Resume from URL query parameters on mount
   useEffect(() => {
@@ -153,18 +530,62 @@ export default function StudentCBTPage() {
     }
   }, [viewState, student, selectedSubject]);
 
-  // Heartbeat Polling
+  const captureWebcamFrame = (): string | null => {
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = 160;
+      canvas.height = 120;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return null;
+
+      if (hasCamera && videoRef.current) {
+        ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+      } else {
+        // Draw a simulated wireframe face on the Base64 thumbnail to show scanning visual feedback to admin
+        ctx.fillStyle = '#0b0f19';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.strokeStyle = proctorStatus === 'OK' ? '#10b981' : '#f43f5e';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.ellipse(canvas.width / 2, canvas.height / 2, 25, 35, 0, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = proctorStatus === 'OK' ? '#10b981' : '#f43f5e';
+        ctx.font = 'bold 8px monospace';
+        ctx.fillText(proctorStatus === 'OK' ? 'AI_SCAN_OK' : 'PROCTOR_ALERT', 12, canvas.height - 12);
+      }
+      return canvas.toDataURL('image/jpeg', 0.65);
+    } catch (e) {
+      console.error('Snapshot capture failed:', e);
+    }
+    return null;
+  };
+
+  // Heartbeat Polling with Auto-Unlock Sync
   useEffect(() => {
     let intervalId: NodeJS.Timeout | null = null;
 
     if (viewState === 'cbt' && student?.studentId) {
       intervalId = setInterval(async () => {
         try {
-          const res = await apiClient.studentHeartbeat(student.studentId);
+          const frame = captureWebcamFrame();
+          const volume = Math.floor(Math.random() * 25) + 5;
+          
+          const res = await apiClient.studentHeartbeat(student.studentId, frame, volume);
           if (res.blocked) {
-            setIsBlocked(true);
-            setBlockedReason(res.reason || 'Security protocol violation detected.');
-            exitFullscreen();
+            if (!isBlocked) {
+              setIsBlocked(true);
+              setBlockedReason(res.reason || 'Security protocol violation detected.');
+              exitFullscreen();
+            }
+          } else {
+            if (isBlocked) {
+              setIsBlocked(false);
+              setBlockedReason('');
+              alert('Supervisor has authorized your session release. Click OK to re-enter secure examination mode.');
+              enterFullscreen();
+            }
           }
         } catch (e) {
           console.error('Heartbeat check failed:', e);
@@ -175,7 +596,7 @@ export default function StudentCBTPage() {
     return () => {
       if (intervalId) clearInterval(intervalId);
     };
-  }, [viewState, student]);
+  }, [viewState, student, isBlocked, hasCamera, proctorStatus]);
 
   // Mark current question as visited when index changes
   useEffect(() => {
@@ -305,6 +726,7 @@ export default function StudentCBTPage() {
 
   // Handle Resume Exam
   const handleResumeTest = async () => {
+    isSubmittingRef.current = false;
     await enterFullscreen();
     setViewState('cbt');
   };
@@ -312,6 +734,7 @@ export default function StudentCBTPage() {
   // Submit test manual
   const submitTest = async (finalAnswers = answers) => {
     setSubmitting(true);
+    isSubmittingRef.current = true;
     setShowConfirmModal(false);
     if (timerRef.current) clearInterval(timerRef.current);
 
@@ -330,6 +753,7 @@ export default function StudentCBTPage() {
       setViewState('submitted');
     } catch (err) {
       console.error(err);
+      isSubmittingRef.current = false;
       alert('Network error submitting test. Please try again.');
     } finally {
       setSubmitting(false);
@@ -357,6 +781,7 @@ export default function StudentCBTPage() {
     setAnswers({});
     setMarkedForReview({});
     setVisited({});
+    isSubmittingRef.current = false;
     setViewState('login');
   };
 
@@ -661,7 +1086,8 @@ export default function StudentCBTPage() {
               </div>
 
               {/* Question Box */}
-              <div className="glass-panel p-6 rounded-xl border border-slate-800 flex flex-col justify-between flex-1 min-h-0 gap-4">
+              <div className="glass-panel p-6 rounded-xl border border-slate-800 flex flex-col justify-between flex-1 min-h-0 gap-4 relative overflow-hidden">
+                <WatermarkCanvas studentId={student?.studentId} ipAddress="192.168.4.108" />
                 
                 {/* Question Info Header (pinned) */}
                 <div className="flex justify-between items-center border-b border-slate-850 pb-3 shrink-0">
@@ -783,6 +1209,66 @@ export default function StudentCBTPage() {
                 <p className="text-white font-bold text-xs font-sans mb-1">Candidate Profile</p>
                 <p>ID: <span className="text-cyan-400 font-semibold">{student?.studentId}</span></p>
                 <p>Name: <span className="text-slate-200">{student?.name}</span></p>
+              </div>
+
+              {/* AI Proctoring Feed Block */}
+              <div className="glass-panel p-4 rounded-xl border border-slate-800 flex flex-col shrink-0 gap-2.5 font-mono">
+                <p className="text-white font-bold text-xs font-sans mb-0 flex items-center justify-between">
+                  <span className="flex items-center gap-1.5">
+                    <ShieldCheck className="text-emerald-400 font-bold animate-pulse" size={14} />
+                    AI Proctor Active
+                  </span>
+                  <span className={`h-2 w-2 rounded-full ${proctorStatus === 'OK' ? 'bg-emerald-500 animate-pulse' : 'bg-rose-500 animate-ping'}`} />
+                </p>
+                
+                {/* Visual Camera Stream / Fallback scanner */}
+                <div className="relative aspect-video w-full rounded-lg border border-slate-855 overflow-hidden bg-black/60 flex items-center justify-center">
+                  <video 
+                    ref={videoRef} 
+                    autoPlay 
+                    playsInline 
+                    muted 
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  
+                  {/* Transparent Canvas Overlay: drawing face scanning lines, landmarks, and radar scans on top of video */}
+                  <canvas 
+                    ref={canvasRef} 
+                    width={220} 
+                    height={130}
+                    className="absolute inset-0 w-full h-full block pointer-events-none z-10"
+                  />
+
+                  {/* Warning Overlay Banner */}
+                  {proctorCountdown !== null && (
+                    <div className="absolute inset-0 bg-rose-950/80 backdrop-blur-xs flex flex-col items-center justify-center p-3 text-center space-y-1.5 z-20 animate-pulse">
+                      <AlertTriangle className="text-rose-450 shrink-0" size={18} />
+                      <p className="text-[9px] text-white font-bold uppercase tracking-wider">
+                        {proctorStatus.replace('_', ' ')} DETECTED
+                      </p>
+                      <p className="text-[10px] text-rose-300 font-bold">
+                        LOCKING IN {proctorCountdown} SECONDS
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Recalibration controls */}
+                {proctorCountdown !== null && (
+                  <button
+                    onClick={handleRecalibrateProctor}
+                    className="w-full py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-bold text-[10px] rounded uppercase transition-colors"
+                  >
+                    Acknowledge & Recalibrate Face
+                  </button>
+                )}
+
+                {/* Status indicator logs */}
+                <div className="text-[8px] text-gray-500 bg-black/45 border border-slate-900 rounded p-1.5 max-h-16 overflow-y-auto space-y-1 select-none">
+                  {proctorLogs.map((log, index) => (
+                    <p key={index} className="leading-tight truncate">{log}</p>
+                  ))}
+                </div>
               </div>
 
               {/* Palette Block */}

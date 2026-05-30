@@ -14,6 +14,8 @@ export const useSocket = () => {
     setNodes,
     addLatencyMetric,
     addOverheadMetric,
+    updateStudentTelemetry,
+    addConsensusLog,
     stats
   } = useStore();
 
@@ -58,8 +60,16 @@ export const useSocket = () => {
       updateExam(exam);
     });
 
+    socket.on('student_telemetry', (telemetry) => {
+      updateStudentTelemetry(telemetry);
+    });
+
     socket.on('nodes_sync', (nodes) => {
       setNodes(nodes);
+    });
+
+    socket.on('consensus_log', (log) => {
+      addConsensusLog(log);
     });
 
     socket.on('system_config_update', (config) => {
@@ -88,7 +98,7 @@ export const useSocket = () => {
     return () => {
       socket.disconnect();
     };
-  }, [addBlock, addSecurityEvent, addAuditLog, updateExam, setStats, setNodes, addLatencyMetric, addOverheadMetric]);
+  }, [addBlock, addSecurityEvent, addAuditLog, updateExam, setStats, setNodes, addLatencyMetric, addOverheadMetric, updateStudentTelemetry, addConsensusLog]);
 
   return socketRef.current;
 };

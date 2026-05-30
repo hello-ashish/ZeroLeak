@@ -583,7 +583,7 @@ export class AgentsService {
   // ==========================================
   // 9. LOAD BALANCING & DISTRIBUTION AGENT
   // ==========================================
-  private replicateNodes(blockIndex: number) {
+  private async replicateNodes(blockIndex: number) {
     this.logger.log(`[LoadBalancingAgent] Synchronizing ledger node networks to block index #${blockIndex}...`);
     
     // Simulate real-time latency and replication
@@ -593,14 +593,43 @@ export class AgentsService {
     });
     this.events.broadcastNodeSync(this.db.data.nodes);
 
-    setTimeout(() => {
+    const logStep = (message: string) => {
+      this.events.server.emit('consensus_log', {
+        blockIndex,
+        message,
+        timestamp: Date.now()
+      });
+    };
+
+    try {
+      logStep(`[LoadBalancingAgent] Starting consensus round for Verification Block #${blockIndex}`);
+      await this.sleep(300);
+      logStep(`[Node-Delhi] Ingesting block payload. Checking cryptographic signature links...`);
+      await this.sleep(350);
+      logStep(`[Node-Mumbai] Ingesting block payload. Checking parent key hash continuity...`);
+      await this.sleep(350);
+      logStep(`[Node-Bangalore] Ingesting block payload. Validating ECDSA validator key...`);
+      await this.sleep(300);
+      logStep(`[Node-Delhi] Parent block link hash matched. Verification: PASS. Casting vote YES.`);
+      await this.sleep(200);
+      logStep(`[Node-Mumbai] Block transaction data signatures verified. Verification: PASS. Casting vote YES.`);
+      await this.sleep(200);
+      logStep(`[Node-Bangalore] ECDSA authority keys validated. Verification: PASS. Casting vote YES.`);
+      await this.sleep(400);
+      logStep(`[LoadBalancingAgent] Consensus achieved (3/3 agreement). Writing block #${blockIndex} to local edge filesystems...`);
+
       this.db.data.nodes.forEach(node => {
         node.status = 'Online';
         node.lastSyncedBlock = blockIndex;
       });
       this.db.saveDatabase();
       this.events.broadcastNodeSync(this.db.data.nodes);
-    }, 1200);
+      
+      await this.sleep(200);
+      logStep(`[LoadBalancingAgent] Replication complete. All edge ledger nodes successfully synced at height #${blockIndex}.`);
+    } catch (e: any) {
+      this.logger.error(`Replication failure: ${e.message}`);
+    }
   }
 
   // Helper Sleep

@@ -4,14 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { useStore, PageType } from '../lib/store';
 import { useSocket } from '../hooks/useSocket';
 import { apiClient } from '../lib/api';
-import { 
-  ShieldCheck, ShieldAlert, Key, Database, Cpu, Clock, Terminal, Activity, 
-  Settings, LogOut, ArrowRight, User, AlertCircle, RefreshCw, Layers, Lock, Globe, HardDrive, CheckCircle
+import {
+  ShieldCheck, ShieldAlert, Key, Database, Cpu, Clock, Terminal, Activity,
+  Settings, LogOut, ArrowRight, User, AlertCircle, RefreshCw, Layers, Lock, Globe, HardDrive, CheckCircle, Eye
 } from 'lucide-react';
-import { 
-  AdminCenterPanel, QuestionRepositoryPanel, BlockchainExplorerPanel, 
+import {
+  AdminCenterPanel, QuestionRepositoryPanel, BlockchainExplorerPanel,
   PaperGenerationPanel, SOCPanel, AuditForensicsPanel, ExamDeliveryPanel, ResearchMetricsPanel,
-  StudentRegistryPanel, CompletedTestsPanel, SecurityAlertsPanel
+  StudentRegistryPanel, CompletedTestsPanel, SecurityAlertsPanel, ActiveProctoringPanel
 } from '../components/DashboardPanels';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,9 +19,9 @@ export default function MainPage() {
   // Activate sockets
   useSocket();
 
-  const { 
-    page, setPage, 
-    user, setUser, 
+  const {
+    page, setPage,
+    user, setUser,
     mfaVerified, setMfaVerified,
     stats, setStats,
     setQuestions, setBlockchain, setExams, setSecurityEvents, setAuditLogs, setNodes
@@ -85,7 +85,7 @@ export default function MainPage() {
       }
 
       setUser({
-        name: username === 'admin' ? 'Dr. Sarah Jenkins' : 'Supervisor Node-04',
+        name: username === 'admin' ? 'Dr. AK Gupta' : 'Supervisor Node-04',
         role: selectedRole,
         token: 'bdepgs-jwt-token-session-0123'
       });
@@ -126,7 +126,7 @@ export default function MainPage() {
             <Layers className="text-indigo-400" size={24} />
             <span className="font-mono font-extrabold tracking-widest text-white text-lg">ZeroLeak</span>
           </div>
-          <button 
+          <button
             onClick={() => setPage('admin')}
             className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-mono rounded-lg text-sm transition-colors flex items-center gap-1.5 font-bold shadow-lg shadow-indigo-600/15"
           >
@@ -152,13 +152,13 @@ export default function MainPage() {
           </div>
 
           <div className="flex gap-4">
-            <button 
+            <button
               onClick={() => setPage('admin')}
               className="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-mono font-semibold transition-colors flex items-center gap-2 shadow-lg shadow-indigo-600/15"
             >
               Access Admin Console <ArrowRight size={16} />
             </button>
-            <a 
+            <a
               href="#protocol"
               className="px-6 py-3 bg-slate-900 hover:bg-slate-850 text-gray-300 border border-slate-800 rounded-lg font-mono text-sm transition-colors flex items-center justify-center"
             >
@@ -172,7 +172,7 @@ export default function MainPage() {
               <Terminal size={18} className="text-cyan-400" />
               Dynamic Seed Mixing Protocol & Lineage
             </h3>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
               <div className="p-4 bg-slate-900/60 border border-slate-850 rounded-xl space-y-1 font-mono text-xs">
                 <p className="text-indigo-400 font-bold">1. Input Entropy</p>
@@ -231,9 +231,9 @@ export default function MainPage() {
   if (user === null) {
     return (
       <div className="min-h-screen bg-[#030712] text-slate-100 cyber-grid flex items-center justify-center p-4">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }} 
-          animate={{ opacity: 1, scale: 1 }} 
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
           className="w-full max-w-md glass-panel p-6 rounded-2xl border border-indigo-500/20 shadow-2xl relative overflow-hidden"
         >
           <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-emerald-500"></div>
@@ -255,11 +255,10 @@ export default function MainPage() {
                     key={role}
                     type="button"
                     onClick={() => setSelectedRole(role)}
-                    className={`py-1.5 rounded-lg border text-[10px] font-mono transition-colors ${
-                      selectedRole === role 
-                        ? 'bg-indigo-500/15 border-indigo-500/40 text-indigo-300 font-bold' 
+                    className={`py-1.5 rounded-lg border text-[10px] font-mono transition-colors ${selectedRole === role
+                        ? 'bg-indigo-500/15 border-indigo-500/40 text-indigo-300 font-bold'
                         : 'bg-slate-900 border-slate-800 text-gray-500 hover:text-white'
-                    }`}
+                      }`}
                   >
                     {role === 'SuperAdmin' ? 'Super Admin' : role === 'ExamController' ? 'Controller' : 'Supervisor'}
                   </button>
@@ -269,8 +268,8 @@ export default function MainPage() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-400 mb-1 uppercase font-mono">System Identity Node</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-indigo-500"
@@ -279,8 +278,8 @@ export default function MainPage() {
 
             <div>
               <label className="block text-xs font-semibold text-gray-400 mb-1 uppercase font-mono">Hardware Security Key Pass</label>
-              <input 
-                type="password" 
+              <input
+                type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-indigo-500"
@@ -292,8 +291,8 @@ export default function MainPage() {
                 <label className="block text-xs font-semibold text-gray-400 uppercase font-mono">MFA Passcode (TOTP)</label>
                 <span className="text-[10px] text-amber-500 font-mono">Demo: enter "123456"</span>
               </div>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="000000"
                 value={mfaCode}
                 onChange={(e) => setMfaCode(e.target.value)}
@@ -309,8 +308,8 @@ export default function MainPage() {
               </div>
             )}
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={authLoading}
               className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-mono font-bold py-2.5 rounded-lg text-sm transition-colors flex items-center justify-center gap-1.5"
             >
@@ -319,8 +318,8 @@ export default function MainPage() {
             </button>
           </form>
 
-          <button 
-            onClick={() => setPage('landing')} 
+          <button
+            onClick={() => setPage('landing')}
             className="w-full mt-4 text-center text-xs text-gray-500 hover:text-white font-mono"
           >
             ← Back to Product Overview
@@ -337,6 +336,8 @@ export default function MainPage() {
     switch (page) {
       case 'admin':
         return <AdminCenterPanel />;
+      case 'proctoring':
+        return <ActiveProctoringPanel />;
       case 'questions':
         return <QuestionRepositoryPanel />;
       case 'blockchain':
@@ -364,7 +365,7 @@ export default function MainPage() {
 
   return (
     <div className="min-h-screen bg-[#030712] text-slate-100 flex flex-col font-sans">
-      
+
       {/* Top Header Status Bar */}
       <header className="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md px-6 py-3.5 flex justify-between items-center z-40 shrink-0">
         <div className="flex items-center gap-6">
@@ -404,7 +405,7 @@ export default function MainPage() {
               {user.role}
             </span>
           </div>
-          <button 
+          <button
             onClick={handleLogout}
             className="p-1.5 hover:bg-slate-905 hover:text-white text-gray-500 rounded transition-colors"
             title="Disconnect Terminal"
@@ -416,74 +417,68 @@ export default function MainPage() {
 
       {/* Main Body */}
       <div className="flex flex-1 overflow-hidden">
-        
+
         {/* Navigation Sidebar */}
         <aside className="w-64 border-r border-slate-900 bg-slate-950/40 flex flex-col shrink-0">
           <nav className="p-4 space-y-1.5 flex-1 font-mono text-xs">
             <p className="px-2 text-[10px] text-gray-600 uppercase font-bold tracking-wider mb-2">Systems Controls</p>
-            
+
             <button
               onClick={() => setPage('admin')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'admin' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'admin'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <Cpu size={15} /> Command Center
             </button>
 
             <button
               onClick={() => setPage('questions')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'questions' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'questions'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <Database size={15} /> Encrypted Repository
             </button>
 
             <button
               onClick={() => setPage('blockchain')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'blockchain' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'blockchain'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <Layers size={15} /> Ledger Explorer
             </button>
 
             <button
               onClick={() => setPage('generator')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'generator' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'generator'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <Clock size={15} /> Paper Generator
             </button>
 
             <button
               onClick={() => setPage('students')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'students' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'students'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <User size={15} /> Student Registry
             </button>
 
             <button
               onClick={() => setPage('completed-tests')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'completed-tests' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'completed-tests'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <CheckCircle size={15} /> Completed Tests
             </button>
@@ -492,60 +487,65 @@ export default function MainPage() {
 
             <button
               onClick={() => setPage('alerts')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'alerts' 
-                  ? 'bg-rose-500/10 border border-rose-500/20 text-rose-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'alerts'
+                  ? 'bg-rose-500/10 border border-rose-500/20 text-rose-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <ShieldAlert size={15} className="text-rose-400" /> Security Alerts
             </button>
 
             <button
               onClick={() => setPage('soc')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'soc' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'soc'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <ShieldAlert size={15} /> Threat Monitor (SOC)
             </button>
 
             <button
-              onClick={() => setPage('audit')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'audit' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              onClick={() => setPage('proctoring')}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'proctoring'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
+            >
+              <Eye size={15} className="text-cyan-400" /> Active Proctoring
+            </button>
+
+            <button
+              onClick={() => setPage('audit')}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'audit'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                  : 'text-gray-400 hover:text-white border border-transparent'
+                }`}
             >
               <Terminal size={15} /> Audit & Forensics
             </button>
 
             <button
               onClick={() => setPage('delivery')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'delivery' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'delivery'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <Key size={15} /> Delivery Decrypter
             </button>
 
             <button
               onClick={() => setPage('metrics')}
-              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${
-                page === 'metrics' 
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold' 
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'metrics'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
                   : 'text-gray-400 hover:text-white border border-transparent'
-              }`}
+                }`}
             >
               <Activity size={15} /> Research Metrics
             </button>
           </nav>
-          
+
           <div className="p-4 border-t border-slate-900 bg-black/20 text-[10px] text-gray-500 font-mono space-y-1">
             <p>Session ID: bde-012a</p>
             <p>API Endpoint: localhost:5001</p>

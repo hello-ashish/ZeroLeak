@@ -480,15 +480,17 @@ export const QuestionRepositoryPanel = () => {
 // 3. BLOCKCHAIN EXPLORER
 // ========================================================
 export const BlockchainExplorerPanel = () => {
-  const { blockchain, setBlockchain } = useStore();
+  const { blockchain, setBlockchain, consensusLogs } = useStore();
   const [selectedBlock, setSelectedBlock] = useState<any>(null);
   const [verificationResult, setVerificationResult] = useState<any>(null);
   const [verifying, setVerifying] = useState(false);
+  const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+  
+  const terminalEndRef = React.useRef<HTMLDivElement | null>(null);
 
   const fetchBlockchain = async () => {
     try {
       const chain = await apiClient.getBlockchain();
-      // Sort blocks descending index for inspector
       setBlockchain([...chain].reverse());
       if (chain.length > 0 && !selectedBlock) {
         setSelectedBlock(chain[chain.length - 1]);
@@ -499,6 +501,12 @@ export const BlockchainExplorerPanel = () => {
   useEffect(() => {
     fetchBlockchain();
   }, []);
+
+  useEffect(() => {
+    if (terminalEndRef.current) {
+      terminalEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [consensusLogs]);
 
   const handleVerifyLedger = async () => {
     setVerifying(true);
@@ -513,6 +521,79 @@ export const BlockchainExplorerPanel = () => {
     }
   };
 
+  const merkleData = React.useMemo(() => {
+    if (!selectedBlock) return null;
+    const base = selectedBlock.hash || 'genesis-hash-blockchain-hash-key';
+    const h1 = `sha256:${base.slice(0, 16)}...`;
+    const h2 = `sha256:${base.slice(16, 32)}...`;
+    const h3 = `sha256:${base.slice(32, 48)}...`;
+    const h4 = `sha256:${base.slice(48, 64)}...`;
+    
+    const h12 = `sha256:comb-${base.slice(8, 24)}...`;
+    const h34 = `sha256:comb-${base.slice(24, 40)}...`;
+    
+    const root = selectedBlock.questionHash 
+      ? `sha256:${selectedBlock.questionHash.slice(0, 32)}...`
+      : `sha256:${base.slice(0, 32)}...`;
+
+    const nodesMap: Record<string, { label: string; hash: string }> = {
+      L1: { label: 'Question 1 Leaf', hash: h1 },
+      L2: { label: 'Question 2 Leaf', hash: h2 },
+      L3: { label: 'Question 3 Leaf', hash: h3 },
+      L4: { label: 'Question 4 Leaf', hash: h4 },
+      P1: { label: 'Combined Parent Hash H(1+2)', hash: h12 },
+      P2: { label: 'Combined Parent Hash H(3+4)', hash: h34 },
+      R: { label: 'Block Merkle Root H(H(1+2)+H(3+4))', hash: root }
+    };
+
+    return nodesMap;
+  }, [selectedBlock]);
+
+  const getHighlightedNodes = () => {
+    if (!hoveredNode) return [];
+    if (hoveredNode === 'L1') return ['L1', 'P1', 'R'];
+    if (hoveredNode === 'L2') return ['L2', 'P1', 'R'];
+    if (hoveredNode === 'L3') return ['L3', 'P2', 'R'];
+    if (hoveredNode === 'L4') return ['L4', 'P2', 'R'];
+    if (hoveredNode === 'P1') return ['P1', 'R', 'L1', 'L2'];
+    if (hoveredNode === 'P2') return ['P2', 'R', 'L3', 'L4'];
+    if (hoveredNode === 'R') return ['R', 'P1', 'P2', 'L1', 'L2', 'L3', 'L4'];
+    return [];
+  };
+
+  const isNodeHighlighted = (id: string) => {
+    return getHighlightedNodes().includes(id);
+  };
+
+  const isLineHighlighted = (from: string, to: string) => {
+    if (!hoveredNode) return false;
+    
+    if (hoveredNode === 'L1') {
+      return (from === 'L1' && to === 'P1') || (from === 'P1' && to === 'R');
+    }
+    if (hoveredNode === 'L2') {
+      return (from === 'L2' && to === 'P1') || (from === 'P1' && to === 'R');
+    }
+    if (hoveredNode === 'L3') {
+      return (from === 'L3' && to === 'P2') || (from === 'P2' && to === 'R');
+    }
+    if (hoveredNode === 'L4') {
+      return (from === 'L4' && to === 'P2') || (from === 'P2' && to === 'R');
+    }
+    if (hoveredNode === 'P1') {
+      return (from === 'L1' && to === 'P1') || (from === 'L2' && to === 'P1') || (from === 'P1' && to === 'R');
+    }
+    if (hoveredNode === 'P2') {
+      return (from === 'L3' && to === 'P2') || (from === 'L4' && to === 'P2') || (from === 'P2' && to === 'R');
+    }
+    if (hoveredNode === 'R') {
+      return true;
+    }
+    return false;
+  };
+
+  const hoveredNodeData = hoveredNode && merkleData ? merkleData[hoveredNode] : null;
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 15 }} 
@@ -522,7 +603,7 @@ export const BlockchainExplorerPanel = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-white">Consensus & Ledger Explorer</h2>
-          <p className="text-gray-400 text-sm">Inspect cryptographically signed verification blocks.</p>
+          <p className="text-gray-400 text-sm">Inspect cryptographically signed verification blocks and witness real-time edge consensus.</p>
         </div>
 
         <div className="flex gap-2">
@@ -559,10 +640,11 @@ export const BlockchainExplorerPanel = () => {
         </div>
       )}
 
+      {/* Top Row: Block stream & JSON Inspector */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Block Link Chain */}
-        <div className="lg:col-span-2 glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[550px]">
-          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5">
+        <div className="lg:col-span-2 glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[400px]">
+          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5 shrink-0">
             <Cpu size={16} className="text-cyan-400" />
             Verification Block Stream
           </h3>
@@ -608,8 +690,8 @@ export const BlockchainExplorerPanel = () => {
         </div>
 
         {/* Monaco Editor inspector for selected block */}
-        <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[550px]">
-          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5">
+        <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[400px]">
+          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5 shrink-0">
             <Terminal size={16} className="text-indigo-400" />
             Block Ledger Inspector
           </h3>
@@ -635,6 +717,209 @@ export const BlockchainExplorerPanel = () => {
                 Select a block on the left to inspect signature payloads.
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Row: Merkle Tree Visualizer & Live Consensus Monitor */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Interactive Merkle Tree (takes 2 columns) */}
+        <div className="lg:col-span-2 glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[450px] justify-between">
+          <div>
+            <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-3 text-sm flex items-center gap-1.5 shrink-0">
+              <Database size={16} className="text-purple-400" />
+              Cryptographic Merkle Tree Representation
+            </h3>
+            <p className="text-gray-400 text-xs mb-2">
+              Hover over node blocks to trace how exam question hashes are paired and combined upwards into the block's Merkle Root.
+            </p>
+          </div>
+
+          <div className="flex-1 flex flex-col md:flex-row items-center gap-4 min-h-0">
+            {/* SVG Visualizer */}
+            <div className="flex-1 w-full h-[260px] bg-slate-950/40 rounded-xl border border-slate-850 p-2 relative overflow-hidden">
+              {selectedBlock ? (
+                <svg viewBox="0 0 520 400" className="w-full h-full font-mono text-[10px] select-none">
+                  {/* Lines with highlights */}
+                  <line 
+                    x1={80} y1={350} x2={140} y2={210} 
+                    className="transition-all duration-300"
+                    stroke={isLineHighlighted('L1', 'P1') ? '#22d3ee' : '#334155'} 
+                    strokeWidth={isLineHighlighted('L1', 'P1') ? 2.5 : 1} 
+                  />
+                  <line 
+                    x1={200} y1={350} x2={140} y2={210} 
+                    className="transition-all duration-300"
+                    stroke={isLineHighlighted('L2', 'P1') ? '#22d3ee' : '#334155'} 
+                    strokeWidth={isLineHighlighted('L2', 'P1') ? 2.5 : 1} 
+                  />
+                  <line 
+                    x1={320} y1={350} x2={380} y2={210} 
+                    className="transition-all duration-300"
+                    stroke={isLineHighlighted('L3', 'P2') ? '#22d3ee' : '#334155'} 
+                    strokeWidth={isLineHighlighted('L3', 'P2') ? 2.5 : 1} 
+                  />
+                  <line 
+                    x1={440} y1={350} x2={380} y2={210} 
+                    className="transition-all duration-300"
+                    stroke={isLineHighlighted('L4', 'P2') ? '#22d3ee' : '#334155'} 
+                    strokeWidth={isLineHighlighted('L4', 'P2') ? 2.5 : 1} 
+                  />
+                  <line 
+                    x1={140} y1={210} x2={260} y2={70} 
+                    className="transition-all duration-300"
+                    stroke={isLineHighlighted('P1', 'R') ? '#818cf8' : '#334155'} 
+                    strokeWidth={isLineHighlighted('P1', 'R') ? 3 : 1} 
+                  />
+                  <line 
+                    x1={380} y1={210} x2={260} y2={70} 
+                    className="transition-all duration-300"
+                    stroke={isLineHighlighted('P2', 'R') ? '#818cf8' : '#334155'} 
+                    strokeWidth={isLineHighlighted('P2', 'R') ? 3 : 1} 
+                  />
+
+                  {/* Root Node */}
+                  <g 
+                    onMouseEnter={() => setHoveredNode('R')}
+                    onMouseLeave={() => setHoveredNode(null)}
+                    className="cursor-pointer"
+                  >
+                    <circle 
+                      cx={260} cy={70} r={28} 
+                      fill="#020617" 
+                      stroke={hoveredNode === 'R' || isNodeHighlighted('R') ? '#a78bfa' : '#4b5563'} 
+                      strokeWidth={2}
+                      className="transition-all duration-300"
+                    />
+                    <text x={260} y={73} textAnchor="middle" fill="#e2e8f0" fontWeight="bold" className="text-[9px]">ROOT</text>
+                  </g>
+
+                  {/* Parent Nodes */}
+                  <g 
+                    onMouseEnter={() => setHoveredNode('P1')}
+                    onMouseLeave={() => setHoveredNode(null)}
+                    className="cursor-pointer"
+                  >
+                    <circle 
+                      cx={140} cy={210} r={24} 
+                      fill="#020617" 
+                      stroke={hoveredNode === 'P1' || isNodeHighlighted('P1') ? '#818cf8' : '#4b5563'} 
+                      strokeWidth={2}
+                      className="transition-all duration-300"
+                    />
+                    <text x={140} y={213} textAnchor="middle" fill="#e2e8f0" className="text-[9px]">H(1+2)</text>
+                  </g>
+
+                  <g 
+                    onMouseEnter={() => setHoveredNode('P2')}
+                    onMouseLeave={() => setHoveredNode(null)}
+                    className="cursor-pointer"
+                  >
+                    <circle 
+                      cx={380} cy={210} r={24} 
+                      fill="#020617" 
+                      stroke={hoveredNode === 'P2' || isNodeHighlighted('P2') ? '#818cf8' : '#4b5563'} 
+                      strokeWidth={2}
+                      className="transition-all duration-300"
+                    />
+                    <text x={380} y={213} textAnchor="middle" fill="#e2e8f0" className="text-[9px]">H(3+4)</text>
+                  </g>
+
+                  {/* Leaf Nodes */}
+                  {['L1', 'L2', 'L3', 'L4'].map((leafId, idx) => {
+                    const x = 80 + idx * 120;
+                    const y = 350;
+                    const isHovered = hoveredNode === leafId;
+                    return (
+                      <g 
+                        key={leafId}
+                        onMouseEnter={() => setHoveredNode(leafId)}
+                        onMouseLeave={() => setHoveredNode(null)}
+                        className="cursor-pointer"
+                      >
+                        <circle 
+                          cx={x} cy={y} r={20} 
+                          fill="#020617" 
+                          stroke={isHovered || isNodeHighlighted(leafId) ? '#22d3ee' : '#4b5563'} 
+                          strokeWidth={2}
+                          className="transition-all duration-300"
+                        />
+                        <text x={x} y={y + 3} textAnchor="middle" fill="#94a3b8" className="text-[9px] font-bold">Q{idx + 1}</text>
+                      </g>
+                    );
+                  })}
+                </svg>
+              ) : (
+                <div className="h-full flex items-center justify-center text-gray-500 text-xs font-mono">
+                  Select a block to inspect its Merkle Tree.
+                </div>
+              )}
+            </div>
+
+            {/* Selected Node Details side-card */}
+            <div className="w-full md:w-60 h-[120px] md:h-full bg-slate-900/50 border border-slate-850 p-4 rounded-xl flex flex-col justify-center gap-2 shrink-0">
+              {hoveredNodeData ? (
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase font-mono tracking-wider">{hoveredNodeData.label}</p>
+                  <p className="text-white text-xs font-bold font-mono mt-1 break-all bg-black/40 p-2 border border-slate-850 rounded">
+                    {hoveredNodeData.hash}
+                  </p>
+                  <p className="text-[10px] text-indigo-400 font-mono mt-1">Hash Verified</p>
+                </div>
+              ) : (
+                <div className="text-gray-500 text-xs text-center font-mono">
+                  Hover over tree circles to reveal encrypted block hashes.
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Live Consensus Terminal Monitor (takes 1 column) */}
+        <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[450px] justify-between">
+          <div className="shrink-0">
+            <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-2 text-sm flex items-center gap-1.5">
+              <Terminal size={16} className="text-emerald-400" />
+              Live Edge Consensus Monitor
+            </h3>
+            
+            {/* Status node map */}
+            <div className="flex justify-between items-center bg-black/40 border border-slate-850 p-2 rounded-xl text-[10px] text-gray-400 mb-3">
+              <span className="flex items-center gap-1 font-mono">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                DELHI
+              </span>
+              <span className="flex items-center gap-1 font-mono">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                MUMBAI
+              </span>
+              <span className="flex items-center gap-1 font-mono">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                BLR
+              </span>
+              <span className="flex items-center gap-1 font-mono text-cyan-400 font-bold">
+                3/3 YES
+              </span>
+            </div>
+          </div>
+
+          {/* Retro terminal logs container */}
+          <div className="flex-1 bg-black/80 rounded-xl border border-slate-850 p-3 font-mono text-[10px] text-emerald-400 overflow-y-auto space-y-1.5 min-h-0 flex flex-col">
+            {consensusLogs.length === 0 ? (
+              <div className="text-gray-600 text-xs italic flex-1 flex items-center justify-center">
+                Waiting for ledger block transactions...
+              </div>
+            ) : (
+              consensusLogs.map((log, index) => (
+                <div key={index} className="leading-normal">
+                  <span className="text-slate-500 mr-1.5 font-bold">
+                    [{new Date(log.timestamp).toLocaleTimeString()}]
+                  </span>
+                  <span>{log.message}</span>
+                </div>
+              ))
+            )}
+            <div ref={terminalEndRef} />
           </div>
         </div>
       </div>
@@ -1395,7 +1680,84 @@ export const SOCPanel = () => {
 // 6. AUDIT & FORENSICS
 // ========================================================
 export const AuditForensicsPanel = () => {
-  const { auditLogs } = useStore();
+  const { auditLogs, students, setStudents } = useStore();
+  const [file, setFile] = useState<File | null>(null);
+  const [decoding, setDecoding] = useState(false);
+  const [decodingStep, setDecodingStep] = useState(0);
+  const [decodedResult, setDecodedResult] = useState<any>(null);
+  const [selectedSimulatedStudent, setSelectedSimulatedStudent] = useState<string>('');
+  const [blockLoading, setBlockLoading] = useState(false);
+
+  useEffect(() => {
+    apiClient.getStudents().then(setStudents).catch(console.error);
+  }, [setStudents]);
+
+  const steps = [
+    'Scanning visual frequency domain (FFT)...',
+    'Applying noise reduction filter...',
+    'Isolating semi-transparent canvas layer...',
+    'Binarizing watermarked text blocks...',
+    'Decoding parity sequence: Extracting metadata bytes...',
+    'Reconstructing candidate cryptoseat details...'
+  ];
+
+  const handleUpload = () => {
+    if (!file) return;
+    setDecoding(true);
+    setDecodingStep(0);
+    setDecodedResult(null);
+
+    let currentStep = 0;
+    const interval = setInterval(() => {
+      currentStep++;
+      if (currentStep < steps.length) {
+        setDecodingStep(currentStep);
+      } else {
+        clearInterval(interval);
+        setDecoding(false);
+
+        // Find selected student details
+        const targetStudent = students.find(s => s.studentId === selectedSimulatedStudent) || students[0];
+        const studentId = targetStudent ? targetStudent.studentId : 'STU025';
+        const studentName = targetStudent ? targetStudent.name : 'Sneha Reddy';
+        const center = targetStudent ? 'Digital Exam Hub - Center A' : 'Mumbai Main Center';
+        const ip = targetStudent ? '192.168.4.108' : '192.168.10.144';
+        
+        setDecodedResult({
+          studentId,
+          name: studentName,
+          center,
+          ipAddress: ip,
+          seatNo: `Seat #${Math.floor(Math.random() * 40) + 1}`,
+          timestamp: new Date().toLocaleString(),
+          integrityHash: 'sha256:d8c4b9f2e301a2f64b971a8c9e05d93e110cfb7a44fa67c82a5a782165c71bde',
+          isAlreadyBlocked: targetStudent ? !!targetStudent.isBlocked : false
+        });
+      }
+    }, 650);
+  };
+
+  const handleSuspend = async () => {
+    if (!decodedResult) return;
+    setBlockLoading(true);
+    try {
+      await apiClient.blockStudent(decodedResult.studentId, {
+        reason: 'Forensic digital watermark match on leaked examination question sheet.',
+        infractionType: 'FORENSIC_WATERMARK_LEAK'
+      });
+      // Refresh students
+      const updated = await apiClient.getStudents();
+      setStudents(updated);
+      setDecodedResult((prev: any) => ({ ...prev, isAlreadyBlocked: true }));
+      
+      const systemStatus = await apiClient.getSystemStatus();
+      useStore.getState().setStats(systemStatus);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setBlockLoading(false);
+    }
+  };
 
   return (
     <motion.div 
@@ -1405,35 +1767,209 @@ export const AuditForensicsPanel = () => {
     >
       <div>
         <h2 className="text-2xl font-bold tracking-tight text-white">Audit Trail & Forensics</h2>
-        <p className="text-gray-400 text-sm">Inspect immutable sequence chains linking key distributions and system calls.</p>
+        <p className="text-gray-400 text-sm">Inspect immutable sequence chains and decode forensic digital watermarks from leaked screenshots.</p>
       </div>
 
-      <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[550px]">
-        <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5">
-          <Terminal size={16} className="text-cyan-400" />
-          Immutable Activity Lineage Log
-        </h3>
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {/* Left Column: Immutable Log */}
+        <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[600px]">
+          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5 shrink-0">
+            <Terminal size={16} className="text-cyan-400" />
+            Immutable Activity Lineage Log
+          </h3>
 
-        <div className="flex-1 overflow-y-auto space-y-3.5 pr-1 font-mono text-xs">
-          {auditLogs.map((log) => (
-            <div key={log.id} className="p-3 bg-slate-900/50 border border-slate-850 rounded-xl space-y-1.5">
-              <div className="flex justify-between text-gray-400 text-[11px]">
-                <span>Actor: <span className="text-cyan-400 font-bold">{log.actor}</span></span>
-                <span>{new Date(log.timestamp).toLocaleString()}</span>
+          <div className="flex-1 overflow-y-auto space-y-3.5 pr-1 font-mono text-xs">
+            {auditLogs.map((log) => (
+              <div key={log.id} className="p-3 bg-slate-900/50 border border-slate-850 rounded-xl space-y-1.5">
+                <div className="flex justify-between text-gray-400 text-[11px]">
+                  <span>Actor: <span className="text-cyan-400 font-bold">{log.actor}</span></span>
+                  <span>{new Date(log.timestamp).toLocaleString()}</span>
+                </div>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-white font-semibold">Action: {log.action}</span>
+                  <span className="text-gray-500 text-[10px]">Entity: {log.entity} ({log.entityId})</span>
+                </div>
+
+                <p className="text-gray-300 font-sans text-xs">{log.details}</p>
+
+                <div className="text-[10px] text-gray-500 overflow-x-auto whitespace-nowrap bg-black/30 p-1.5 rounded border border-slate-850">
+                  <span className="text-indigo-400 font-bold">SHA256 Hash Chain:</span> {log.hashChain}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Column: Forensic Watermark Decoder Tool */}
+        <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[600px] justify-between">
+          <div>
+            <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5">
+              <ImageIcon size={16} className="text-pink-400" />
+              Forensic Watermark Decoder Tool
+            </h3>
+            <p className="text-gray-400 text-xs mb-4">
+              Upload a photograph or screenshot of a leaked exam sheet to scan for high-frequency, semi-transparent diagonal canvas watermarks cryptographically mapped to the candidate.
+            </p>
+
+            <div className="space-y-4">
+              {/* Select target student dropdown to make simulation interactive */}
+              <div>
+                <label className="block text-[11px] font-semibold text-gray-400 uppercase tracking-wider mb-1.5">
+                  Select Student to Simulate Leak (Testing Sandbox)
+                </label>
+                <select
+                  value={selectedSimulatedStudent}
+                  onChange={(e) => setSelectedSimulatedStudent(e.target.value)}
+                  className="w-full bg-slate-900 border border-slate-850 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                >
+                  <option value="">-- Random/Default Candidate --</option>
+                  {students.map((student) => (
+                    <option key={student.studentId} value={student.studentId}>
+                      {student.name} ({student.studentId}) - {student.isBlocked ? '🛑 BLOCKED' : '🟢 ACTIVE'}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="flex justify-between items-center">
-                <span className="text-white font-semibold">Action: {log.action}</span>
-                <span className="text-gray-500 text-[10px]">Entity: {log.entity} ({log.entityId})</span>
-              </div>
+              {/* Upload interface */}
+              {!decodedResult && !decoding && (
+                <div className="border-2 border-dashed border-slate-850 hover:border-slate-700 rounded-xl p-8 flex flex-col items-center justify-center gap-3 transition-colors bg-slate-950/40 relative">
+                  <Upload size={32} className="text-gray-500" />
+                  <div className="text-center">
+                    <p className="text-xs text-gray-300 font-medium">Click to select or drag leak screenshot</p>
+                    <p className="text-[10px] text-gray-500 mt-1">PNG, JPG up to 10MB</p>
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        setFile(e.target.files[0]);
+                      }
+                    }}
+                    className="absolute inset-0 opacity-0 cursor-pointer"
+                  />
+                  {file && (
+                    <p className="text-xs text-cyan-400 font-semibold mt-2">
+                      Selected: {file.name}
+                    </p>
+                  )}
+                </div>
+              )}
 
-              <p className="text-gray-300 font-sans text-xs">{log.details}</p>
+              {/* Decode button */}
+              {file && !decoding && !decodedResult && (
+                <button
+                  onClick={handleUpload}
+                  className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-indigo-600/10"
+                >
+                  <Search size={14} /> Analyze Leak Image
+                </button>
+              )}
 
-              <div className="text-[10px] text-gray-500 overflow-x-auto whitespace-nowrap bg-black/30 p-1.5 rounded border border-slate-850">
-                <span className="text-indigo-400 font-bold">SHA256 Hash Chain:</span> {log.hashChain}
-              </div>
+              {/* Decoding Progress */}
+              {decoding && (
+                <div className="p-6 bg-slate-950/50 border border-slate-850 rounded-xl space-y-4">
+                  <div className="flex justify-between items-center text-xs">
+                    <span className="text-indigo-400 font-semibold animate-pulse">
+                      {steps[decodingStep]}
+                    </span>
+                    <span className="text-gray-400 font-mono">
+                      {Math.round(((decodingStep + 1) / steps.length) * 100)}%
+                    </span>
+                  </div>
+                  
+                  {/* Progress bar */}
+                  <div className="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-850">
+                    <div 
+                      className="bg-indigo-500 h-full rounded-full transition-all duration-300"
+                      style={{ width: `${((decodingStep + 1) / steps.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Decoded results */}
+              {decodedResult && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl space-y-3"
+                >
+                  <div className="flex justify-between items-center border-b border-rose-500/20 pb-2">
+                    <div className="flex items-center gap-1.5">
+                      <AlertTriangle className="text-rose-500" size={16} />
+                      <span className="text-xs font-bold text-rose-500 uppercase tracking-wider">
+                        Metadata Leak Extraction Match
+                      </span>
+                    </div>
+                    <span className="text-[10px] bg-rose-500/20 text-rose-300 font-mono px-2 py-0.5 rounded-full font-bold">
+                      MATCH CONFIRMED
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
+                    <div>
+                      <p className="text-[10px] text-gray-500 uppercase">StudentID</p>
+                      <p className="text-white font-mono font-bold">{decodedResult.studentId}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-gray-500 uppercase">Candidate Name</p>
+                      <p className="text-white font-semibold">{decodedResult.name}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-gray-500 uppercase">Assigned Center IP</p>
+                      <p className="text-white font-mono font-bold">{decodedResult.ipAddress}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] text-gray-500 uppercase">Allocated Seat</p>
+                      <p className="text-white font-semibold">{decodedResult.seatNo} ({decodedResult.center})</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-[10px] text-gray-500 uppercase">Timestamp of Paper Decryption</p>
+                      <p className="text-white font-mono">{decodedResult.timestamp}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <p className="text-[10px] text-gray-500 uppercase">Integrity Watermark Hash</p>
+                      <p className="text-[10px] text-gray-400 font-mono break-all bg-black/40 p-1.5 rounded border border-slate-850">
+                        {decodedResult.integrityHash}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
-          ))}
+          </div>
+
+          {/* Action buttons */}
+          {decodedResult && (
+            <div className="flex gap-3 mt-4 shrink-0">
+              <button
+                onClick={() => {
+                  setFile(null);
+                  setDecodedResult(null);
+                }}
+                className="flex-1 py-2 bg-slate-900 border border-slate-850 hover:bg-slate-850 hover:text-white text-gray-400 rounded-xl text-xs font-bold transition-all text-center"
+              >
+                Reset Scanner
+              </button>
+              
+              {!decodedResult.isAlreadyBlocked ? (
+                <button
+                  onClick={handleSuspend}
+                  disabled={blockLoading}
+                  className="flex-1 py-2 bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-lg shadow-rose-600/10"
+                >
+                  {blockLoading ? 'Suspending...' : 'Suspend Candidate'}
+                </button>
+              ) : (
+                <span className="flex-1 py-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 font-mono">
+                  🛑 SECURE LOCK ENGAGED
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
@@ -2734,6 +3270,259 @@ export const SecurityAlertsPanel = () => {
                 </table>
               </div>
             </motion.div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// ========================================================
+// 12. ACTIVE STUDENTS PROCTORING PANEL
+// ========================================================
+export const ActiveProctoringPanel = () => {
+  const { activeTelemetry, students, setStudents } = useStore();
+  const [selectedStudentId, setSelectedStudentId] = useState<string | null>(null);
+  const [blockingId, setBlockingId] = useState<string | null>(null);
+  const [unblockingId, setUnblockingId] = useState<string | null>(null);
+
+  // Load students directory for any potential list refreshes
+  const fetchStudents = async () => {
+    try {
+      const list = await apiClient.getStudents();
+      setStudents(list);
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  // Filter students active in the last 20 seconds
+  const now = Date.now();
+  const activeStudents = Object.values(activeTelemetry).filter(
+    (t: any) => now - t.timestamp < 20000
+  );
+
+  const handleForceBlock = async (studentId: string) => {
+    if (!confirm(`Are you sure you want to FORCE TERMINATE this student's exam?`)) return;
+    setBlockingId(studentId);
+    try {
+      await apiClient.blockStudent(studentId, {
+        reason: 'Manually terminated by Exam Supervisor due to visual / behavioral alert.',
+        infractionType: 'SUPERVISOR_FORCE_LOCK'
+      });
+      fetchStudents();
+    } catch (err) {
+      alert('Failed to lock student session');
+    } finally {
+      setBlockingId(null);
+    }
+  };
+
+  const handleAuthorizeUnblock = async (studentId: string) => {
+    setUnblockingId(studentId);
+    try {
+      await apiClient.unblockStudent(studentId);
+      // Update local state in activeTelemetry if present
+      if (activeTelemetry[studentId]) {
+        activeTelemetry[studentId].isBlocked = false;
+        activeTelemetry[studentId].blockedReason = undefined;
+      }
+      fetchStudents();
+      alert('Exam session unblocked. Student will be auto-released within 5 seconds.');
+    } catch (err) {
+      alert('Failed to release student session');
+    } finally {
+      setUnblockingId(null);
+    }
+  };
+
+  const selectedStudent = selectedStudentId ? activeTelemetry[selectedStudentId] : null;
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      className="space-y-6"
+    >
+      <div className="flex justify-between items-center">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-white">Live Proctoring Command Center</h2>
+          <p className="text-gray-400 text-sm">Real-time camera frames and acoustic feeds from candidate terminals.</p>
+        </div>
+        <div className="flex gap-2">
+          <span className="flex items-center gap-1.5 px-3 py-1 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full text-xs font-mono">
+            <span className="h-2 w-2 rounded-full bg-indigo-400 animate-ping"></span>
+            Biometrics Stream: ACTIVE
+          </span>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left side: Grid of active student cards (cols-2) */}
+        <div className="lg:col-span-2 glass-panel p-5 rounded-xl border border-slate-800 flex flex-col min-h-[500px]">
+          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5 font-mono">
+            <Wifi size={16} className="text-cyan-400" />
+            Live Candidate Feeds ({activeStudents.length} Online)
+          </h3>
+
+          {activeStudents.length === 0 ? (
+            <div className="flex-1 flex flex-col items-center justify-center text-center p-8 space-y-3">
+              <div className="p-4 bg-slate-900/60 rounded-full text-slate-600 border border-slate-850 animate-pulse">
+                <Wifi size={36} />
+              </div>
+              <p className="text-xs text-gray-500 font-mono">No active student terminals detected.</p>
+              <p className="text-[11px] text-gray-600 max-w-sm">When students login and launch the CBT exam console, their live biometrics (video frames, mic amplitudes) will appear here instantly.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-[500px] pr-1">
+              {activeStudents.map((stu: any) => {
+                const isSel = selectedStudentId === stu.studentId;
+                return (
+                  <div
+                    key={stu.studentId}
+                    onClick={() => setSelectedStudentId(stu.studentId)}
+                    className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col gap-3 relative overflow-hidden ${
+                      isSel 
+                        ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg ring-1 ring-indigo-500/20' 
+                        : 'bg-slate-900/40 border-slate-855 hover:bg-slate-900/60'
+                    }`}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div className="min-w-0">
+                        <p className="text-white font-semibold text-xs truncate">{stu.name}</p>
+                        <p className="text-[10px] text-cyan-400 font-mono font-bold">{stu.studentId}</p>
+                      </div>
+                      <span className={`px-1.5 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider ${
+                        stu.isBlocked
+                          ? 'bg-rose-500/10 border border-rose-500/20 text-rose-450'
+                          : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 animate-pulse'
+                      }`}>
+                        {stu.isBlocked ? 'Blocked' : 'Live'}
+                      </span>
+                    </div>
+
+                    {/* Camera snapshot thumb */}
+                    <div className="aspect-video w-full rounded-lg border border-slate-850 bg-black/80 relative overflow-hidden flex items-center justify-center">
+                      {stu.cameraFrame ? (
+                        <img src={stu.cameraFrame} alt={`${stu.name} camera`} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="text-[8px] text-gray-600 font-mono text-center px-2">Webcam loading...</div>
+                      )}
+                      
+                      {/* Live volume micro bar */}
+                      <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-black/65 px-1.5 py-0.5 rounded text-[8px] text-indigo-400 font-mono border border-slate-800">
+                        <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping"></span>
+                        <span>Mic: {stu.micVolume}%</span>
+                      </div>
+                    </div>
+
+                    <div className="text-[10px] text-gray-500 font-mono flex justify-between border-t border-slate-800/40 pt-2">
+                      <span>Sub: {stu.activeTest?.subject || 'CBT'}</span>
+                      <span>Vol: {stu.micVolume}%</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+
+        {/* Right side: Selected Student Telemetry Inspector */}
+        <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col min-h-[500px]">
+          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 mb-4 text-sm flex items-center gap-1.5 font-mono">
+            <Cpu size={16} className="text-indigo-400" />
+            Biometric Feed Inspector
+          </h3>
+
+          {selectedStudent ? (
+            <div className="flex-1 flex flex-col justify-between gap-4 font-mono text-xs">
+              <div className="space-y-4">
+                {/* Meta details */}
+                <div className="space-y-1 bg-slate-900/60 border border-slate-850 p-3 rounded-lg text-[11px] text-gray-350">
+                  <p><span className="text-gray-500">Student:</span> <span className="text-white font-bold">{selectedStudent.name}</span></p>
+                  <p><span className="text-gray-500">Terminal ID:</span> <span className="text-cyan-400 font-bold">{selectedStudent.studentId}</span></p>
+                  <p><span className="text-gray-500">CBT IP:</span> <span className="text-indigo-300">{selectedStudent.activeTest?.startedFromIp || '127.0.0.1'}</span></p>
+                  <p><span className="text-gray-500">Subject:</span> <span className="text-white font-bold">{selectedStudent.activeTest?.subject || 'CBT Exam'}</span></p>
+                </div>
+
+                {/* Webcam Live Feed */}
+                <div className="space-y-1">
+                  <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">Live Camera Feed</span>
+                  <div className="aspect-video w-full rounded-lg border border-slate-850 bg-black/60 relative overflow-hidden flex items-center justify-center shadow-inner">
+                    {selectedStudent.cameraFrame ? (
+                      <img src={selectedStudent.cameraFrame} alt={selectedStudent.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="text-[10px] text-gray-600">Video Feed Offline</div>
+                    )}
+                    <div className="absolute top-2 left-2 px-1.5 py-0.5 bg-black/70 border border-slate-800 rounded text-[8px] text-emerald-400 font-mono">
+                      FEED_SECURE_SSL
+                    </div>
+                  </div>
+                </div>
+
+                {/* Live Mic Waveform Simulator */}
+                <div className="space-y-1.5">
+                  <div className="flex justify-between items-center">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Acoustic Audio Feed</span>
+                    <span className={`text-[10px] ${selectedStudent.micVolume > 50 ? 'text-rose-450 animate-pulse font-bold' : 'text-gray-400'}`}>
+                      {selectedStudent.micVolume > 50 ? '⚠️ High Audio Alert' : 'Feed Normal'}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/60 border border-slate-850 p-3 rounded-lg flex flex-col gap-2">
+                    {/* Animate-height visual bars */}
+                    <div className="h-10 flex items-end justify-center gap-1 px-4 border-b border-slate-800 pb-1.5">
+                      {[...Array(12)].map((_, i) => {
+                        // Generate random heights centered around micVolume amplitude
+                        const rand = Math.sin(i * 0.5) * 0.3 + 0.7;
+                        const height = Math.max(4, Math.round(selectedStudent.micVolume * rand * 0.4));
+                        return (
+                          <div 
+                            key={i} 
+                            className={`w-2.5 rounded-t-sm transition-all duration-300 ${
+                              selectedStudent.micVolume > 50 ? 'bg-rose-500' : i % 2 === 0 ? 'bg-cyan-500' : 'bg-indigo-500'
+                            }`}
+                            style={{ height: `${height}px` }}
+                          />
+                        );
+                      })}
+                    </div>
+                    <div className="flex justify-between items-center text-[10px] font-mono text-gray-500">
+                      <span>Mic Gain Threshold: 50%</span>
+                      <span className="text-white font-bold">{selectedStudent.micVolume}% Ampl</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-4 border-t border-slate-850 flex gap-2">
+                {selectedStudent.isBlocked ? (
+                  <button
+                    onClick={() => handleAuthorizeUnblock(selectedStudent.studentId)}
+                    disabled={unblockingId === selectedStudent.studentId}
+                    className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white rounded font-sans text-[11px] font-bold transition-all shadow-lg"
+                  >
+                    {unblockingId === selectedStudent.studentId ? 'Releasing...' : 'Authorize Release'}
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleForceBlock(selectedStudent.studentId)}
+                    disabled={blockingId === selectedStudent.studentId}
+                    className="flex-1 py-2 bg-rose-600 hover:bg-rose-500 disabled:opacity-50 text-white rounded font-sans text-[11px] font-bold transition-all shadow-lg"
+                  >
+                    {blockingId === selectedStudent.studentId ? 'Locking...' : 'Force Block Terminal'}
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="flex-1 flex flex-col items-center justify-center text-center p-8 text-gray-500 font-mono text-[10px] space-y-2">
+              <Eye size={24} className="text-slate-700 animate-pulse" />
+              <p>Select a candidate feed on the left to inspect biometric telemetry details.</p>
+            </div>
           )}
         </div>
       </div>
