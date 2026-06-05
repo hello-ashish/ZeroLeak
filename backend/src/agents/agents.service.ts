@@ -251,6 +251,24 @@ export class AgentsService {
           // Seeded random modulo index selection
           const idx = Math.floor(prng() * poolCopy.length);
           const selected = poolCopy.splice(idx, 1)[0];
+          
+          // Match selected question with questions already in the paper
+          const matchesExisting = selectedIds.some(existingId => {
+            const existingQ = eligibleQuestions.find(q => q.id === existingId);
+            return existingQ && (existingQ.id === selected.id || existingQ.hash === selected.hash);
+          });
+
+          if (matchesExisting) {
+            this.logger.warn(`Duplicate question matched during paper generation: ${selected.id} (Hash: ${selected.hash.substring(0, 10)}). Selecting alternative...`);
+            this.logSecurityAlert(
+              'DUPLICATE_QUESTION_SELECTION_ATTEMPT',
+              'Medium',
+              `Intercepted duplicate question selection. ID: ${selected.id}, Hash: ${selected.hash.substring(0, 10)}`
+            );
+            i--; // Retry this slot
+            continue;
+          }
+
           selectedIds.push(selected.id);
         }
       };

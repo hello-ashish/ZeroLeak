@@ -647,9 +647,36 @@ export class AppController {
       );
     }
 
-    // Choose random questions (exactly 25)
+    // Choose unique random questions (exactly 25)
+    const selected: Question[] = [];
     const shuffled = [...subjectQuestions].sort(() => 0.5 - Math.random());
-    const selected = shuffled.slice(0, 25);
+    for (const q of shuffled) {
+      if (selected.length >= 25) break;
+
+      // Match with remaining questions in the question paper which is being prepared
+      const matchesExisting = selected.some(
+        (existingQ) => existingQ.id === q.id || existingQ.hash === q.hash
+      );
+
+      if (matchesExisting) {
+        this.logger.warn(`Duplicate question matched during student test preparation: ${q.id} (Hash: ${q.hash.substring(0, 10)}). Selecting alternative...`);
+        this.agents.logSecurityAlert(
+          'DUPLICATE_QUESTION_SELECTION_ATTEMPT',
+          'Medium',
+          `Intercepted duplicate question selection during student test preparation. ID: ${q.id}, Hash: ${q.hash.substring(0, 10)}`
+        );
+        continue;
+      }
+
+      selected.push(q);
+    }
+
+    if (selected.length < 25) {
+      throw new HttpException(
+        `Insufficient unique questions available for subject: ${subject}. Required: 25, Unique Available: ${selected.length}`,
+        HttpStatus.BAD_REQUEST
+      );
+    }
 
     const kmsKey = this.db.data.systemConfig.kmsMasterKey;
 
