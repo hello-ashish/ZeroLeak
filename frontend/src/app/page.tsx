@@ -100,7 +100,7 @@ export default function MainPage() {
       }
 
       setUser({
-        name: username === 'admin' ? 'Dr. AK Gupta' : 'Supervisor Node-04',
+        name: username === 'admin' ? 'AK Gupta' : 'Supervisor Node-04',
         role: selectedRole,
         token: 'bdepgs-jwt-token-session-0123'
       });
@@ -290,8 +290,8 @@ export default function MainPage() {
                     type="button"
                     onClick={() => setSelectedRole(role)}
                     className={`py-1.5 rounded-lg border text-[10px] font-mono transition-colors ${selectedRole === role
-                        ? 'bg-indigo-500/15 border-indigo-500/40 text-indigo-300 font-bold'
-                        : 'bg-slate-900 border-slate-800 text-gray-500 hover:text-white'
+                      ? 'bg-indigo-500/15 border-indigo-500/40 text-indigo-300 font-bold'
+                      : 'bg-slate-900 border-slate-800 text-gray-500 hover:text-white'
                       }`}
                   >
                     {role === 'SuperAdmin' ? 'Super Admin' : role === 'ExamController' ? 'Controller' : 'Supervisor'}
@@ -470,8 +470,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('admin')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'admin'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Cpu size={15} /> Command Center
@@ -480,8 +480,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('questions')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'questions'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Database size={15} /> Encrypted Repository
@@ -490,8 +490,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('category-view')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'category-view'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Layers size={15} /> Repository Analytics
@@ -500,8 +500,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('blockchain')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'blockchain'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Layers size={15} /> Ledger Explorer
@@ -510,8 +510,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('generator')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'generator'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Clock size={15} /> Paper Generator
@@ -520,8 +520,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('students')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'students'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <User size={15} /> Student Registry
@@ -530,8 +530,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('completed-tests')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'completed-tests'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <CheckCircle size={15} /> Completed Tests
@@ -542,8 +542,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('alerts')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'alerts'
-                  ? 'bg-rose-500/10 border border-rose-500/20 text-rose-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-rose-500/10 border border-rose-500/20 text-rose-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <ShieldAlert size={15} className="text-rose-400" /> Security Alerts
@@ -552,8 +552,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('soc')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'soc'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <ShieldAlert size={15} /> Threat Monitor (SOC)
@@ -562,8 +562,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('proctoring')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'proctoring'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Eye size={15} className="text-cyan-400" /> Active Proctoring
@@ -572,8 +572,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('audit')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'audit'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Terminal size={15} /> Audit & Forensics
@@ -582,8 +582,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('delivery')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'delivery'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Key size={15} /> Delivery Decrypter
@@ -592,8 +592,8 @@ export default function MainPage() {
             <button
               onClick={() => setPage('metrics')}
               className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'metrics'
-                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
-                  : 'text-gray-400 hover:text-white border border-transparent'
+                ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                : 'text-gray-400 hover:text-white border border-transparent'
                 }`}
             >
               <Activity size={15} /> Research Metrics

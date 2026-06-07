@@ -102,8 +102,8 @@ export const AdminCenterPanel = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <span className={`px-2 py-0.5 rounded text-xs font-mono font-medium ${exam.status === 'Released' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-                      exam.status === 'Generating' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse' :
-                        'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                    exam.status === 'Generating' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse' :
+                      'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
                     }`}>
                     {exam.status}
                   </span>
@@ -130,8 +130,8 @@ export const AdminCenterPanel = () => {
             ) : (
               securityEvents.slice(0, 5).map((evt) => (
                 <div key={evt.id} className={`p-2.5 rounded-lg text-xs border ${evt.severity === 'Critical' || evt.severity === 'High'
-                    ? 'bg-rose-500/5 border-rose-500/20 text-rose-400'
-                    : 'bg-amber-500/5 border-amber-500/20 text-amber-400'
+                  ? 'bg-rose-500/5 border-rose-500/20 text-rose-400'
+                  : 'bg-amber-500/5 border-amber-500/20 text-amber-400'
                   }`}>
                   <div className="flex justify-between font-mono font-semibold">
                     <span>{evt.event}</span>
@@ -288,8 +288,8 @@ export const QuestionRepositoryPanel = () => {
                 type="button"
                 onClick={() => setDifficulty(diff)}
                 className={`py-1.5 rounded-lg border text-xs font-medium transition-colors ${difficulty === diff
-                    ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-300'
-                    : 'bg-slate-900 border-slate-800 text-gray-400 hover:text-white'
+                  ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-300'
+                  : 'bg-slate-900 border-slate-800 text-gray-400 hover:text-white'
                   }`}
               >
                 {diff}
@@ -395,8 +395,8 @@ export const QuestionRepositoryPanel = () => {
                   type="button"
                   onClick={() => setCorrectOption(key)}
                   className={`py-1 rounded-lg border text-xs font-mono font-bold transition-colors ${correctOption === key
-                      ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
-                      : 'bg-slate-900 border-slate-800 text-gray-400 hover:text-white'
+                    ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
+                    : 'bg-slate-900 border-slate-800 text-gray-400 hover:text-white'
                     }`}
                 >
                   Option {key}
@@ -442,8 +442,8 @@ export const QuestionRepositoryPanel = () => {
                   </div>
                   <div className="flex gap-2">
                     <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25' :
-                        q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25' :
-                          'bg-rose-500/10 text-rose-400 border border-rose-500/25'
+                      q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25' :
+                        'bg-rose-500/10 text-rose-400 border border-rose-500/25'
                       }`}>
                       {q.difficulty}
                     </span>
@@ -615,8 +615,8 @@ export const BlockchainExplorerPanel = () => {
 
       {verificationResult && (
         <div className={`p-4 rounded-xl border ${verificationResult.healthy
-            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-            : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
+          ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
+          : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
           } flex items-center justify-between`}>
           <div className="flex items-center gap-3">
             {verificationResult.healthy ? <ShieldCheck size={24} /> : <AlertTriangle size={24} />}
@@ -652,8 +652,8 @@ export const BlockchainExplorerPanel = () => {
                   key={block.index}
                   onClick={() => setSelectedBlock(block)}
                   className={`p-4 rounded-xl border transition-all cursor-pointer relative ${selectedBlock?.index === block.index
-                      ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg'
-                      : 'bg-slate-900/40 border-slate-850 hover:bg-slate-900/60'
+                    ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg'
+                    : 'bg-slate-900/40 border-slate-850 hover:bg-slate-900/60'
                     }`}
                 >
                   <div className="flex justify-between items-center">
@@ -1599,8 +1599,8 @@ export const SOCPanel = () => {
 
           {actionMessage && (
             <div className={`p-3 rounded-lg text-xs font-mono border ${actionMessage.includes('THREAT')
-                ? 'bg-rose-500/10 border-rose-500/20 text-rose-400'
-                : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-300'
+              ? 'bg-rose-500/10 border-rose-500/20 text-rose-400'
+              : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-300'
               }`}>
               {actionMessage}
             </div>
@@ -1625,8 +1625,8 @@ export const SOCPanel = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-white font-bold">{node.name}</span>
                   <span className={`h-2.5 w-2.5 rounded-full ${node.status === 'Online' ? 'bg-emerald-400' :
-                      node.status === 'Syncing' ? 'bg-amber-400 animate-pulse' :
-                        'bg-rose-500 animate-ping'
+                    node.status === 'Syncing' ? 'bg-amber-400 animate-pulse' :
+                      'bg-rose-500 animate-ping'
                     }`}></span>
                 </div>
                 <div className="text-[11px] text-gray-400 space-y-1">
@@ -1647,8 +1647,8 @@ export const SOCPanel = () => {
                 <div key={evt.id} className="flex justify-between items-start text-xs border-b border-slate-850 pb-2">
                   <div>
                     <span className={`px-1.5 py-0.5 rounded text-[9px] font-mono uppercase font-bold mr-2 ${evt.severity === 'Critical' ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30' :
-                        evt.severity === 'High' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
-                          'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                      evt.severity === 'High' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
+                        'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                       }`}>
                       {evt.severity}
                     </span>
@@ -2135,8 +2135,8 @@ export const ExamDeliveryPanel = () => {
                               <div
                                 key={key}
                                 className={`p-3 rounded-lg border text-xs font-sans flex items-center justify-between transition-colors ${isCorrect
-                                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
-                                    : 'bg-black/25 border-slate-850 text-gray-300 hover:border-slate-800'
+                                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                                  : 'bg-black/25 border-slate-850 text-gray-300 hover:border-slate-800'
                                   }`}
                               >
                                 <span>
@@ -2565,7 +2565,7 @@ export const StudentRegistryPanel = () => {
               className="w-full max-w-md bg-slate-950 border border-slate-900 rounded-2xl p-6 shadow-2xl relative overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-emerald-500"></div>
-              
+
               <div className="flex justify-between items-start border-b border-slate-900 pb-4 mb-4">
                 <div>
                   <h3 className="text-md font-bold text-white font-mono flex items-center gap-1.5">
@@ -2584,7 +2584,7 @@ export const StudentRegistryPanel = () => {
                 </button>
               </div>
 
-              {user?.name !== 'Dr. AK Gupta' ? (
+              {user?.name !== 'AK Gupta' ? (
                 <div className="space-y-4">
                   <div className="p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl space-y-2 text-xs font-mono text-rose-300">
                     <div className="flex items-center gap-1.5 font-bold text-white">
@@ -2592,7 +2592,7 @@ export const StudentRegistryPanel = () => {
                       Permission Denied
                     </div>
                     <p className="font-sans leading-relaxed text-gray-400">
-                      Only the authorized male administrator (<strong className="text-white">Dr. AK Gupta</strong>) is permitted to modify credentials. Your current identity node (<strong className="text-white">{user?.name || 'Unknown'}</strong>) has insufficient privileges.
+                      Only the authorized male administrator (<strong className="text-white">AK Gupta</strong>) is permitted to modify credentials. Your current identity node (<strong className="text-white">{user?.name || 'Unknown'}</strong>) has insufficient privileges.
                     </p>
                   </div>
                   <button
@@ -2953,10 +2953,10 @@ export const CompletedTestsPanel = () => {
                     <div
                       key={q.id}
                       className={`p-4 rounded-xl border ${isCorrect
-                          ? 'bg-emerald-500/5 border-emerald-500/20'
-                          : isUnanswered
-                            ? 'bg-slate-900/50 border-slate-850'
-                            : 'bg-rose-500/5 border-rose-500/20'
+                        ? 'bg-emerald-500/5 border-emerald-500/20'
+                        : isUnanswered
+                          ? 'bg-slate-900/50 border-slate-850'
+                          : 'bg-rose-500/5 border-rose-500/20'
                         } space-y-3.5`}
                     >
                       <div className="flex justify-between items-start">
@@ -3185,8 +3185,8 @@ export const SecurityAlertsPanel = () => {
           <p className="text-gray-500 text-[10px] uppercase font-bold tracking-wider font-mono">Global Threat Index</p>
           <div className="flex justify-between items-center pt-0.5">
             <span className={`text-xl font-extrabold tracking-tight ${stats.threatLevel === 'Critical' ? 'text-rose-500 animate-pulse' :
-                stats.threatLevel === 'High' ? 'text-rose-400' :
-                  stats.threatLevel === 'Medium' ? 'text-amber-400' : 'text-emerald-400'
+              stats.threatLevel === 'High' ? 'text-rose-400' :
+                stats.threatLevel === 'Medium' ? 'text-amber-400' : 'text-emerald-400'
               }`}>
               {stats.threatLevel}
             </span>
@@ -3243,8 +3243,8 @@ export const SecurityAlertsPanel = () => {
                 key={tabKey}
                 onClick={() => setActiveTab(tabKey)}
                 className={`w-full text-left p-4 rounded-xl border text-xs font-mono font-semibold transition-all flex justify-between items-center ${isActive
-                    ? 'bg-slate-900 border-slate-700 text-white shadow-lg'
-                    : 'bg-slate-950/20 border-slate-900 text-gray-500 hover:text-gray-350 hover:border-slate-800'
+                  ? 'bg-slate-900 border-slate-700 text-white shadow-lg'
+                  : 'bg-slate-950/20 border-slate-900 text-gray-500 hover:text-gray-350 hover:border-slate-800'
                   }`}
               >
                 <div className="space-y-0.5">
@@ -3252,8 +3252,8 @@ export const SecurityAlertsPanel = () => {
                   <p className="text-[9px] font-sans text-gray-400 font-normal leading-relaxed">{tabInfo[tabKey].desc.split('.')[0] + '.'}</p>
                 </div>
                 <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${count > 0
-                    ? tabKey === 'ExamFraud' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'
-                    : 'bg-slate-900 text-gray-655'
+                  ? tabKey === 'ExamFraud' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'
+                  : 'bg-slate-900 text-gray-655'
                   }`}>
                   {count}
                 </span>
@@ -3310,9 +3310,9 @@ export const SecurityAlertsPanel = () => {
                       <tr key={evt.id} className="hover:bg-slate-900/20">
                         <td className="py-3 px-3">
                           <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${evt.severity === 'Critical' ? 'bg-rose-500/10 border border-rose-500/25 text-rose-400 animate-pulse' :
-                              evt.severity === 'High' ? 'bg-rose-500/10 border border-rose-500/15 text-rose-400' :
-                                evt.severity === 'Medium' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-300' :
-                                  'bg-slate-900 border border-slate-800 text-gray-400'
+                            evt.severity === 'High' ? 'bg-rose-500/10 border border-rose-500/15 text-rose-400' :
+                              evt.severity === 'Medium' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-300' :
+                                'bg-slate-900 border border-slate-800 text-gray-400'
                             }`}>
                             {evt.severity}
                           </span>
@@ -3527,8 +3527,8 @@ export const ActiveProctoringPanel = () => {
                     key={stu.studentId}
                     onClick={() => setSelectedStudentId(stu.studentId)}
                     className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col gap-3 relative overflow-hidden ${isSel
-                        ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg ring-1 ring-indigo-500/20'
-                        : 'bg-slate-900/40 border-slate-855 hover:bg-slate-900/60'
+                      ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg ring-1 ring-indigo-500/20'
+                      : 'bg-slate-900/40 border-slate-855 hover:bg-slate-900/60'
                       }`}
                   >
                     <div className="flex justify-between items-start">
@@ -3537,8 +3537,8 @@ export const ActiveProctoringPanel = () => {
                         <p className="text-[10px] text-cyan-400 font-mono font-bold">{stu.studentId}</p>
                       </div>
                       <span className={`px-1.5 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider ${stu.isBlocked
-                          ? 'bg-rose-500/10 border border-rose-500/20 text-rose-450'
-                          : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 animate-pulse'
+                        ? 'bg-rose-500/10 border border-rose-500/20 text-rose-450'
+                        : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 animate-pulse'
                         }`}>
                         {stu.isBlocked ? 'Blocked' : 'Live'}
                       </span>
@@ -3740,7 +3740,7 @@ export const QuestionsCategoryPanel = () => {
           </h2>
           <p className="text-gray-400 text-sm">See all inserted questions classified by subject, category/topic, and difficulty levels.</p>
         </div>
-        
+
         {/* Subject Selection Tabs */}
         <div className="flex bg-slate-900/80 p-1 border border-slate-800 rounded-xl">
           {['Physics', 'Biology', 'UPSC-CSAT'].map((sub) => (
@@ -3751,11 +3751,10 @@ export const QuestionsCategoryPanel = () => {
                 setExpandedTopic(null);
                 setSelectedQuestion(null);
               }}
-              className={`px-4 py-1.5 rounded-lg text-xs font-mono transition-colors ${
-                selectedSubject === sub
-                  ? 'bg-indigo-600 text-white font-bold shadow-lg'
-                  : 'text-gray-400 hover:text-white'
-              }`}
+              className={`px-4 py-1.5 rounded-lg text-xs font-mono transition-colors ${selectedSubject === sub
+                ? 'bg-indigo-600 text-white font-bold shadow-lg'
+                : 'text-gray-400 hover:text-white'
+                }`}
             >
               {sub}
             </button>
@@ -3868,11 +3867,10 @@ export const QuestionsCategoryPanel = () => {
                                 <p className="text-[9px] text-gray-500 mt-0.5">{new Date(q.createdAt).toLocaleString()}</p>
                               </td>
                               <td className="py-3 px-4">
-                                <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
-                                  q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25' :
+                                <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25' :
                                   q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25' :
-                                  'bg-rose-500/10 text-rose-400 border border-rose-500/25'
-                                }`}>
+                                    'bg-rose-500/10 text-rose-400 border border-rose-500/25'
+                                  }`}>
                                   {q.difficulty}
                                 </span>
                               </td>

@@ -13,7 +13,7 @@ export class AppController {
     private readonly db: DatabaseService,
     private readonly agents: AgentsService,
     private readonly events: EventsGateway
-  ) {}
+  ) { }
 
   private getClientIp(xForwardedFor?: string): string {
     if (!xForwardedFor) return '127.0.0.1';
@@ -199,7 +199,7 @@ export class AppController {
     }
 
     const key = await this.agents.requestTimedDecryption(body.examId, ip, agent);
-    
+
     // Fetch and decrypt questions
     const exam = this.db.data.exams.find(e => e.id === body.examId);
     if (!exam || !exam.generatedPaper) {
@@ -324,7 +324,7 @@ export class AppController {
       }
       const randIdx = Math.floor(Math.random() * this.db.data.questions.length);
       const target = this.db.data.questions[randIdx];
-      
+
       const originalContent = target.encryptedContent;
       // Change one character in the ciphertext to simulate direct DB manipulation
       target.encryptedContent = target.encryptedContent.replace(/[0-9a-f]/, '7');
@@ -478,7 +478,7 @@ export class AppController {
         // Block the student immediately
         student.isBlocked = true;
         student.blockedReason = `Multi-device login attempt during active test (Original IP: ${student.activeTest.startedFromIp}, New IP: ${ip})`;
-        
+
         this.agents.logSecurityAlert(
           'MULTIPLE_IP_ACCESS',
           'Critical',
@@ -595,7 +595,7 @@ export class AppController {
           // Block student due to access from another IP address
           student.isBlocked = true;
           student.blockedReason = `Running test opened on another IP address (Original IP: ${student.activeTest.startedFromIp}, Request IP: ${ip})`;
-          
+
           this.agents.logSecurityAlert(
             'MULTIPLE_IP_ACCESS',
             'Critical',
@@ -725,7 +725,7 @@ export class AppController {
       try {
         const plainText = CryptoUtil.decrypt(q.encryptedContent, kmsKey, q.iv, q.tag);
         const parsed = JSON.parse(plainText);
-        
+
         return {
           id: q.id,
           description: parsed.description,
@@ -798,7 +798,7 @@ export class AppController {
       try {
         const plainText = CryptoUtil.decrypt(q.encryptedContent, kmsKey, q.iv, q.tag);
         const parsed = JSON.parse(plainText);
-        
+
         const correctOption = parsed.correctOption || 'A';
         const studentChoice = answers[qId];
 
@@ -899,7 +899,7 @@ export class AppController {
         // Block the student immediately
         student.isBlocked = true;
         student.blockedReason = `Running test accessed from another IP address (Original IP: ${student.activeTest.startedFromIp}, New IP: ${ip})`;
-        
+
         this.agents.logSecurityAlert(
           'MULTIPLE_IP_ACCESS',
           'Critical',
@@ -1006,9 +1006,9 @@ export class AppController {
       throw new HttpException('Password is required.', HttpStatus.BAD_REQUEST);
     }
 
-    // Only the male admin (Dr. AK Gupta) is authorized
-    if (adminName !== 'Dr. AK Gupta') {
-      throw new HttpException('Unauthorized. Only male admin (Dr. AK Gupta) can change student passwords.', HttpStatus.FORBIDDEN);
+    // Only the male admin (AK Gupta) is authorized
+    if (adminName !== 'AK Gupta') {
+      throw new HttpException('Unauthorized. Only male admin (AK Gupta) can change student passwords.', HttpStatus.FORBIDDEN);
     }
 
     const students = this.db.data.students || [];
@@ -1029,8 +1029,8 @@ export class AppController {
       `Male Admin (${adminName}) changed password of student ${student.name} (${student.studentId})`
     );
 
-    return { 
-      success: true, 
+    return {
+      success: true,
       message: `Password for student ${student.studentId} updated successfully.`,
       student: {
         id: student.id,
