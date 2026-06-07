@@ -141,7 +141,10 @@ export interface PaperHistory {
 
 @Injectable()
 export class DatabaseService implements OnModuleInit {
-  private dbPath = path.join(process.cwd(), '..', 'db.json');
+  private dbPath = process.env.DATABASE_PATH || 
+    (fs.existsSync(path.join(process.cwd(), 'db.json')) 
+      ? path.join(process.cwd(), 'db.json') 
+      : path.join(process.cwd(), '..', 'db.json'));
   
   public data = {
     questions: [] as Question[],

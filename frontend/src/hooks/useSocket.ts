@@ -20,8 +20,9 @@ export const useSocket = () => {
   } = useStore();
 
   useEffect(() => {
-    // Connect to NestJS socket server on port 5001
-    const socket = io('http://localhost:5001', {
+    // Connect to NestJS socket server
+    const socketUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001';
+    const socket = io(socketUrl, {
       transports: ['websocket'],
       autoConnect: true,
       reconnectionAttempts: 10,

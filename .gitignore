@@ -2,7 +2,7 @@
 **/node_modules/
 
 # Local databases
-db.json
+/db.json
 
 # Builds & Outputs
 **/dist/

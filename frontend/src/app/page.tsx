@@ -602,7 +602,7 @@ export default function MainPage() {
 
           <div className="p-4 border-t border-slate-900 bg-black/20 text-[10px] text-gray-500 font-mono space-y-1">
             <p>Session ID: bde-012a</p>
-            <p>API Endpoint: localhost:5001</p>
+            <p>API Endpoint: {process.env.NEXT_PUBLIC_API_URL ? process.env.NEXT_PUBLIC_API_URL.replace(/^https?:\/\//, '') : 'localhost:5001'}</p>
             <p>HSM Hardware Status: OK</p>
           </div>
         </aside>
