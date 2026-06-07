@@ -51,9 +51,7 @@ export class AppController {
     if (subject) {
       questions = questions.filter(q => q.subject.toLowerCase() === subject.toLowerCase());
     }
-    // Return all questions, sorting by date descending.
-    // For demo purposes, we will return the encrypted contents to show they are secure.
-    return [...questions].reverse().slice(0, 100);
+    return [...questions].reverse();
   }
 
   @Post('questions/ingest')
@@ -640,40 +638,65 @@ export class AppController {
       (q) => q.subject.toLowerCase() === subject.toLowerCase()
     );
 
-    if (subjectQuestions.length < 25) {
+    const totalTarget = 80;
+    if (subjectQuestions.length < totalTarget) {
       throw new HttpException(
-        `Insufficient questions available for subject: ${subject}. Required: 25, Available: ${subjectQuestions.length}`,
+        `Insufficient questions available for subject: ${subject}. Required: ${totalTarget}, Available: ${subjectQuestions.length}`,
         HttpStatus.BAD_REQUEST
       );
     }
 
-    // Choose unique random questions (exactly 25)
+    // Group eligible questions by difficulty
+    const easyPool = subjectQuestions.filter(q => q.difficulty === 'Easy');
+    const mediumPool = subjectQuestions.filter(q => q.difficulty === 'Medium');
+    const hardPool = subjectQuestions.filter(q => q.difficulty === 'Hard');
+
+    // Balancing rule: 30% Easy (24), 40% Medium (32), 30% Hard (24)
+    const easyCount = 24;
+    const hardCount = 24;
+    const mediumCount = 32;
+
     const selected: Question[] = [];
-    const shuffled = [...subjectQuestions].sort(() => 0.5 - Math.random());
-    for (const q of shuffled) {
-      if (selected.length >= 25) break;
 
-      // Match with remaining questions in the question paper which is being prepared
-      const matchesExisting = selected.some(
-        (existingQ) => existingQ.id === q.id || existingQ.hash === q.hash
-      );
-
-      if (matchesExisting) {
-        this.logger.warn(`Duplicate question matched during student test preparation: ${q.id} (Hash: ${q.hash.substring(0, 10)}). Selecting alternative...`);
-        this.agents.logSecurityAlert(
-          'DUPLICATE_QUESTION_SELECTION_ATTEMPT',
-          'Medium',
-          `Intercepted duplicate question selection during student test preparation. ID: ${q.id}, Hash: ${q.hash.substring(0, 10)}`
-        );
-        continue;
+    const selectDifficultyFromPool = (pool: Question[], count: number) => {
+      const shuffled = [...pool];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = shuffled[i];
+        shuffled[i] = shuffled[j];
+        shuffled[j] = temp;
       }
+      let selectedForThisDifficulty = 0;
+      for (const q of shuffled) {
+        if (selectedForThisDifficulty >= count) break;
 
-      selected.push(q);
-    }
+        // Match with remaining questions in the question paper which is being prepared
+        const matchesExisting = selected.some(
+          (existingQ) => existingQ.id === q.id || existingQ.hash === q.hash
+        );
 
-    if (selected.length < 25) {
+        if (matchesExisting) {
+          this.logger.warn(`Duplicate question matched during student test preparation: ${q.id} (Hash: ${q.hash.substring(0, 10)}). Selecting alternative...`);
+          this.agents.logSecurityAlert(
+            'DUPLICATE_QUESTION_SELECTION_ATTEMPT',
+            'Medium',
+            `Intercepted duplicate question selection during student test preparation. ID: ${q.id}, Hash: ${q.hash.substring(0, 10)}`
+          );
+          continue;
+        }
+
+        selected.push(q);
+        selectedForThisDifficulty++;
+      }
+    };
+
+    selectDifficultyFromPool(easyPool, easyCount);
+    selectDifficultyFromPool(mediumPool, mediumCount);
+    selectDifficultyFromPool(hardPool, hardCount);
+
+    if (selected.length < totalTarget) {
       throw new HttpException(
-        `Insufficient unique questions available for subject: ${subject}. Required: 25, Unique Available: ${selected.length}`,
+        `Insufficient unique questions available across difficulties for subject: ${subject}. Required: ${totalTarget}, Unique Selected: ${selected.length}`,
         HttpStatus.BAD_REQUEST
       );
     }
@@ -946,6 +969,52 @@ export class AppController {
     );
 
     return { success: true, message: `Student ${student.studentId} unblocked successfully.` };
+  }
+
+  @Post('students/:studentId/change-password')
+  async changeStudentPassword(
+    @Param('studentId') studentId: string,
+    @Body() body: { passwordRaw: string; adminName: string }
+  ) {
+    const { passwordRaw, adminName } = body;
+    if (!passwordRaw) {
+      throw new HttpException('Password is required.', HttpStatus.BAD_REQUEST);
+    }
+
+    // Only the male admin (Dr. AK Gupta) is authorized
+    if (adminName !== 'Dr. AK Gupta') {
+      throw new HttpException('Unauthorized. Only male admin (Dr. AK Gupta) can change student passwords.', HttpStatus.FORBIDDEN);
+    }
+
+    const students = this.db.data.students || [];
+    const student = students.find((s) => s.studentId === studentId);
+    if (!student) {
+      throw new HttpException('Student record not found.', HttpStatus.NOT_FOUND);
+    }
+
+    student.passwordRaw = passwordRaw;
+    this.db.saveDatabase();
+
+    // Log this action to the Audit ledger
+    this.agents.writeAuditLog(
+      'ADMIN',
+      'CHANGE_STUDENT_PASSWORD',
+      'Student',
+      student.id,
+      `Male Admin (${adminName}) changed password of student ${student.name} (${student.studentId})`
+    );
+
+    return { 
+      success: true, 
+      message: `Password for student ${student.studentId} updated successfully.`,
+      student: {
+        id: student.id,
+        name: student.name,
+        email: student.email,
+        studentId: student.studentId,
+        passwordRaw: student.passwordRaw
+      }
+    };
   }
 
   @Get('submissions')

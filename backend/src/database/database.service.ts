@@ -231,8 +231,8 @@ export class DatabaseService implements OnModuleInit {
           subject: 'Physics',
           scheduledTime: Date.now() + 3600000, // 1 hour from now
           durationMinutes: 180,
-          questionCount: 25,
-          redundancyMultiplier: 3, // Requires only 75 questions in pool to fully test
+          questionCount: 80,
+          redundancyMultiplier: 3, // Requires only 240 questions in pool to fully test
           status: 'Scheduled',
           entropyInputs: {}
         },
@@ -243,19 +243,19 @@ export class DatabaseService implements OnModuleInit {
           subject: 'Biology',
           scheduledTime: Date.now() + 7200000,
           durationMinutes: 180,
-          questionCount: 25,
-          redundancyMultiplier: 3, // Requires only 75 questions in pool to fully test
+          questionCount: 80,
+          redundancyMultiplier: 3, // Requires only 240 questions in pool to fully test
           status: 'Scheduled',
           entropyInputs: {}
         }
       ];
       changed = true;
     } else {
-      // Force questionCount to 25 for JEE/NEET exams for testing
+      // Force questionCount to 80 for JEE/NEET exams for testing
       let modified = false;
       this.data.exams.forEach(ex => {
-        if (ex.questionCount !== 25 && (ex.id === 'exam-jee-main' || ex.id === 'exam-neet-2026')) {
-          ex.questionCount = 25;
+        if (ex.questionCount !== 80 && (ex.id === 'exam-jee-main' || ex.id === 'exam-neet-2026')) {
+          ex.questionCount = 80;
           modified = true;
         }
       });

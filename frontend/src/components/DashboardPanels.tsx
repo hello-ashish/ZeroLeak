@@ -5,8 +5,8 @@ import { useStore } from '../lib/store';
 import { apiClient } from '../lib/api';
 import { jsPDF } from 'jspdf';
 import Editor from '@monaco-editor/react';
-import { 
-  ShieldAlert, ShieldCheck, Database, Cpu, Activity, Clock, FileText, 
+import {
+  ShieldAlert, ShieldCheck, Database, Cpu, Activity, Clock, FileText,
   Terminal, Server, RefreshCw, Key, Upload, Search, Trash2, ArrowRight,
   TrendingUp, Lock, RefreshCcw, Wifi, AlertTriangle, AlertCircle, MapPin, CheckCircle,
   Image as ImageIcon, User, Eye, Download, ChevronDown, ChevronUp
@@ -22,9 +22,9 @@ export const AdminCenterPanel = () => {
   const [loading, setLoading] = useState(false);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
       <div className="flex justify-between items-center">
@@ -49,8 +49,8 @@ export const AdminCenterPanel = () => {
           <p className="text-gray-400 text-xs font-medium uppercase tracking-wider">Security Integrity Score</p>
           <p className="text-3xl font-extrabold text-white mt-1 font-mono">{stats.securityScore}%</p>
           <div className="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
-            <div 
-              className={`h-full transition-all duration-500 ${stats.securityScore > 80 ? 'bg-emerald-500' : stats.securityScore > 50 ? 'bg-amber-500' : 'bg-rose-500'}`} 
+            <div
+              className={`h-full transition-all duration-500 ${stats.securityScore > 80 ? 'bg-emerald-500' : stats.securityScore > 50 ? 'bg-amber-500' : 'bg-rose-500'}`}
               style={{ width: `${stats.securityScore}%` }}
             ></div>
           </div>
@@ -101,11 +101,10 @@ export const AdminCenterPanel = () => {
                   <p className="text-xs text-gray-400 font-mono mt-0.5">Code: {exam.code} | Redundancy Pool: X={exam.questionCount} × {exam.redundancyMultiplier} (N={exam.questionCount * exam.redundancyMultiplier})</p>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className={`px-2 py-0.5 rounded text-xs font-mono font-medium ${
-                    exam.status === 'Released' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 
-                    exam.status === 'Generating' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse' : 
-                    'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
-                  }`}>
+                  <span className={`px-2 py-0.5 rounded text-xs font-mono font-medium ${exam.status === 'Released' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                      exam.status === 'Generating' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20 animate-pulse' :
+                        'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
+                    }`}>
                     {exam.status}
                   </span>
                   <p className="text-xs text-gray-400 font-mono">
@@ -130,11 +129,10 @@ export const AdminCenterPanel = () => {
               <div className="text-center py-8 text-gray-500 text-xs">No active threats detected. System is safe.</div>
             ) : (
               securityEvents.slice(0, 5).map((evt) => (
-                <div key={evt.id} className={`p-2.5 rounded-lg text-xs border ${
-                  evt.severity === 'Critical' || evt.severity === 'High' 
-                    ? 'bg-rose-500/5 border-rose-500/20 text-rose-400' 
+                <div key={evt.id} className={`p-2.5 rounded-lg text-xs border ${evt.severity === 'Critical' || evt.severity === 'High'
+                    ? 'bg-rose-500/5 border-rose-500/20 text-rose-400'
                     : 'bg-amber-500/5 border-amber-500/20 text-amber-400'
-                }`}>
+                  }`}>
                   <div className="flex justify-between font-mono font-semibold">
                     <span>{evt.event}</span>
                     <span className="text-[10px] opacity-75">{new Date(evt.timestamp).toLocaleTimeString()}</span>
@@ -178,7 +176,7 @@ export const QuestionRepositoryPanel = () => {
     try {
       const q = await apiClient.getQuestions();
       setQuestions(q);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -243,9 +241,9 @@ export const QuestionRepositoryPanel = () => {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="grid grid-cols-1 lg:grid-cols-3 gap-6"
     >
       {/* Upload/Ingest Form */}
@@ -261,8 +259,8 @@ export const QuestionRepositoryPanel = () => {
         <form onSubmit={handleIngest} className="space-y-3.5">
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Subject Registry</label>
-            <select 
-              value={subject} 
+            <select
+              value={subject}
               onChange={(e) => setSubject(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
             >
@@ -274,8 +272,8 @@ export const QuestionRepositoryPanel = () => {
 
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Topic / Conceptual Index</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="e.g. Quantum Electrodynamics, Cell Cytology"
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
@@ -289,11 +287,10 @@ export const QuestionRepositoryPanel = () => {
                 key={diff}
                 type="button"
                 onClick={() => setDifficulty(diff)}
-                className={`py-1.5 rounded-lg border text-xs font-medium transition-colors ${
-                  difficulty === diff 
-                    ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-300' 
+                className={`py-1.5 rounded-lg border text-xs font-medium transition-colors ${difficulty === diff
+                    ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-300'
                     : 'bg-slate-900 border-slate-800 text-gray-400 hover:text-white'
-                }`}
+                  }`}
               >
                 {diff}
               </button>
@@ -302,7 +299,7 @@ export const QuestionRepositoryPanel = () => {
 
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Question Description</label>
-            <textarea 
+            <textarea
               rows={3}
               placeholder="Write the question statement here..."
               value={description}
@@ -317,8 +314,8 @@ export const QuestionRepositoryPanel = () => {
               <ImageIcon size={14} className="text-cyan-400" />
               Optional Diagram/Figure
             </label>
-            <input 
-              type="file" 
+            <input
+              type="file"
               accept="image/*"
               onChange={handleImageChange}
               className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-gray-400 font-sans file:mr-4 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-[10px] file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer"
@@ -326,9 +323,9 @@ export const QuestionRepositoryPanel = () => {
             {imageB64 && (
               <div className="mt-2 relative inline-block">
                 <img src={imageB64} alt="Upload preview" className="max-h-20 rounded border border-slate-800 object-contain p-0.5 bg-black/45" />
-                <button 
-                  type="button" 
-                  onClick={() => setImageB64(null)} 
+                <button
+                  type="button"
+                  onClick={() => setImageB64(null)}
                   className="absolute -top-1.5 -right-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-full p-0.5 text-[8px] font-bold"
                 >
                   ✕
@@ -340,13 +337,13 @@ export const QuestionRepositoryPanel = () => {
           {/* Options */}
           <div className="space-y-2">
             <label className="block text-xs font-medium text-gray-400">Multiple Choices</label>
-            
+
             <div className="grid grid-cols-1 gap-2">
               <div className="flex gap-2 items-center">
                 <span className="font-mono text-xs text-indigo-400 w-4 font-bold">A</span>
-                <input 
-                  type="text" 
-                  placeholder="Option A text..." 
+                <input
+                  type="text"
+                  placeholder="Option A text..."
                   value={optionA}
                   onChange={(e) => setOptionA(e.target.value)}
                   className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500"
@@ -355,9 +352,9 @@ export const QuestionRepositoryPanel = () => {
 
               <div className="flex gap-2 items-center">
                 <span className="font-mono text-xs text-indigo-400 w-4 font-bold">B</span>
-                <input 
-                  type="text" 
-                  placeholder="Option B text..." 
+                <input
+                  type="text"
+                  placeholder="Option B text..."
                   value={optionB}
                   onChange={(e) => setOptionB(e.target.value)}
                   className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500"
@@ -366,9 +363,9 @@ export const QuestionRepositoryPanel = () => {
 
               <div className="flex gap-2 items-center">
                 <span className="font-mono text-xs text-indigo-400 w-4 font-bold">C</span>
-                <input 
-                  type="text" 
-                  placeholder="Option C text..." 
+                <input
+                  type="text"
+                  placeholder="Option C text..."
                   value={optionC}
                   onChange={(e) => setOptionC(e.target.value)}
                   className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500"
@@ -377,9 +374,9 @@ export const QuestionRepositoryPanel = () => {
 
               <div className="flex gap-2 items-center">
                 <span className="font-mono text-xs text-indigo-400 w-4 font-bold">D</span>
-                <input 
-                  type="text" 
-                  placeholder="Option D text..." 
+                <input
+                  type="text"
+                  placeholder="Option D text..."
                   value={optionD}
                   onChange={(e) => setOptionD(e.target.value)}
                   className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500"
@@ -397,11 +394,10 @@ export const QuestionRepositoryPanel = () => {
                   key={key}
                   type="button"
                   onClick={() => setCorrectOption(key)}
-                  className={`py-1 rounded-lg border text-xs font-mono font-bold transition-colors ${
-                    correctOption === key 
-                      ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300' 
+                  className={`py-1 rounded-lg border text-xs font-mono font-bold transition-colors ${correctOption === key
+                      ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
                       : 'bg-slate-900 border-slate-800 text-gray-400 hover:text-white'
-                  }`}
+                    }`}
                 >
                   Option {key}
                 </button>
@@ -412,8 +408,8 @@ export const QuestionRepositoryPanel = () => {
           {error && <div className="p-2.5 bg-rose-500/15 border border-rose-500/30 text-rose-400 text-xs rounded-lg">{error}</div>}
           {success && <div className="p-2.5 bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs rounded-lg">{success}</div>}
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
             className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-medium py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-1.5"
           >
@@ -445,11 +441,10 @@ export const QuestionRepositoryPanel = () => {
                     <span className="ml-2 text-gray-400 font-mono">[{q.subject} - {q.topic}]</span>
                   </div>
                   <div className="flex gap-2">
-                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${
-                      q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25' :
-                      q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25' :
-                      'bg-rose-500/10 text-rose-400 border border-rose-500/25'
-                    }`}>
+                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono ${q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25' :
+                        q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25' :
+                          'bg-rose-500/10 text-rose-400 border border-rose-500/25'
+                      }`}>
                       {q.difficulty}
                     </span>
                   </div>
@@ -485,7 +480,7 @@ export const BlockchainExplorerPanel = () => {
   const [verificationResult, setVerificationResult] = useState<any>(null);
   const [verifying, setVerifying] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
-  
+
   const terminalEndRef = React.useRef<HTMLDivElement | null>(null);
 
   const fetchBlockchain = async () => {
@@ -495,7 +490,7 @@ export const BlockchainExplorerPanel = () => {
       if (chain.length > 0 && !selectedBlock) {
         setSelectedBlock(chain[chain.length - 1]);
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -528,11 +523,11 @@ export const BlockchainExplorerPanel = () => {
     const h2 = `sha256:${base.slice(16, 32)}...`;
     const h3 = `sha256:${base.slice(32, 48)}...`;
     const h4 = `sha256:${base.slice(48, 64)}...`;
-    
+
     const h12 = `sha256:comb-${base.slice(8, 24)}...`;
     const h34 = `sha256:comb-${base.slice(24, 40)}...`;
-    
-    const root = selectedBlock.questionHash 
+
+    const root = selectedBlock.questionHash
       ? `sha256:${selectedBlock.questionHash.slice(0, 32)}...`
       : `sha256:${base.slice(0, 32)}...`;
 
@@ -567,7 +562,7 @@ export const BlockchainExplorerPanel = () => {
 
   const isLineHighlighted = (from: string, to: string) => {
     if (!hoveredNode) return false;
-    
+
     if (hoveredNode === 'L1') {
       return (from === 'L1' && to === 'P1') || (from === 'P1' && to === 'R');
     }
@@ -595,9 +590,9 @@ export const BlockchainExplorerPanel = () => {
   const hoveredNodeData = hoveredNode && merkleData ? merkleData[hoveredNode] : null;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -619,11 +614,10 @@ export const BlockchainExplorerPanel = () => {
       </div>
 
       {verificationResult && (
-        <div className={`p-4 rounded-xl border ${
-          verificationResult.healthy 
-            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' 
+        <div className={`p-4 rounded-xl border ${verificationResult.healthy
+            ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
             : 'bg-rose-500/10 border-rose-500/20 text-rose-400'
-        } flex items-center justify-between`}>
+          } flex items-center justify-between`}>
           <div className="flex items-center gap-3">
             {verificationResult.healthy ? <ShieldCheck size={24} /> : <AlertTriangle size={24} />}
             <div>
@@ -631,8 +625,8 @@ export const BlockchainExplorerPanel = () => {
               <p className="text-xs opacity-90 mt-0.5">{verificationResult.message}</p>
             </div>
           </div>
-          <button 
-            onClick={() => setVerificationResult(null)} 
+          <button
+            onClick={() => setVerificationResult(null)}
             className="text-xs hover:underline font-mono"
           >
             Dismiss
@@ -654,20 +648,19 @@ export const BlockchainExplorerPanel = () => {
               <div className="text-center py-20 text-gray-500 text-sm">Blockchain ledger is compiling...</div>
             ) : (
               blockchain.map((block) => (
-                <div 
+                <div
                   key={block.index}
                   onClick={() => setSelectedBlock(block)}
-                  className={`p-4 rounded-xl border transition-all cursor-pointer relative ${
-                    selectedBlock?.index === block.index 
-                      ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg' 
+                  className={`p-4 rounded-xl border transition-all cursor-pointer relative ${selectedBlock?.index === block.index
+                      ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg'
                       : 'bg-slate-900/40 border-slate-850 hover:bg-slate-900/60'
-                  }`}
+                    }`}
                 >
                   <div className="flex justify-between items-center">
                     <span className="font-mono text-xs font-bold text-cyan-400">BLOCK INDEX #{block.index}</span>
                     <span className="text-[10px] text-gray-400 font-mono">{new Date(block.timestamp).toLocaleString()}</span>
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4 mt-2.5 font-mono text-[11px]">
                     <div>
                       <p className="text-gray-500">Block Hash</p>
@@ -741,53 +734,53 @@ export const BlockchainExplorerPanel = () => {
               {selectedBlock ? (
                 <svg viewBox="0 0 520 400" className="w-full h-full font-mono text-[10px] select-none">
                   {/* Lines with highlights */}
-                  <line 
-                    x1={80} y1={350} x2={140} y2={210} 
+                  <line
+                    x1={80} y1={350} x2={140} y2={210}
                     className="transition-all duration-300"
-                    stroke={isLineHighlighted('L1', 'P1') ? '#22d3ee' : '#334155'} 
-                    strokeWidth={isLineHighlighted('L1', 'P1') ? 2.5 : 1} 
+                    stroke={isLineHighlighted('L1', 'P1') ? '#22d3ee' : '#334155'}
+                    strokeWidth={isLineHighlighted('L1', 'P1') ? 2.5 : 1}
                   />
-                  <line 
-                    x1={200} y1={350} x2={140} y2={210} 
+                  <line
+                    x1={200} y1={350} x2={140} y2={210}
                     className="transition-all duration-300"
-                    stroke={isLineHighlighted('L2', 'P1') ? '#22d3ee' : '#334155'} 
-                    strokeWidth={isLineHighlighted('L2', 'P1') ? 2.5 : 1} 
+                    stroke={isLineHighlighted('L2', 'P1') ? '#22d3ee' : '#334155'}
+                    strokeWidth={isLineHighlighted('L2', 'P1') ? 2.5 : 1}
                   />
-                  <line 
-                    x1={320} y1={350} x2={380} y2={210} 
+                  <line
+                    x1={320} y1={350} x2={380} y2={210}
                     className="transition-all duration-300"
-                    stroke={isLineHighlighted('L3', 'P2') ? '#22d3ee' : '#334155'} 
-                    strokeWidth={isLineHighlighted('L3', 'P2') ? 2.5 : 1} 
+                    stroke={isLineHighlighted('L3', 'P2') ? '#22d3ee' : '#334155'}
+                    strokeWidth={isLineHighlighted('L3', 'P2') ? 2.5 : 1}
                   />
-                  <line 
-                    x1={440} y1={350} x2={380} y2={210} 
+                  <line
+                    x1={440} y1={350} x2={380} y2={210}
                     className="transition-all duration-300"
-                    stroke={isLineHighlighted('L4', 'P2') ? '#22d3ee' : '#334155'} 
-                    strokeWidth={isLineHighlighted('L4', 'P2') ? 2.5 : 1} 
+                    stroke={isLineHighlighted('L4', 'P2') ? '#22d3ee' : '#334155'}
+                    strokeWidth={isLineHighlighted('L4', 'P2') ? 2.5 : 1}
                   />
-                  <line 
-                    x1={140} y1={210} x2={260} y2={70} 
+                  <line
+                    x1={140} y1={210} x2={260} y2={70}
                     className="transition-all duration-300"
-                    stroke={isLineHighlighted('P1', 'R') ? '#818cf8' : '#334155'} 
-                    strokeWidth={isLineHighlighted('P1', 'R') ? 3 : 1} 
+                    stroke={isLineHighlighted('P1', 'R') ? '#818cf8' : '#334155'}
+                    strokeWidth={isLineHighlighted('P1', 'R') ? 3 : 1}
                   />
-                  <line 
-                    x1={380} y1={210} x2={260} y2={70} 
+                  <line
+                    x1={380} y1={210} x2={260} y2={70}
                     className="transition-all duration-300"
-                    stroke={isLineHighlighted('P2', 'R') ? '#818cf8' : '#334155'} 
-                    strokeWidth={isLineHighlighted('P2', 'R') ? 3 : 1} 
+                    stroke={isLineHighlighted('P2', 'R') ? '#818cf8' : '#334155'}
+                    strokeWidth={isLineHighlighted('P2', 'R') ? 3 : 1}
                   />
 
                   {/* Root Node */}
-                  <g 
+                  <g
                     onMouseEnter={() => setHoveredNode('R')}
                     onMouseLeave={() => setHoveredNode(null)}
                     className="cursor-pointer"
                   >
-                    <circle 
-                      cx={260} cy={70} r={28} 
-                      fill="#020617" 
-                      stroke={hoveredNode === 'R' || isNodeHighlighted('R') ? '#a78bfa' : '#4b5563'} 
+                    <circle
+                      cx={260} cy={70} r={28}
+                      fill="#020617"
+                      stroke={hoveredNode === 'R' || isNodeHighlighted('R') ? '#a78bfa' : '#4b5563'}
                       strokeWidth={2}
                       className="transition-all duration-300"
                     />
@@ -795,30 +788,30 @@ export const BlockchainExplorerPanel = () => {
                   </g>
 
                   {/* Parent Nodes */}
-                  <g 
+                  <g
                     onMouseEnter={() => setHoveredNode('P1')}
                     onMouseLeave={() => setHoveredNode(null)}
                     className="cursor-pointer"
                   >
-                    <circle 
-                      cx={140} cy={210} r={24} 
-                      fill="#020617" 
-                      stroke={hoveredNode === 'P1' || isNodeHighlighted('P1') ? '#818cf8' : '#4b5563'} 
+                    <circle
+                      cx={140} cy={210} r={24}
+                      fill="#020617"
+                      stroke={hoveredNode === 'P1' || isNodeHighlighted('P1') ? '#818cf8' : '#4b5563'}
                       strokeWidth={2}
                       className="transition-all duration-300"
                     />
                     <text x={140} y={213} textAnchor="middle" fill="#e2e8f0" className="text-[9px]">H(1+2)</text>
                   </g>
 
-                  <g 
+                  <g
                     onMouseEnter={() => setHoveredNode('P2')}
                     onMouseLeave={() => setHoveredNode(null)}
                     className="cursor-pointer"
                   >
-                    <circle 
-                      cx={380} cy={210} r={24} 
-                      fill="#020617" 
-                      stroke={hoveredNode === 'P2' || isNodeHighlighted('P2') ? '#818cf8' : '#4b5563'} 
+                    <circle
+                      cx={380} cy={210} r={24}
+                      fill="#020617"
+                      stroke={hoveredNode === 'P2' || isNodeHighlighted('P2') ? '#818cf8' : '#4b5563'}
                       strokeWidth={2}
                       className="transition-all duration-300"
                     />
@@ -831,16 +824,16 @@ export const BlockchainExplorerPanel = () => {
                     const y = 350;
                     const isHovered = hoveredNode === leafId;
                     return (
-                      <g 
+                      <g
                         key={leafId}
                         onMouseEnter={() => setHoveredNode(leafId)}
                         onMouseLeave={() => setHoveredNode(null)}
                         className="cursor-pointer"
                       >
-                        <circle 
-                          cx={x} cy={y} r={20} 
-                          fill="#020617" 
-                          stroke={isHovered || isNodeHighlighted(leafId) ? '#22d3ee' : '#4b5563'} 
+                        <circle
+                          cx={x} cy={y} r={20}
+                          fill="#020617"
+                          stroke={isHovered || isNodeHighlighted(leafId) ? '#22d3ee' : '#4b5563'}
                           strokeWidth={2}
                           className="transition-all duration-300"
                         />
@@ -882,7 +875,7 @@ export const BlockchainExplorerPanel = () => {
               <Terminal size={16} className="text-emerald-400" />
               Live Edge Consensus Monitor
             </h3>
-            
+
             {/* Status node map */}
             <div className="flex justify-between items-center bg-black/40 border border-slate-850 p-2 rounded-xl text-[10px] text-gray-400 mb-3">
               <span className="flex items-center gap-1 font-mono">
@@ -957,7 +950,7 @@ export const PaperGenerationPanel = () => {
       if (list.length > 0 && !selectedExamId) {
         setSelectedExamId(list[0].id);
       }
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -1087,7 +1080,7 @@ export const PaperGenerationPanel = () => {
     doc.setFont('Helvetica', 'bold');
     doc.setFontSize(16);
     doc.text('ZeroLeak Secure Exam Paper', 20, 20);
-    
+
     doc.setFont('Helvetica', 'normal');
     doc.setFontSize(9);
     doc.text(`Generated At: ${new Date().toLocaleString()}`, 20, 26);
@@ -1098,7 +1091,7 @@ export const PaperGenerationPanel = () => {
     doc.setFont('Helvetica', 'bold');
     doc.setFontSize(13);
     doc.text(examName, 20, 44);
-    
+
     doc.setFont('Helvetica', 'normal');
     doc.setFontSize(10);
     doc.text(`Subject: ${subject}`, 20, 50);
@@ -1125,7 +1118,7 @@ export const PaperGenerationPanel = () => {
           const parsed = JSON.parse(desc);
           desc = parsed.description;
         }
-      } catch (e) {}
+      } catch (e) { }
 
       const splitDesc = doc.splitTextToSize(desc, 155);
       doc.text(splitDesc, 28, y);
@@ -1137,7 +1130,7 @@ export const PaperGenerationPanel = () => {
           const parsed = JSON.parse(q.content);
           opts = parsed.options;
         }
-      } catch (e) {}
+      } catch (e) { }
 
       if (opts) {
         Object.entries(opts).forEach(([key, val]: any) => {
@@ -1159,9 +1152,9 @@ export const PaperGenerationPanel = () => {
   const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="grid grid-cols-1 lg:grid-cols-3 gap-6"
     >
       {/* Config Panel */}
@@ -1177,7 +1170,7 @@ export const PaperGenerationPanel = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Target Scheduled Exam</label>
-            <select 
+            <select
               value={selectedExamId}
               onChange={(e) => setSelectedExamId(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
@@ -1190,8 +1183,8 @@ export const PaperGenerationPanel = () => {
 
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Manual Center Entropy Override (E)</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="e.g. 0x9a8f4c2d... (optional)"
               value={customEntropy}
               onChange={(e) => setCustomEntropy(e.target.value)}
@@ -1263,9 +1256,9 @@ export const PaperGenerationPanel = () => {
             )}
 
             {generatedPaper && (
-              <motion.div 
-                initial={{ opacity: 0 }} 
-                animate={{ opacity: 1 }} 
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 className="space-y-4"
               >
                 <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg flex items-center justify-between text-xs">
@@ -1273,7 +1266,7 @@ export const PaperGenerationPanel = () => {
                     <CheckCircle size={16} />
                     Runtime paper instance generated successfully!
                   </span>
-                  
+
                   {/* Action Buttons for immediate paper */}
                   <div className="flex gap-2 font-mono">
                     <button
@@ -1446,10 +1439,10 @@ export const PaperGenerationPanel = () => {
                     </p>
                     {q.image && (
                       <div className="my-2">
-                        <img 
-                          src={q.image} 
-                          alt={`Figure for Question ${idx + 1}`} 
-                          className="max-h-48 rounded border border-slate-850 object-contain p-1 bg-black/40" 
+                        <img
+                          src={q.image}
+                          alt={`Figure for Question ${idx + 1}`}
+                          className="max-h-48 rounded border border-slate-850 object-contain p-1 bg-black/40"
                         />
                       </div>
                     )}
@@ -1465,7 +1458,7 @@ export const PaperGenerationPanel = () => {
                         ))}
                       </div>
                     )}
-                    
+
                     {/* Correct Option badge for admin view */}
                     <div className="pt-2 border-t border-slate-850/40 font-mono text-[10px] text-emerald-400 flex gap-2 justify-end">
                       <span>Correct Key: <strong className="bg-emerald-500/10 px-1.5 py-0.5 rounded text-white font-bold">{q.correctOption}</strong></span>
@@ -1503,7 +1496,7 @@ export const SOCPanel = () => {
       // Re-fetch system stats
       const newStats = await apiClient.getSystemStatus();
       useStore.getState().setStats(newStats);
-      
+
       const logs = await apiClient.getSecurityEvents();
       useStore.getState().setSecurityEvents(logs);
     } catch (err: any) {
@@ -1520,16 +1513,16 @@ export const SOCPanel = () => {
       setActionMessage('[RESTORE] Cleared all alarms and restored security score to 100.');
       const newStats = await apiClient.getSystemStatus();
       useStore.getState().setStats(newStats);
-      
+
       const logs = await apiClient.getSecurityEvents();
       useStore.getState().setSecurityEvents(logs);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
       <div className="flex justify-between items-center">
@@ -1605,11 +1598,10 @@ export const SOCPanel = () => {
           </div>
 
           {actionMessage && (
-            <div className={`p-3 rounded-lg text-xs font-mono border ${
-              actionMessage.includes('THREAT') 
-                ? 'bg-rose-500/10 border-rose-500/20 text-rose-400' 
+            <div className={`p-3 rounded-lg text-xs font-mono border ${actionMessage.includes('THREAT')
+                ? 'bg-rose-500/10 border-rose-500/20 text-rose-400'
                 : 'bg-indigo-500/10 border-indigo-500/20 text-indigo-300'
-            }`}>
+              }`}>
               {actionMessage}
             </div>
           )}
@@ -1632,11 +1624,10 @@ export const SOCPanel = () => {
               <div key={node.id} className="p-3.5 bg-black/40 border border-slate-850 rounded-xl space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-white font-bold">{node.name}</span>
-                  <span className={`h-2.5 w-2.5 rounded-full ${
-                    node.status === 'Online' ? 'bg-emerald-400' :
-                    node.status === 'Syncing' ? 'bg-amber-400 animate-pulse' :
-                    'bg-rose-500 animate-ping'
-                  }`}></span>
+                  <span className={`h-2.5 w-2.5 rounded-full ${node.status === 'Online' ? 'bg-emerald-400' :
+                      node.status === 'Syncing' ? 'bg-amber-400 animate-pulse' :
+                        'bg-rose-500 animate-ping'
+                    }`}></span>
                 </div>
                 <div className="text-[11px] text-gray-400 space-y-1">
                   <p>Region: {node.region}</p>
@@ -1655,11 +1646,10 @@ export const SOCPanel = () => {
               {securityEvents.map((evt) => (
                 <div key={evt.id} className="flex justify-between items-start text-xs border-b border-slate-850 pb-2">
                   <div>
-                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-mono uppercase font-bold mr-2 ${
-                      evt.severity === 'Critical' ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30' :
-                      evt.severity === 'High' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
-                      'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                    }`}>
+                    <span className={`px-1.5 py-0.5 rounded text-[9px] font-mono uppercase font-bold mr-2 ${evt.severity === 'Critical' ? 'bg-rose-500/15 text-rose-400 border border-rose-500/30' :
+                        evt.severity === 'High' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
+                          'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                      }`}>
                       {evt.severity}
                     </span>
                     <span className="text-gray-300 font-semibold">{evt.event}</span>
@@ -1722,7 +1712,7 @@ export const AuditForensicsPanel = () => {
         const studentName = targetStudent ? targetStudent.name : 'Sneha Reddy';
         const center = targetStudent ? 'Digital Exam Hub - Center A' : 'Mumbai Main Center';
         const ip = targetStudent ? '192.168.4.108' : '192.168.10.144';
-        
+
         setDecodedResult({
           studentId,
           name: studentName,
@@ -1749,7 +1739,7 @@ export const AuditForensicsPanel = () => {
       const updated = await apiClient.getStudents();
       setStudents(updated);
       setDecodedResult((prev: any) => ({ ...prev, isAlreadyBlocked: true }));
-      
+
       const systemStatus = await apiClient.getSystemStatus();
       useStore.getState().setStats(systemStatus);
     } catch (err) {
@@ -1760,9 +1750,9 @@ export const AuditForensicsPanel = () => {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
       <div>
@@ -1879,10 +1869,10 @@ export const AuditForensicsPanel = () => {
                       {Math.round(((decodingStep + 1) / steps.length) * 100)}%
                     </span>
                   </div>
-                  
+
                   {/* Progress bar */}
                   <div className="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-850">
-                    <div 
+                    <div
                       className="bg-indigo-500 h-full rounded-full transition-all duration-300"
                       style={{ width: `${((decodingStep + 1) / steps.length) * 100}%` }}
                     />
@@ -1954,7 +1944,7 @@ export const AuditForensicsPanel = () => {
               >
                 Reset Scanner
               </button>
-              
+
               {!decodedResult.isAlreadyBlocked ? (
                 <button
                   onClick={handleSuspend}
@@ -2021,9 +2011,9 @@ export const ExamDeliveryPanel = () => {
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="grid grid-cols-1 lg:grid-cols-3 gap-6"
     >
       {/* Decrypt Controller */}
@@ -2039,7 +2029,7 @@ export const ExamDeliveryPanel = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Target Exam Paper</label>
-            <select 
+            <select
               value={selectedExamId}
               onChange={(e) => setSelectedExamId(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
@@ -2052,8 +2042,8 @@ export const ExamDeliveryPanel = () => {
 
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Simulated Center IP Address</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={customIp}
               onChange={(e) => setCustomIp(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-indigo-500"
@@ -2063,8 +2053,8 @@ export const ExamDeliveryPanel = () => {
 
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Simulated Client User-Agent</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               value={customUserAgent}
               onChange={(e) => setCustomUserAgent(e.target.value)}
               className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-indigo-500"
@@ -2111,7 +2101,7 @@ export const ExamDeliveryPanel = () => {
                     if (q.content.startsWith('{')) {
                       parsed = JSON.parse(q.content);
                     }
-                  } catch (e) {}
+                  } catch (e) { }
 
                   return (
                     <div key={q.id} className="p-5 bg-slate-900/60 border border-slate-850 rounded-xl space-y-3">
@@ -2119,7 +2109,7 @@ export const ExamDeliveryPanel = () => {
                         <span>Question #{idx + 1} ({q.id.toUpperCase()})</span>
                         <span>Topic: {q.topic}</span>
                       </div>
-                      
+
                       {/* Description */}
                       <p className={`text-white text-sm leading-relaxed font-sans font-medium ${q.error ? 'font-mono text-rose-400 bg-rose-500/5 p-2 rounded border border-rose-500/10' : ''}`}>
                         {parsed.description}
@@ -2128,10 +2118,10 @@ export const ExamDeliveryPanel = () => {
                       {/* Optional Decrypted Image */}
                       {parsed.image && (
                         <div className="my-3">
-                          <img 
-                            src={parsed.image} 
-                            alt={`Figure for Question ${idx + 1}`} 
-                            className="max-h-60 rounded-lg border border-slate-800 object-contain bg-black/40 p-1" 
+                          <img
+                            src={parsed.image}
+                            alt={`Figure for Question ${idx + 1}`}
+                            className="max-h-60 rounded-lg border border-slate-800 object-contain bg-black/40 p-1"
                           />
                         </div>
                       )}
@@ -2142,13 +2132,12 @@ export const ExamDeliveryPanel = () => {
                           {Object.entries(parsed.options).map(([key, val]: any) => {
                             const isCorrect = parsed.correctOption === key;
                             return (
-                              <div 
-                                key={key} 
-                                className={`p-3 rounded-lg border text-xs font-sans flex items-center justify-between transition-colors ${
-                                  isCorrect 
-                                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' 
+                              <div
+                                key={key}
+                                className={`p-3 rounded-lg border text-xs font-sans flex items-center justify-between transition-colors ${isCorrect
+                                    ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
                                     : 'bg-black/25 border-slate-850 text-gray-300 hover:border-slate-800'
-                                }`}
+                                  }`}
                               >
                                 <span>
                                   <strong className="mr-2 font-mono text-indigo-400">{key}.</strong> {val}
@@ -2182,9 +2171,9 @@ export const ResearchMetricsPanel = () => {
   const { metrics } = useStore();
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
       <div>
@@ -2204,8 +2193,8 @@ export const ResearchMetricsPanel = () => {
               <AreaChart data={metrics.generationLatency} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorLatency" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#06b6d4" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.2} />
+                    <stop offset="95%" stopColor="#06b6d4" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#1f2937" />
@@ -2251,15 +2240,60 @@ export const ResearchMetricsPanel = () => {
 // 9. STUDENT REGISTRY
 // ========================================================
 export const StudentRegistryPanel = () => {
-  const { students, setStudents, addStudent, submissions, setSubmissions } = useStore();
+  const { students, setStudents, addStudent, submissions, setSubmissions, user } = useStore();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState<any>(null);
-  
+
   const [showDetails, setShowDetails] = useState(false);
   const [search, setSearch] = useState('');
+
+  // Password reset state
+  const [selectedStudentForPassword, setSelectedStudentForPassword] = useState<any>(null);
+  const [newPassword, setNewPassword] = useState('');
+  const [passwordChangeLoading, setPasswordChangeLoading] = useState(false);
+  const [passwordChangeError, setPasswordChangeError] = useState('');
+  const [passwordChangeSuccess, setPasswordChangeSuccess] = useState('');
+
+  const handlePasswordChange = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPassword.trim()) {
+      setPasswordChangeError('Password cannot be empty.');
+      return;
+    }
+    if (!user?.name) {
+      setPasswordChangeError('No administrator node authenticated.');
+      return;
+    }
+    setPasswordChangeLoading(true);
+    setPasswordChangeError('');
+    setPasswordChangeSuccess('');
+    try {
+      const res = await apiClient.changeStudentPassword(
+        selectedStudentForPassword.studentId,
+        newPassword.trim(),
+        user.name
+      );
+      // Update store locally
+      const updatedStudents = students.map((s) =>
+        s.studentId === selectedStudentForPassword.studentId
+          ? { ...s, passwordRaw: newPassword.trim() }
+          : s
+      );
+      setStudents(updatedStudents);
+      setPasswordChangeSuccess(res.message || 'Password changed successfully.');
+      setNewPassword('');
+      // Fetch updated audit logs if they are on another tab
+      const logs = await apiClient.getAuditLogs();
+      useStore.getState().setAuditLogs(logs);
+    } catch (err: any) {
+      setPasswordChangeError(err.message || 'Failed to update student password.');
+    } finally {
+      setPasswordChangeLoading(false);
+    }
+  };
 
   const fetchStudents = async () => {
     try {
@@ -2267,7 +2301,7 @@ export const StudentRegistryPanel = () => {
       setStudents(list);
       const subs = await apiClient.getSubmissions();
       setSubmissions(subs);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -2297,16 +2331,16 @@ export const StudentRegistryPanel = () => {
     }
   };
 
-  const filteredStudents = students.filter(s => 
+  const filteredStudents = students.filter(s =>
     s.name.toLowerCase().includes(search.toLowerCase()) ||
     s.email.toLowerCase().includes(search.toLowerCase()) ||
     s.studentId.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="grid grid-cols-1 lg:grid-cols-3 gap-6"
     >
       {/* Enroll Form */}
@@ -2322,8 +2356,8 @@ export const StudentRegistryPanel = () => {
         <form onSubmit={handleEnroll} className="space-y-4">
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Full Name</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="e.g. John Doe"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -2333,8 +2367,8 @@ export const StudentRegistryPanel = () => {
 
           <div>
             <label className="block text-xs font-medium text-gray-400 mb-1">Email Address</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               placeholder="e.g. johndoe@university.edu"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -2354,7 +2388,7 @@ export const StudentRegistryPanel = () => {
         </form>
 
         {success && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl space-y-2 text-xs font-mono text-emerald-300"
@@ -2380,7 +2414,7 @@ export const StudentRegistryPanel = () => {
           <button
             onClick={() => {
               setShowDetails(!showDetails);
-              if(!showDetails) fetchStudents();
+              if (!showDetails) fetchStudents();
             }}
             className="px-4 py-2 bg-slate-900 border border-slate-800 hover:bg-slate-850 hover:border-slate-700 text-gray-200 rounded-lg text-xs font-mono font-bold transition-all shadow-md"
           >
@@ -2389,15 +2423,15 @@ export const StudentRegistryPanel = () => {
         </div>
 
         {showDetails ? (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             className="space-y-4 flex-1 flex flex-col"
           >
             <div className="relative">
               <Search className="absolute left-3 top-2.5 text-gray-500" size={16} />
-              <input 
-                type="text" 
+              <input
+                type="text"
                 placeholder="Query by Name, Email, or Student ID..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
@@ -2417,12 +2451,13 @@ export const StudentRegistryPanel = () => {
                     <th className="py-2.5 px-3 uppercase tracking-wider font-sans font-bold text-[10px]">Biology Test</th>
                     <th className="py-2.5 px-3 uppercase tracking-wider font-sans font-bold text-[10px]">CSAT Test</th>
                     <th className="py-2.5 px-3 uppercase tracking-wider font-sans font-bold text-[10px]">Enroll Date</th>
+                    <th className="py-2.5 px-3 uppercase tracking-wider font-sans font-bold text-[10px] text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-900 text-gray-300">
                   {filteredStudents.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="py-12 text-center text-gray-500">No student records match your query.</td>
+                      <td colSpan={9} className="py-12 text-center text-gray-500">No student records match your query.</td>
                     </tr>
                   ) : (
                     filteredStudents.map((stu) => {
@@ -2448,7 +2483,7 @@ export const StudentRegistryPanel = () => {
                           <td className="py-3 px-3 font-sans text-white font-medium">{stu.name}</td>
                           <td className="py-3 px-3 font-sans">{stu.email}</td>
                           <td className="py-3 px-3 font-bold select-all bg-black/30 text-white rounded text-center">{stu.passwordRaw}</td>
-                          
+
                           {/* Physics Status */}
                           <td className="py-3 px-3">
                             {physSub ? (
@@ -2489,6 +2524,20 @@ export const StudentRegistryPanel = () => {
                           </td>
 
                           <td className="py-3 px-3 text-[10px] text-gray-500">{new Date(stu.createdAt).toLocaleDateString()}</td>
+                          <td className="py-3 px-3 text-right">
+                            <button
+                              onClick={() => {
+                                setSelectedStudentForPassword(stu);
+                                setNewPassword('');
+                                setPasswordChangeError('');
+                                setPasswordChangeSuccess('');
+                              }}
+                              className="px-2.5 py-1 bg-indigo-650/20 border border-indigo-500/30 hover:bg-indigo-600/40 text-indigo-300 rounded font-sans text-[10px] font-bold transition-all inline-flex items-center gap-1"
+                            >
+                              <Key size={10} />
+                              Change Pass
+                            </button>
+                          </td>
                         </tr>
                       );
                     })
@@ -2504,6 +2553,105 @@ export const StudentRegistryPanel = () => {
           </div>
         )}
       </div>
+
+      {/* Change Password Modal */}
+      <AnimatePresence>
+        {selectedStudentForPassword && (
+          <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="w-full max-w-md bg-slate-950 border border-slate-900 rounded-2xl p-6 shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-emerald-500"></div>
+              
+              <div className="flex justify-between items-start border-b border-slate-900 pb-4 mb-4">
+                <div>
+                  <h3 className="text-md font-bold text-white font-mono flex items-center gap-1.5">
+                    <Key size={16} className="text-cyan-400" />
+                    Reset Student Password
+                  </h3>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Student: <span className="text-white font-semibold">{selectedStudentForPassword.name} ({selectedStudentForPassword.studentId})</span>
+                  </p>
+                </div>
+                <button
+                  onClick={() => setSelectedStudentForPassword(null)}
+                  className="text-gray-500 hover:text-white transition-colors"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {user?.name !== 'Dr. AK Gupta' ? (
+                <div className="space-y-4">
+                  <div className="p-4 bg-rose-500/10 border border-rose-500/20 rounded-xl space-y-2 text-xs font-mono text-rose-300">
+                    <div className="flex items-center gap-1.5 font-bold text-white">
+                      <ShieldAlert size={16} className="text-rose-400" />
+                      Permission Denied
+                    </div>
+                    <p className="font-sans leading-relaxed text-gray-400">
+                      Only the authorized male administrator (<strong className="text-white">Dr. AK Gupta</strong>) is permitted to modify credentials. Your current identity node (<strong className="text-white">{user?.name || 'Unknown'}</strong>) has insufficient privileges.
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setSelectedStudentForPassword(null)}
+                    className="w-full bg-slate-900 border border-slate-800 hover:bg-slate-850 text-gray-300 py-2 rounded-lg text-sm font-semibold transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handlePasswordChange} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-400 mb-1.5">New Password</label>
+                    <input
+                      type="text"
+                      placeholder="Enter new secure password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-805 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500 font-mono animate-none"
+                    />
+                  </div>
+
+                  {passwordChangeError && (
+                    <div className="p-2.5 bg-rose-500/15 border border-rose-500/30 text-rose-400 text-xs rounded-lg">
+                      {passwordChangeError}
+                    </div>
+                  )}
+
+                  {passwordChangeSuccess && (
+                    <div className="p-2.5 bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs rounded-lg">
+                      {passwordChangeSuccess}
+                    </div>
+                  )}
+
+                  <div className="flex gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedStudentForPassword(null)}
+                      className="flex-1 bg-slate-900 border border-slate-800 hover:bg-slate-850 text-gray-300 py-2 rounded-lg text-sm font-semibold transition-colors"
+                    >
+                      {passwordChangeSuccess ? 'Close' : 'Cancel'}
+                    </button>
+                    {!passwordChangeSuccess && (
+                      <button
+                        type="submit"
+                        disabled={passwordChangeLoading}
+                        className="flex-1 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold py-2 rounded-lg text-sm transition-colors flex items-center justify-center gap-1.5"
+                      >
+                        {passwordChangeLoading ? <RefreshCw size={14} className="animate-spin" /> : <Lock size={14} />}
+                        Update Password
+                      </button>
+                    )}
+                  </div>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
@@ -2630,7 +2778,7 @@ export const CompletedTestsPanel = () => {
                   const isExpanded = expandedStudentId === group.studentId;
                   return (
                     <React.Fragment key={group.studentId}>
-                      <tr 
+                      <tr
                         onClick={() => setExpandedStudentId(isExpanded ? null : group.studentId)}
                         className="hover:bg-slate-900/30 cursor-pointer transition-colors"
                       >
@@ -2771,12 +2919,12 @@ export const CompletedTestsPanel = () => {
                   <p className="text-2xl font-bold text-cyan-400 mt-1">
                     {selectedSub.maxMarks > 0
                       ? Math.round(
-                          (selectedSub.questions.filter(
-                            (q: any) => selectedSub.answers[q.id] === q.correctOption
-                          ).length /
-                            selectedSub.questions.length) *
-                            100
-                        )
+                        (selectedSub.questions.filter(
+                          (q: any) => selectedSub.answers[q.id] === q.correctOption
+                        ).length /
+                          selectedSub.questions.length) *
+                        100
+                      )
                       : 0}
                     %
                   </p>
@@ -2804,13 +2952,12 @@ export const CompletedTestsPanel = () => {
                   return (
                     <div
                       key={q.id}
-                      className={`p-4 rounded-xl border ${
-                        isCorrect
+                      className={`p-4 rounded-xl border ${isCorrect
                           ? 'bg-emerald-500/5 border-emerald-500/20'
                           : isUnanswered
-                          ? 'bg-slate-900/50 border-slate-850'
-                          : 'bg-rose-500/5 border-rose-500/20'
-                      } space-y-3.5`}
+                            ? 'bg-slate-900/50 border-slate-850'
+                            : 'bg-rose-500/5 border-rose-500/20'
+                        } space-y-3.5`}
                     >
                       <div className="flex justify-between items-start">
                         <span className="font-mono text-xs font-bold text-gray-400">
@@ -2955,7 +3102,7 @@ export const SecurityAlertsPanel = () => {
   const filteredEvents = securityEvents.filter((evt) => {
     const category = evt.category || 'Infrastructure';
     if (category !== activeTab) return false;
-    
+
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       return (
@@ -3037,11 +3184,10 @@ export const SecurityAlertsPanel = () => {
         <div className="glass-panel p-4 rounded-xl border border-slate-800 space-y-1.5">
           <p className="text-gray-500 text-[10px] uppercase font-bold tracking-wider font-mono">Global Threat Index</p>
           <div className="flex justify-between items-center pt-0.5">
-            <span className={`text-xl font-extrabold tracking-tight ${
-              stats.threatLevel === 'Critical' ? 'text-rose-500 animate-pulse' :
-              stats.threatLevel === 'High' ? 'text-rose-400' :
-              stats.threatLevel === 'Medium' ? 'text-amber-400' : 'text-emerald-400'
-            }`}>
+            <span className={`text-xl font-extrabold tracking-tight ${stats.threatLevel === 'Critical' ? 'text-rose-500 animate-pulse' :
+                stats.threatLevel === 'High' ? 'text-rose-400' :
+                  stats.threatLevel === 'Medium' ? 'text-amber-400' : 'text-emerald-400'
+              }`}>
               {stats.threatLevel}
             </span>
             <span className="text-[10px] text-gray-400 font-mono">AI Assessment</span>
@@ -3091,26 +3237,24 @@ export const SecurityAlertsPanel = () => {
           {(Object.keys(tabInfo) as Array<keyof typeof tabInfo>).map((tabKey) => {
             const isActive = activeTab === tabKey;
             const count = securityEvents.filter(e => (e.category || 'Infrastructure') === tabKey).length;
-            
+
             return (
               <button
                 key={tabKey}
                 onClick={() => setActiveTab(tabKey)}
-                className={`w-full text-left p-4 rounded-xl border text-xs font-mono font-semibold transition-all flex justify-between items-center ${
-                  isActive
+                className={`w-full text-left p-4 rounded-xl border text-xs font-mono font-semibold transition-all flex justify-between items-center ${isActive
                     ? 'bg-slate-900 border-slate-700 text-white shadow-lg'
                     : 'bg-slate-950/20 border-slate-900 text-gray-500 hover:text-gray-350 hover:border-slate-800'
-                }`}
+                  }`}
               >
                 <div className="space-y-0.5">
                   <p>{tabInfo[tabKey].title}</p>
                   <p className="text-[9px] font-sans text-gray-400 font-normal leading-relaxed">{tabInfo[tabKey].desc.split('.')[0] + '.'}</p>
                 </div>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                  count > 0 
+                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${count > 0
                     ? tabKey === 'ExamFraud' ? 'bg-rose-500/20 text-rose-300' : 'bg-amber-500/20 text-amber-300'
                     : 'bg-slate-900 text-gray-655'
-                }`}>
+                  }`}>
                   {count}
                 </span>
               </button>
@@ -3165,12 +3309,11 @@ export const SecurityAlertsPanel = () => {
                     filteredEvents.map((evt) => (
                       <tr key={evt.id} className="hover:bg-slate-900/20">
                         <td className="py-3 px-3">
-                          <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${
-                            evt.severity === 'Critical' ? 'bg-rose-500/10 border border-rose-500/25 text-rose-400 animate-pulse' :
-                            evt.severity === 'High' ? 'bg-rose-500/10 border border-rose-500/15 text-rose-400' :
-                            evt.severity === 'Medium' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-300' :
-                            'bg-slate-900 border border-slate-800 text-gray-400'
-                          }`}>
+                          <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${evt.severity === 'Critical' ? 'bg-rose-500/10 border border-rose-500/25 text-rose-400 animate-pulse' :
+                              evt.severity === 'High' ? 'bg-rose-500/10 border border-rose-500/15 text-rose-400' :
+                                evt.severity === 'Medium' ? 'bg-amber-500/10 border border-amber-500/20 text-amber-300' :
+                                  'bg-slate-900 border border-slate-800 text-gray-400'
+                            }`}>
                             {evt.severity}
                           </span>
                         </td>
@@ -3217,7 +3360,7 @@ export const SecurityAlertsPanel = () => {
                 <User size={16} className="text-rose-400" />
                 Suspended Student Exam Sessions ({blockedStudents.length})
               </h3>
-              
+
               <div className="overflow-x-auto">
                 <table className="w-full text-left font-mono text-xs border-collapse">
                   <thead>
@@ -3291,7 +3434,7 @@ export const ActiveProctoringPanel = () => {
     try {
       const list = await apiClient.getStudents();
       setStudents(list);
-    } catch (e) {}
+    } catch (e) { }
   };
 
   useEffect(() => {
@@ -3341,9 +3484,9 @@ export const ActiveProctoringPanel = () => {
   const selectedStudent = selectedStudentId ? activeTelemetry[selectedStudentId] : null;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 15 }} 
-      animate={{ opacity: 1, y: 0 }} 
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
       <div className="flex justify-between items-center">
@@ -3383,22 +3526,20 @@ export const ActiveProctoringPanel = () => {
                   <div
                     key={stu.studentId}
                     onClick={() => setSelectedStudentId(stu.studentId)}
-                    className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col gap-3 relative overflow-hidden ${
-                      isSel 
-                        ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg ring-1 ring-indigo-500/20' 
+                    className={`p-4 rounded-xl border transition-all cursor-pointer flex flex-col gap-3 relative overflow-hidden ${isSel
+                        ? 'bg-indigo-500/10 border-indigo-500/40 shadow-lg ring-1 ring-indigo-500/20'
                         : 'bg-slate-900/40 border-slate-855 hover:bg-slate-900/60'
-                    }`}
+                      }`}
                   >
                     <div className="flex justify-between items-start">
                       <div className="min-w-0">
                         <p className="text-white font-semibold text-xs truncate">{stu.name}</p>
                         <p className="text-[10px] text-cyan-400 font-mono font-bold">{stu.studentId}</p>
                       </div>
-                      <span className={`px-1.5 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider ${
-                        stu.isBlocked
+                      <span className={`px-1.5 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider ${stu.isBlocked
                           ? 'bg-rose-500/10 border border-rose-500/20 text-rose-450'
                           : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 animate-pulse'
-                      }`}>
+                        }`}>
                         {stu.isBlocked ? 'Blocked' : 'Live'}
                       </span>
                     </div>
@@ -3410,7 +3551,7 @@ export const ActiveProctoringPanel = () => {
                       ) : (
                         <div className="text-[8px] text-gray-600 font-mono text-center px-2">Webcam loading...</div>
                       )}
-                      
+
                       {/* Live volume micro bar */}
                       <div className="absolute bottom-2 left-2 flex items-center gap-1 bg-black/65 px-1.5 py-0.5 rounded text-[8px] text-indigo-400 font-mono border border-slate-800">
                         <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping"></span>
@@ -3470,7 +3611,7 @@ export const ActiveProctoringPanel = () => {
                       {selectedStudent.micVolume > 50 ? '⚠️ High Audio Alert' : 'Feed Normal'}
                     </span>
                   </div>
-                  
+
                   <div className="bg-slate-900/60 border border-slate-850 p-3 rounded-lg flex flex-col gap-2">
                     {/* Animate-height visual bars */}
                     <div className="h-10 flex items-end justify-center gap-1 px-4 border-b border-slate-800 pb-1.5">
@@ -3479,11 +3620,10 @@ export const ActiveProctoringPanel = () => {
                         const rand = Math.sin(i * 0.5) * 0.3 + 0.7;
                         const height = Math.max(4, Math.round(selectedStudent.micVolume * rand * 0.4));
                         return (
-                          <div 
-                            key={i} 
-                            className={`w-2.5 rounded-t-sm transition-all duration-300 ${
-                              selectedStudent.micVolume > 50 ? 'bg-rose-500' : i % 2 === 0 ? 'bg-cyan-500' : 'bg-indigo-500'
-                            }`}
+                          <div
+                            key={i}
+                            className={`w-2.5 rounded-t-sm transition-all duration-300 ${selectedStudent.micVolume > 50 ? 'bg-rose-500' : i % 2 === 0 ? 'bg-cyan-500' : 'bg-indigo-500'
+                              }`}
                             style={{ height: `${height}px` }}
                           />
                         );
@@ -3524,6 +3664,310 @@ export const ActiveProctoringPanel = () => {
               <p>Select a candidate feed on the left to inspect biometric telemetry details.</p>
             </div>
           )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// ========================================================
+// 13. QUESTIONS CATEGORY & SUBJECT BROWSER
+// ========================================================
+export const QuestionsCategoryPanel = () => {
+  const { questions, setQuestions } = useStore();
+  const [selectedSubject, setSelectedSubject] = useState('Physics');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedTopic, setExpandedTopic] = useState<string | null>(null);
+  const [selectedQuestion, setSelectedQuestion] = useState<any>(null);
+
+  const fetchQuestions = async () => {
+    try {
+      const q = await apiClient.getQuestions();
+      setQuestions(q);
+    } catch (e) { }
+  };
+
+  useEffect(() => {
+    fetchQuestions();
+  }, []);
+
+  // Filter questions by subject
+  const subjectQuestions = questions.filter(q => q.subject.toLowerCase() === selectedSubject.toLowerCase());
+
+  // Filter by search query if any
+  const filteredQuestions = subjectQuestions.filter(q => {
+    const query = searchQuery.toLowerCase();
+    return (
+      q.id.toLowerCase().includes(query) ||
+      q.topic.toLowerCase().includes(query) ||
+      q.difficulty.toLowerCase().includes(query) ||
+      (q.hash && q.hash.toLowerCase().includes(query)) ||
+      (q.author && q.author.toLowerCase().includes(query))
+    );
+  });
+
+  // Group filtered questions by topic
+  const groupedByTopic = filteredQuestions.reduce((acc: Record<string, any[]>, q) => {
+    const topic = q.topic || 'General';
+    if (!acc[topic]) acc[topic] = [];
+    acc[topic].push(q);
+    return acc;
+  }, {});
+
+  // Metrics for the selected subject
+  const easyCount = subjectQuestions.filter(q => q.difficulty === 'Easy').length;
+  const mediumCount = subjectQuestions.filter(q => q.difficulty === 'Medium').length;
+  const hardCount = subjectQuestions.filter(q => q.difficulty === 'Hard').length;
+  const totalCount = subjectQuestions.length;
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert('Copied to clipboard!');
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="space-y-6 text-slate-100"
+    >
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+            <Database size={24} className="text-indigo-400" />
+            Repository Analytics
+          </h2>
+          <p className="text-gray-400 text-sm">See all inserted questions classified by subject, category/topic, and difficulty levels.</p>
+        </div>
+        
+        {/* Subject Selection Tabs */}
+        <div className="flex bg-slate-900/80 p-1 border border-slate-800 rounded-xl">
+          {['Physics', 'Biology', 'UPSC-CSAT'].map((sub) => (
+            <button
+              key={sub}
+              onClick={() => {
+                setSelectedSubject(sub);
+                setExpandedTopic(null);
+                setSelectedQuestion(null);
+              }}
+              className={`px-4 py-1.5 rounded-lg text-xs font-mono transition-colors ${
+                selectedSubject === sub
+                  ? 'bg-indigo-600 text-white font-bold shadow-lg'
+                  : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              {sub}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Metrics Row */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-gray-400 uppercase font-mono">Total Subject Pool</p>
+            <p className="text-2xl font-extrabold text-white mt-1">{totalCount}</p>
+          </div>
+          <div className="h-9 w-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <Database size={18} />
+          </div>
+        </div>
+
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-gray-400 uppercase font-mono">Easy Questions</p>
+            <p className="text-2xl font-extrabold text-emerald-400 mt-1">{easyCount}</p>
+          </div>
+          <div className="h-9 w-9 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+            <CheckCircle size={18} />
+          </div>
+        </div>
+
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-gray-400 uppercase font-mono">Medium Questions</p>
+            <p className="text-2xl font-extrabold text-amber-400 mt-1">{mediumCount}</p>
+          </div>
+          <div className="h-9 w-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+            <Activity size={18} />
+          </div>
+        </div>
+
+        <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center justify-between">
+          <div>
+            <p className="text-[10px] text-gray-400 uppercase font-mono">Hard Questions</p>
+            <p className="text-2xl font-extrabold text-rose-400 mt-1">{hardCount}</p>
+          </div>
+          <div className="h-9 w-9 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+            <ShieldAlert size={18} />
+          </div>
+        </div>
+      </div>
+
+      {/* Search Bar */}
+      <div className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center gap-3">
+        <Search size={18} className="text-gray-500 shrink-0" />
+        <input
+          type="text"
+          placeholder="Filter by question ID, specific topic, difficulty, or author..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="bg-transparent border-0 w-full focus:outline-none text-sm text-white placeholder-slate-700 font-sans"
+        />
+        {searchQuery && (
+          <button onClick={() => setSearchQuery('')} className="text-xs text-gray-500 hover:text-white font-mono shrink-0">
+            Clear
+          </button>
+        )}
+      </div>
+
+      {/* Main Content Area */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Accordions (Topic List) */}
+        <div className="lg:col-span-2 space-y-3 max-h-[500px] overflow-y-auto pr-1">
+          {Object.keys(groupedByTopic).length === 0 ? (
+            <div className="glass-panel p-12 rounded-xl border border-slate-800 text-center text-gray-500 text-sm">
+              No questions match the current criteria.
+            </div>
+          ) : (
+            Object.entries(groupedByTopic).map(([topicName, qList]) => {
+              const isExpanded = expandedTopic === topicName;
+              return (
+                <div key={topicName} className="glass-panel rounded-xl border border-slate-800 overflow-hidden transition-all">
+                  <div
+                    onClick={() => setExpandedTopic(isExpanded ? null : topicName)}
+                    className="flex justify-between items-center p-4 bg-slate-900/30 hover:bg-slate-900/60 cursor-pointer select-none"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-semibold text-sm text-indigo-300 font-mono">{topicName}</span>
+                      <span className="px-2 py-0.5 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-full text-[10px] font-mono">
+                        {qList.length} items
+                      </span>
+                    </div>
+                    {isExpanded ? <ChevronUp size={16} className="text-gray-500" /> : <ChevronDown size={16} className="text-gray-500" />}
+                  </div>
+
+                  {isExpanded && (
+                    <div className="border-t border-slate-850 bg-black/10 overflow-x-auto">
+                      <table className="w-full text-left font-mono text-[11px] border-collapse">
+                        <thead>
+                          <tr className="border-b border-slate-850 text-gray-500 text-[10px] uppercase tracking-wider">
+                            <th className="py-2.5 px-4 font-sans font-bold">ID / Timestamp</th>
+                            <th className="py-2.5 px-4 font-sans font-bold">Difficulty</th>
+                            <th className="py-2.5 px-4 font-sans font-bold">Author</th>
+                            <th className="py-2.5 px-4 font-sans font-bold text-right">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-900 text-gray-300">
+                          {qList.map((q) => (
+                            <tr key={q.id} className="hover:bg-slate-900/30">
+                              <td className="py-3 px-4">
+                                <p className="text-white font-bold break-all">{q.id}</p>
+                                <p className="text-[9px] text-gray-500 mt-0.5">{new Date(q.createdAt).toLocaleString()}</p>
+                              </td>
+                              <td className="py-3 px-4">
+                                <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                                  q.difficulty === 'Easy' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/25' :
+                                  q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/25' :
+                                  'bg-rose-500/10 text-rose-400 border border-rose-500/25'
+                                }`}>
+                                  {q.difficulty}
+                                </span>
+                              </td>
+                              <td className="py-3 px-4 text-gray-400 font-sans">
+                                {q.author}
+                              </td>
+                              <td className="py-3 px-4 text-right">
+                                <button
+                                  onClick={() => setSelectedQuestion(q)}
+                                  className="px-2.5 py-1 bg-indigo-600/20 border border-indigo-500/30 hover:bg-indigo-600/40 text-indigo-300 rounded text-[10px] font-sans font-bold transition-all"
+                                >
+                                  Inspect Block
+                                </button>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
+                </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* Selected Block Details Card */}
+        <div className="glass-panel p-5 rounded-xl border border-slate-800 flex flex-col h-[500px] justify-between">
+          <h3 className="font-semibold text-white border-b border-slate-800 pb-3 text-sm flex items-center gap-1.5 shrink-0 font-mono">
+            <Terminal size={16} className="text-indigo-400" />
+            Decentralized Vault Inspector
+          </h3>
+
+          <div className="flex-1 overflow-y-auto space-y-4 my-4 font-mono text-[10px]">
+            {selectedQuestion ? (
+              <div className="space-y-4">
+                <div>
+                  <p className="text-gray-500 uppercase text-[9px] font-sans">Vault Record ID</p>
+                  <p className="text-white font-bold text-xs break-all bg-black/40 p-2 border border-slate-850 rounded font-mono mt-1 select-all">
+                    {selectedQuestion.id}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 uppercase text-[9px] font-sans">Blockchain Content Hash</p>
+                  <div className="flex items-center gap-1.5 mt-1">
+                    <p className="text-cyan-400 font-bold break-all bg-black/40 p-2 border border-slate-850 rounded font-mono flex-1 truncate">
+                      {selectedQuestion.hash}
+                    </p>
+                    <button
+                      onClick={() => handleCopy(selectedQuestion.hash)}
+                      className="px-2 py-2 bg-slate-900 border border-slate-850 hover:bg-slate-800 text-gray-400 rounded shrink-0 font-sans text-[10px]"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 uppercase text-[9px] font-sans">AES-256-GCM Ciphertext Payload</p>
+                  <p className="text-indigo-300 break-all bg-black/40 p-2 border border-slate-850 rounded font-mono mt-1 max-h-36 overflow-y-auto select-all overflow-x-hidden">
+                    {selectedQuestion.encryptedContent}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <p className="text-gray-500 uppercase text-[9px] font-sans">IV Vector</p>
+                    <p className="text-white bg-black/40 p-1.5 border border-slate-850 rounded font-mono mt-0.5 truncate select-all">{selectedQuestion.iv}</p>
+                  </div>
+                  <div>
+                    <p className="text-gray-500 uppercase text-[9px] font-sans">Auth GCM Tag</p>
+                    <p className="text-white bg-black/40 p-1.5 border border-slate-850 rounded font-mono mt-0.5 truncate select-all">{selectedQuestion.tag}</p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-gray-500 uppercase text-[9px] font-sans">ECDSA Author Signature</p>
+                  <p className="text-emerald-400 break-all bg-black/40 p-2 border border-slate-850 rounded font-mono mt-1 max-h-16 overflow-y-auto select-all overflow-x-hidden">
+                    {selectedQuestion.signature}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="h-full flex flex-col items-center justify-center text-center text-gray-500 italic p-4">
+                <Database size={24} className="text-slate-800 mb-2 animate-bounce" />
+                Select an ingested question block on the left to reveal its cryptographic lineage, ciphertext, and validator signature verification logs.
+              </div>
+            )}
+          </div>
+
+          <div className="p-3 border-t border-slate-850 text-gray-500 text-[9px] font-mono shrink-0 flex items-center justify-between">
+            <span>Keys Verification: OK</span>
+            <span className="text-indigo-400 flex items-center gap-1 font-bold"><ShieldCheck size={12} /> SECURE CRYPTO VAULT</span>
+          </div>
         </div>
       </div>
     </motion.div>

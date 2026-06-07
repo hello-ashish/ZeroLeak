@@ -6,10 +6,10 @@ import { useSocket } from '../hooks/useSocket';
 import { apiClient } from '../lib/api';
 import {
   ShieldCheck, ShieldAlert, Key, Database, Cpu, Clock, Terminal, Activity,
-  Settings, LogOut, ArrowRight, User, AlertCircle, RefreshCw, Layers, Lock, Globe, HardDrive, CheckCircle, Eye
+  Settings, LogOut, ArrowRight, User, AlertCircle, RefreshCw, Layers, Lock, Globe, HardDrive, CheckCircle, Eye, Sun, Moon
 } from 'lucide-react';
 import {
-  AdminCenterPanel, QuestionRepositoryPanel, BlockchainExplorerPanel,
+  AdminCenterPanel, QuestionRepositoryPanel, QuestionsCategoryPanel, BlockchainExplorerPanel,
   PaperGenerationPanel, SOCPanel, AuditForensicsPanel, ExamDeliveryPanel, ResearchMetricsPanel,
   StudentRegistryPanel, CompletedTestsPanel, SecurityAlertsPanel, ActiveProctoringPanel
 } from '../components/DashboardPanels';
@@ -28,6 +28,21 @@ export default function MainPage() {
   } = useStore();
 
   const [loading, setLoading] = useState(true);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    const savedTheme = (localStorage.getItem('theme') as 'dark' | 'light') || 'dark';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
+
 
   // Auth Inputs
   const [username, setUsername] = useState('admin');
@@ -103,7 +118,7 @@ export default function MainPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#030712] flex flex-col items-center justify-center text-white space-y-4 font-mono">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center text-foreground space-y-4 font-mono">
         <RefreshCw className="animate-spin text-indigo-500" size={36} />
         <p className="text-sm">Decrypting Security Console Infrastructure...</p>
       </div>
@@ -115,7 +130,7 @@ export default function MainPage() {
   // ==========================================
   if (page === 'landing') {
     return (
-      <div className="min-h-screen bg-[#030712] text-slate-100 cyber-grid relative overflow-hidden flex flex-col">
+      <div className="min-h-screen bg-background text-foreground cyber-grid relative overflow-hidden flex flex-col">
         {/* Glow overlay */}
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none"></div>
         <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-500/10 blur-[120px] pointer-events-none"></div>
@@ -126,12 +141,21 @@ export default function MainPage() {
             <Layers className="text-indigo-400" size={24} />
             <span className="font-mono font-extrabold tracking-widest text-white text-lg">ZeroLeak</span>
           </div>
-          <button
-            onClick={() => setPage('admin')}
-            className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-mono rounded-lg text-sm transition-colors flex items-center gap-1.5 font-bold shadow-lg shadow-indigo-600/15"
-          >
-            Launch Terminal <ArrowRight size={14} />
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 hover:bg-slate-900 rounded-lg text-gray-400 hover:text-white transition-colors"
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+            >
+              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+            <button
+              onClick={() => setPage('admin')}
+              className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-mono rounded-lg text-sm transition-colors flex items-center gap-1.5 font-bold shadow-lg shadow-indigo-600/15"
+            >
+              Launch Terminal <ArrowRight size={14} />
+            </button>
+          </div>
         </header>
 
         {/* Main Hero */}
@@ -230,7 +254,17 @@ export default function MainPage() {
   // ==========================================
   if (user === null) {
     return (
-      <div className="min-h-screen bg-[#030712] text-slate-100 cyber-grid flex items-center justify-center p-4">
+      <div className="min-h-screen bg-background text-foreground cyber-grid flex items-center justify-center p-4 relative">
+        <div className="absolute top-4 right-4 z-50">
+          <button
+            onClick={toggleTheme}
+            className="p-2 bg-slate-900/80 hover:bg-slate-850 border border-slate-850 rounded-full text-gray-400 hover:text-white transition-colors shadow-lg"
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+        </div>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -340,6 +374,8 @@ export default function MainPage() {
         return <ActiveProctoringPanel />;
       case 'questions':
         return <QuestionRepositoryPanel />;
+      case 'category-view':
+        return <QuestionsCategoryPanel />;
       case 'blockchain':
         return <BlockchainExplorerPanel />;
       case 'generator':
@@ -364,7 +400,7 @@ export default function MainPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
 
       {/* Top Header Status Bar */}
       <header className="border-b border-slate-900 bg-slate-950/80 backdrop-blur-md px-6 py-3.5 flex justify-between items-center z-40 shrink-0">
@@ -398,6 +434,14 @@ export default function MainPage() {
 
         {/* User profile and logout */}
         <div className="flex items-center gap-4 text-xs font-mono">
+          <button
+            onClick={toggleTheme}
+            className="p-1.5 hover:bg-slate-900/60 rounded-lg text-gray-400 hover:text-white transition-colors"
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+          >
+            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+          </button>
+
           <div className="flex items-center gap-2 border border-slate-850 px-2.5 py-1 rounded bg-slate-900/40">
             <User size={12} className="text-indigo-400" />
             <span className="text-gray-300 font-semibold">{user.name}</span>
@@ -441,6 +485,16 @@ export default function MainPage() {
                 }`}
             >
               <Database size={15} /> Encrypted Repository
+            </button>
+
+            <button
+              onClick={() => setPage('category-view')}
+              className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-colors ${page === 'category-view'
+                  ? 'bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-bold'
+                  : 'text-gray-400 hover:text-white border border-transparent'
+                }`}
+            >
+              <Layers size={15} /> Repository Analytics
             </button>
 
             <button

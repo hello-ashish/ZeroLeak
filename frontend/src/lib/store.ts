@@ -4,6 +4,7 @@ export type PageType =
   | 'landing' 
   | 'admin' 
   | 'questions' 
+  | 'category-view'
   | 'blockchain' 
   | 'generator' 
   | 'soc' 

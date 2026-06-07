@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { apiClient } from '../../lib/api';
 import { 
   ShieldCheck, Lock, Clock, User, ArrowRight, CheckCircle, 
-  HelpCircle, AlertTriangle, ChevronLeft, ChevronRight, LogOut, Loader2
+  HelpCircle, AlertTriangle, ChevronLeft, ChevronRight, LogOut, Loader2, Sun, Moon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -81,6 +81,21 @@ const WatermarkCanvas: React.FC<{ studentId?: string; ipAddress?: string }> = ({
 
 export default function StudentCBTPage() {
   const [viewState, setViewState] = useState<CBTState>('login');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    const savedTheme = (localStorage.getItem('theme') as 'dark' | 'light') || 'dark';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+  };
+
 
   // Student Session
   const [studentIdInput, setStudentIdInput] = useState('');
@@ -795,7 +810,7 @@ export default function StudentCBTPage() {
 
   // Render sub-views
   return (
-    <div className={`bg-[#030712] text-slate-100 font-sans cyber-grid flex flex-col relative overflow-hidden ${viewState === 'cbt' ? 'h-screen' : 'min-h-screen'}`}>
+    <div className={`bg-background text-foreground font-sans cyber-grid flex flex-col relative overflow-hidden ${viewState === 'cbt' ? 'h-screen' : 'min-h-screen'}`}>
       {/* Background glow effects */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-indigo-500/5 blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none"></div>
@@ -808,18 +823,28 @@ export default function StudentCBTPage() {
             <span className="font-mono font-extrabold tracking-widest text-white text-md">ZeroLeak CBT Arena</span>
           </div>
           
-          {student && (
-            <div className="flex items-center gap-4 text-xs font-mono">
-              <span className="text-gray-400">Student: <span className="text-white font-bold">{student.name}</span></span>
-              <button 
-                onClick={handleLogout}
-                className="p-1 text-gray-500 hover:text-white transition-colors"
-                title="Logout"
-              >
-                <LogOut size={16} />
-              </button>
-            </div>
-          )}
+          <div className="flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-1.5 hover:bg-slate-900/60 rounded-lg text-gray-400 hover:text-white transition-colors"
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+            >
+              {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            </button>
+
+            {student && (
+              <div className="flex items-center gap-4 text-xs font-mono">
+                <span className="text-gray-400">Student: <span className="text-white font-bold">{student.name}</span></span>
+                <button 
+                  onClick={handleLogout}
+                  className="p-1 text-gray-500 hover:text-white transition-colors"
+                  title="Logout"
+                >
+                  <LogOut size={16} />
+                </button>
+              </div>
+            )}
+          </div>
         </header>
       )}
 
@@ -881,11 +906,22 @@ export default function StudentCBTPage() {
             VIEW 1: STUDENT LOGIN
             ======================================================== */}
         {!isBlocked && viewState === 'login' && (
-          <motion.div 
-            initial={{ opacity: 0, y: 15 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            className="w-full max-w-md glass-panel p-6 rounded-2xl border border-indigo-500/25 shadow-2xl relative overflow-hidden"
-          >
+          <div className="relative w-full max-w-md">
+            <div className="absolute top-4 right-4 z-50">
+              <button
+                onClick={toggleTheme}
+                className="p-2 bg-slate-900/80 hover:bg-slate-850 border border-slate-850 rounded-full text-gray-400 hover:text-white transition-colors shadow-lg"
+                title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              >
+                {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            </div>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              className="w-full glass-panel p-6 rounded-2xl border border-indigo-500/25 shadow-2xl relative overflow-hidden"
+            >
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-cyan-500 to-emerald-500"></div>
 
             <div className="text-center space-y-2 mb-6">
@@ -936,6 +972,7 @@ export default function StudentCBTPage() {
               </button>
             </form>
           </motion.div>
+          </div>
         )}
 
         {/* ========================================================
@@ -1074,14 +1111,24 @@ export default function StudentCBTPage() {
                   <p className="text-gray-400">Max Marks: <span className="text-white font-bold">{questions.length * 4} Marks</span></p>
                 </div>
                 
-                {/* Timer Display */}
-                <div className={`px-4 py-2 border rounded-xl flex items-center gap-2 text-sm font-bold ${
-                  timeLeft < 300 
-                    ? 'bg-rose-500/15 border-rose-500/30 text-rose-400 animate-pulse' 
-                    : 'bg-indigo-500/10 border-indigo-500/25 text-indigo-300'
-                }`}>
-                  <Clock size={16} />
-                  <span>{formatTime(timeLeft)}</span>
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={toggleTheme}
+                    className="p-1.5 hover:bg-slate-900/60 rounded-lg text-gray-400 hover:text-white transition-colors"
+                    title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+                  >
+                    {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                  </button>
+
+                  {/* Timer Display */}
+                  <div className={`px-4 py-2 border rounded-xl flex items-center gap-2 text-sm font-bold ${
+                    timeLeft < 300 
+                      ? 'bg-rose-500/15 border-rose-500/30 text-rose-400 animate-pulse' 
+                      : 'bg-indigo-500/10 border-indigo-500/25 text-indigo-300'
+                  }`}>
+                    <Clock size={16} />
+                    <span>{formatTime(timeLeft)}</span>
+                  </div>
                 </div>
               </div>
 

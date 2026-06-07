@@ -234,5 +234,18 @@ export const apiClient = {
     });
     if (!res.ok) throw new Error('Failed to fetch heartbeat status');
     return res.json();
+  },
+
+  async changeStudentPassword(studentId: string, passwordRaw: string, adminName: string) {
+    const res = await fetch(`${BASE_URL}/students/${studentId}/change-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ passwordRaw, adminName })
+    });
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.message || 'Failed to change student password');
+    }
+    return res.json();
   }
 };
