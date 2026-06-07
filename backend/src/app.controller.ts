@@ -468,6 +468,17 @@ export class AppController {
       );
     }
 
+    // Clean up corrupted active test sessions with no valid questions in database
+    if (student.activeTest) {
+      const validQuestionsCount = student.activeTest.questionIds.filter(qId =>
+        this.db.data.questions.some(quest => quest.id === qId)
+      ).length;
+      if (validQuestionsCount === 0) {
+        student.activeTest = undefined;
+        this.db.saveDatabase();
+      }
+    }
+
     // Check if active test is running from a different IP
     if (student.activeTest && student.activeTest.startedFromIp !== ip) {
       if (student.allowIpChange) {
@@ -567,6 +578,17 @@ export class AppController {
         student.blockedReason || 'This student account has been blocked due to security violations.',
         HttpStatus.FORBIDDEN
       );
+    }
+
+    // Clean up corrupted active test sessions with no valid questions in database
+    if (student.activeTest) {
+      const validQuestionsCount = student.activeTest.questionIds.filter(qId =>
+        this.db.data.questions.some(quest => quest.id === qId)
+      ).length;
+      if (validQuestionsCount === 0) {
+        student.activeTest = undefined;
+        this.db.saveDatabase();
+      }
     }
 
     // Check if student has already submitted a test for this subject

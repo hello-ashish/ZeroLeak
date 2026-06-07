@@ -81608,6 +81608,16 @@
       "entityId": "stu-1779817182456",
       "hashChain": "539e237e3cd9d047107b8800b4a6f07a01e882ba6054391d17309c3dbe1d8733",
       "details": "Unblocked student: Ashish (STU-2026-5119)"
+    },
+    {
+      "id": "audit-1780859696376-968",
+      "timestamp": 1780859696376,
+      "actor": "ADMIN",
+      "action": "UNBLOCK_STUDENT",
+      "entity": "Student",
+      "entityId": "stu-1779817182456",
+      "hashChain": "be5cb29c52d8456ffa4742a200e1ed8c031c3e0c1bd286224c9933047049f52f",
+      "details": "Unblocked student: Ashish (STU-2026-5119)"
     }
   ],
   "nodes": [
@@ -81740,39 +81750,6 @@
       "studentId": "STU-2026-5119",
       "passwordRaw": "DPp6PGqs",
       "createdAt": 1779817182456,
-      "activeTest": {
-        "subject": "UPSC-CSAT",
-        "startedFromIp": "152.58.152.112",
-        "startedAt": 1780078725898,
-        "questionIds": [
-          "q-upsc-csat-1779821440864-61-303",
-          "q-upsc-csat-1779821440840-15-312",
-          "q-upsc-csat-1779821440856-45-380",
-          "q-upsc-csat-1779821440857-47-676",
-          "q-upsc-csat-1779821440836-8-743",
-          "q-upsc-csat-1779821440844-21-17",
-          "q-upsc-csat-1779821440852-37-48",
-          "q-upsc-csat-1779821440855-43-134",
-          "q-upsc-csat-1779821440840-14-132",
-          "q-upsc-csat-1779821440871-74-444",
-          "q-upsc-csat-1779821440884-100-388",
-          "q-upsc-csat-1779821440835-6-883",
-          "q-upsc-csat-1779821440847-27-640",
-          "q-upsc-csat-1779821440849-31-93",
-          "q-upsc-csat-1779821440860-53-765",
-          "q-upsc-csat-1779821440832-1-432",
-          "q-upsc-csat-1779821440845-23-752",
-          "q-upsc-csat-1779821440848-30-700",
-          "q-upsc-csat-1779821440854-42-823",
-          "q-upsc-csat-1779821440877-85-252",
-          "q-upsc-csat-1779821440853-39-878",
-          "q-upsc-csat-1779821440837-9-997",
-          "q-upsc-csat-1779821440858-50-165",
-          "q-upsc-csat-1779821440833-2-712",
-          "q-upsc-csat-1779821440855-44-320"
-        ],
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
-      },
       "isBlocked": false,
       "allowIpChange": true
     },

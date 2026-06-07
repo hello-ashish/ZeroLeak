@@ -669,7 +669,7 @@ export default function StudentCBTPage() {
         console.error('Failed to load student submissions status:', subErr);
       }
 
-      if (res.activeTest) {
+      if (res.activeTest && res.activeTest.questions && res.activeTest.questions.length > 0) {
         // Active test found, resume!
         setQuestions(res.activeTest.questions);
         setSelectedSubject(res.activeTest.subject);
