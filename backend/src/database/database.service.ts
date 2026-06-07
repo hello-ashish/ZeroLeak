@@ -95,6 +95,7 @@ export interface Student {
   createdAt: number;
   isBlocked?: boolean;
   blockedReason?: string;
+  allowIpChange?: boolean;
   activeTest?: {
     subject: string;
     startedFromIp: string;

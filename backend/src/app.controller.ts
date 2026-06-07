@@ -15,6 +15,11 @@ export class AppController {
     private readonly events: EventsGateway
   ) {}
 
+  private getClientIp(xForwardedFor?: string): string {
+    if (!xForwardedFor) return '127.0.0.1';
+    return xForwardedFor.split(',')[0].trim();
+  }
+
   // ==========================================
   // SYSTEM STATS & SETTINGS
   // ==========================================
@@ -186,7 +191,7 @@ export class AppController {
     @Headers('x-forwarded-for') xForwardedFor?: string,
     @Headers('user-agent') userAgent?: string
   ) {
-    const ip = xForwardedFor || '127.0.0.1';
+    const ip = this.getClientIp(xForwardedFor);
     const agent = userAgent || 'Mozilla/5.0';
 
     if (!body.examId) {
@@ -440,7 +445,7 @@ export class AppController {
     @Headers('user-agent') userAgent?: string
   ) {
     const { studentId, passwordRaw } = body;
-    const ip = xForwardedFor || '127.0.0.1';
+    const ip = this.getClientIp(xForwardedFor);
     const agent = userAgent || 'Mozilla/5.0';
 
     if (!studentId || !passwordRaw) {
@@ -465,23 +470,29 @@ export class AppController {
 
     // Check if active test is running from a different IP
     if (student.activeTest && student.activeTest.startedFromIp !== ip) {
-      // Block the student immediately
-      student.isBlocked = true;
-      student.blockedReason = `Multi-device login attempt during active test (Original IP: ${student.activeTest.startedFromIp}, New IP: ${ip})`;
-      
-      this.agents.logSecurityAlert(
-        'MULTIPLE_IP_ACCESS',
-        'Critical',
-        `Student ${student.name} (${student.studentId}) blocked. Running test opened on another IP address. Original: ${student.activeTest.startedFromIp}, New: ${ip}`,
-        ip,
-        agent
-      );
-      this.db.saveDatabase();
+      if (student.allowIpChange) {
+        student.activeTest.startedFromIp = ip;
+        student.allowIpChange = false;
+        this.db.saveDatabase();
+      } else {
+        // Block the student immediately
+        student.isBlocked = true;
+        student.blockedReason = `Multi-device login attempt during active test (Original IP: ${student.activeTest.startedFromIp}, New IP: ${ip})`;
+        
+        this.agents.logSecurityAlert(
+          'MULTIPLE_IP_ACCESS',
+          'Critical',
+          `Student ${student.name} (${student.studentId}) blocked. Running test opened on another IP address. Original: ${student.activeTest.startedFromIp}, New: ${ip}`,
+          ip,
+          agent
+        );
+        this.db.saveDatabase();
 
-      throw new HttpException(
-        'This student account is blocked due to security violations (multi-IP access detected).',
-        HttpStatus.FORBIDDEN
-      );
+        throw new HttpException(
+          'This student account is blocked due to security violations (multi-IP access detected).',
+          HttpStatus.FORBIDDEN
+        );
+      }
     }
 
     // Support resuming test if same IP
@@ -537,7 +548,7 @@ export class AppController {
     @Headers('user-agent') userAgent?: string
   ) {
     const { studentId, subject } = body;
-    const ip = xForwardedFor || '127.0.0.1';
+    const ip = this.getClientIp(xForwardedFor);
     const agent = userAgent || 'Mozilla/5.0';
 
     if (!studentId || !subject) {
@@ -576,23 +587,29 @@ export class AppController {
     // Check if there is an active test
     if (student.activeTest) {
       if (student.activeTest.startedFromIp !== ip) {
-        // Block student due to access from another IP address
-        student.isBlocked = true;
-        student.blockedReason = `Running test opened on another IP address (Original IP: ${student.activeTest.startedFromIp}, Request IP: ${ip})`;
-        
-        this.agents.logSecurityAlert(
-          'MULTIPLE_IP_ACCESS',
-          'Critical',
-          `Student ${student.name} (${student.studentId}) blocked. Running test opened on another IP address. Original: ${student.activeTest.startedFromIp}, New: ${ip}`,
-          ip,
-          agent
-        );
-        this.db.saveDatabase();
+        if (student.allowIpChange) {
+          student.activeTest.startedFromIp = ip;
+          student.allowIpChange = false;
+          this.db.saveDatabase();
+        } else {
+          // Block student due to access from another IP address
+          student.isBlocked = true;
+          student.blockedReason = `Running test opened on another IP address (Original IP: ${student.activeTest.startedFromIp}, Request IP: ${ip})`;
+          
+          this.agents.logSecurityAlert(
+            'MULTIPLE_IP_ACCESS',
+            'Critical',
+            `Student ${student.name} (${student.studentId}) blocked. Running test opened on another IP address. Original: ${student.activeTest.startedFromIp}, New: ${ip}`,
+            ip,
+            agent
+          );
+          this.db.saveDatabase();
 
-        throw new HttpException(
-          'Access Denied. Account blocked due to security violations (multi-IP access detected).',
-          HttpStatus.FORBIDDEN
-        );
+          throw new HttpException(
+            'Access Denied. Account blocked due to security violations (multi-IP access detected).',
+            HttpStatus.FORBIDDEN
+          );
+        }
       }
 
       // Resume test flow
@@ -855,7 +872,7 @@ export class AppController {
     @Headers('user-agent') userAgent?: string
   ) {
     const { studentId, cameraFrame, micVolume } = body;
-    const ip = xForwardedFor || '127.0.0.1';
+    const ip = this.getClientIp(xForwardedFor);
     const agent = userAgent || 'Mozilla/5.0';
 
     if (!studentId) {
@@ -874,20 +891,26 @@ export class AppController {
 
     // If active test exists, check IP address mismatch
     if (student.activeTest && student.activeTest.startedFromIp !== ip) {
-      // Block the student immediately
-      student.isBlocked = true;
-      student.blockedReason = `Running test accessed from another IP address (Original IP: ${student.activeTest.startedFromIp}, New IP: ${ip})`;
-      
-      this.agents.logSecurityAlert(
-        'MULTIPLE_IP_ACCESS',
-        'Critical',
-        `Student ${student.name} (${student.studentId}) blocked. Running test opened on another IP address. Original: ${student.activeTest.startedFromIp}, New: ${ip}`,
-        ip,
-        agent
-      );
-      this.db.saveDatabase();
+      if (student.allowIpChange) {
+        student.activeTest.startedFromIp = ip;
+        student.allowIpChange = false;
+        this.db.saveDatabase();
+      } else {
+        // Block the student immediately
+        student.isBlocked = true;
+        student.blockedReason = `Running test accessed from another IP address (Original IP: ${student.activeTest.startedFromIp}, New IP: ${ip})`;
+        
+        this.agents.logSecurityAlert(
+          'MULTIPLE_IP_ACCESS',
+          'Critical',
+          `Student ${student.name} (${student.studentId}) blocked. Running test opened on another IP address. Original: ${student.activeTest.startedFromIp}, New: ${ip}`,
+          ip,
+          agent
+        );
+        this.db.saveDatabase();
 
-      return { blocked: true, reason: student.blockedReason };
+        return { blocked: true, reason: student.blockedReason };
+      }
     }
 
     // Broadcast live telemetry to admin dashboards
@@ -913,7 +936,7 @@ export class AppController {
     @Headers('user-agent') userAgent?: string
   ) {
     const { reason, infractionType } = body;
-    const ip = xForwardedFor || '127.0.0.1';
+    const ip = this.getClientIp(xForwardedFor);
     const agent = userAgent || 'Mozilla/5.0';
 
     const students = this.db.data.students || [];
@@ -924,6 +947,7 @@ export class AppController {
 
     student.isBlocked = true;
     student.blockedReason = reason || 'Security protocol violation detected.';
+    student.allowIpChange = false;
     this.db.saveDatabase();
 
     // Log security alert in Security Monitoring Agent
@@ -957,6 +981,7 @@ export class AppController {
 
     student.isBlocked = false;
     student.blockedReason = undefined;
+    student.allowIpChange = true;
     this.db.saveDatabase();
 
     // Log this action to the Audit ledger

@@ -80852,6 +80852,30 @@
       "details": "Student Samay (STU-2026-4686) blocked. Reason: Student navigated away from the active examination window or switched browser tabs.",
       "blocked": true,
       "category": "ExamFraud"
+    },
+    {
+      "id": "sec-1780857595496-867",
+      "timestamp": 1780857595496,
+      "event": "MULTIPLE_IP_ACCESS",
+      "sourceIp": "152.58.152.112, 172.68.175.72, 10.25.131.3",
+      "deviceFingerprint": "curl/8.7.1",
+      "severity": "Critical",
+      "agent": "Security Monitoring Agent",
+      "details": "Student Ashish (STU-2026-5119) blocked. Running test opened on another IP address. Original: 127.0.0.1, New: 152.58.152.112, 172.68.175.72, 10.25.131.3",
+      "blocked": true,
+      "category": "ExamFraud"
+    },
+    {
+      "id": "sec-1780858057526-962",
+      "timestamp": 1780858057526,
+      "event": "MULTIPLE_IP_ACCESS",
+      "sourceIp": "192.168.1.5",
+      "deviceFingerprint": "curl/8.7.1",
+      "severity": "Critical",
+      "agent": "Security Monitoring Agent",
+      "details": "Student Ashish (STU-2026-5119) blocked. Running test opened on another IP address. Original: 152.58.152.112, New: 192.168.1.5",
+      "blocked": true,
+      "category": "ExamFraud"
     }
   ],
   "auditLogs": [
@@ -81564,6 +81588,26 @@
       "entityId": "stu-1779817200120",
       "hashChain": "4348449b32f5f0b91d47542d183309bce6deffa8f0b6162f5ae7989c1778aec8",
       "details": "Male Admin (Dr. AK Gupta) changed password of student Samay (STU-2026-4686)"
+    },
+    {
+      "id": "audit-1780857999854-755",
+      "timestamp": 1780857999854,
+      "actor": "ADMIN",
+      "action": "UNBLOCK_STUDENT",
+      "entity": "Student",
+      "entityId": "stu-1779817182456",
+      "hashChain": "592d463d669ebcf874e8ba3054f1a2f346f49cc8dc18b30bed5bdf38750f1a0e",
+      "details": "Unblocked student: Ashish (STU-2026-5119)"
+    },
+    {
+      "id": "audit-1780858082206-66",
+      "timestamp": 1780858082206,
+      "actor": "ADMIN",
+      "action": "UNBLOCK_STUDENT",
+      "entity": "Student",
+      "entityId": "stu-1779817182456",
+      "hashChain": "539e237e3cd9d047107b8800b4a6f07a01e882ba6054391d17309c3dbe1d8733",
+      "details": "Unblocked student: Ashish (STU-2026-5119)"
     }
   ],
   "nodes": [
@@ -81698,7 +81742,7 @@
       "createdAt": 1779817182456,
       "activeTest": {
         "subject": "UPSC-CSAT",
-        "startedFromIp": "127.0.0.1",
+        "startedFromIp": "152.58.152.112",
         "startedAt": 1780078725898,
         "questionIds": [
           "q-upsc-csat-1779821440864-61-303",
@@ -81729,7 +81773,8 @@
         ],
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
       },
-      "isBlocked": false
+      "isBlocked": false,
+      "allowIpChange": true
     },
     {
       "id": "stu-1779817200120",
@@ -82643,8 +82688,8 @@
   ],
   "systemConfig": {
     "kmsMasterKey": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
-    "securityScore": 50,
-    "threatLevel": "High",
+    "securityScore": 0,
+    "threatLevel": "Critical",
     "mfaSecret": "BDEPGS-ADMIN-MFA-SECRET-KEY",
     "trustedAdminPublicKey": "-----BEGIN PUBLIC KEY-----\nMFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAEFwl/pDXQIrQQ2ptZTW15Nuw5yOYx0Iss\nw7Gbc5s2DLiJ1Lhvwp3iCIwdvEmwESCsnYM04BQc9tvmOzsukZwNvQ==\n-----END PUBLIC KEY-----\n",
     "trustedAdminPrivateKey": "-----BEGIN PRIVATE KEY-----\nMIGEAgEAMBAGByqGSM49AgEGBSuBBAAKBG0wawIBAQQgztOf8PDGUGdUQWHfDUbz\ni/hfWHV8zrD4jsazQ4dk9/uhRANCAAQXCX+kNdAitBDam1lNbXk27DnI5jHQiyzD\nsZtzmzYMuInUuG/CneIIjB28SbARIKydgzTgFBz22+Y7Oy6RnA29\n-----END PRIVATE KEY-----\n"
