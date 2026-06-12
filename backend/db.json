@@ -81618,6 +81618,36 @@
       "entityId": "stu-1779817182456",
       "hashChain": "be5cb29c52d8456ffa4742a200e1ed8c031c3e0c1bd286224c9933047049f52f",
       "details": "Unblocked student: Ashish (STU-2026-5119)"
+    },
+    {
+      "id": "audit-1781246478876-44",
+      "timestamp": 1781246478877,
+      "actor": "STUDENT",
+      "action": "SUBMIT_TEST",
+      "entity": "TestSubmission",
+      "entityId": "sub-1781246478849-312",
+      "hashChain": "7740ebfa48889a73525e69bd2b6706948d03dafbb7d933a72a06006eaa4142d5",
+      "details": "Student Ashish Test (STU-2026-2670) submitted CBT test for Physics. Score: 0/320"
+    },
+    {
+      "id": "audit-1781246478928-122",
+      "timestamp": 1781246478928,
+      "actor": "STUDENT",
+      "action": "SUBMIT_TEST",
+      "entity": "TestSubmission",
+      "entityId": "sub-1781246478912-240",
+      "hashChain": "262e285e104cdf21126df010569bf5ad71d81ddfc9f14d6d13b15b311992e6ad",
+      "details": "Student Ashish Test (STU-2026-2670) submitted CBT test for Physics. Score: 0/320"
+    },
+    {
+      "id": "audit-1781247254536-423",
+      "timestamp": 1781247254536,
+      "actor": "STUDENT",
+      "action": "SUBMIT_TEST",
+      "entity": "TestSubmission",
+      "entityId": "sub-1781247254517-462",
+      "hashChain": "52bb9d2ae4a0d976921ac7c7b5a6659782b6f5b343f57d64ab314a066fbb56ef",
+      "details": "Student Ashish (STU-2026-5119) submitted CBT test for Physics. Score: -1/320"
     }
   ],
   "nodes": [
@@ -81653,95 +81683,7 @@
       "email": "ashish.test@gmail.com",
       "studentId": "STU-2026-2670",
       "passwordRaw": "tpnxQsGV",
-      "createdAt": 1779816975692,
-      "activeTest": {
-        "subject": "Physics",
-        "startedFromIp": "127.0.0.1",
-        "startedAt": 1780692392658,
-        "questionIds": [
-          "q-physics-1780692004484-easy-32",
-          "q-physics-1780692004486-easy-37",
-          "q-physics-1780692004705-easy-463",
-          "q-physics-1780692004495-easy-54",
-          "q-physics-1780692004703-easy-458",
-          "q-physics-1780692004469-easy-4",
-          "q-physics-1780692004790-easy-629",
-          "q-physics-1780692004953-easy-953",
-          "q-physics-1780692004736-easy-523",
-          "q-physics-1780692004733-easy-517",
-          "q-physics-1780692004730-easy-511",
-          "q-physics-1780692004475-easy-15",
-          "q-physics-1780692004638-easy-331",
-          "q-physics-1780692004747-easy-545",
-          "q-physics-1780692004488-easy-40",
-          "q-physics-1780692004756-easy-562",
-          "q-physics-1780692004623-easy-302",
-          "q-physics-1780692004735-easy-521",
-          "q-physics-1780692004474-easy-13",
-          "q-physics-1780692004484-easy-33",
-          "q-physics-1780692004590-easy-237",
-          "q-physics-1780692004677-easy-408",
-          "q-physics-1780692004671-easy-397",
-          "q-physics-1780692004746-easy-542",
-          "q-physics-1780692005108-medium-253",
-          "q-physics-1780692005001-medium-47",
-          "q-physics-1780692005215-medium-465",
-          "q-physics-1780692005166-medium-368",
-          "q-physics-1780692005198-medium-432",
-          "q-physics-1780692005045-medium-129",
-          "q-physics-1780692005129-medium-294",
-          "q-physics-1780692005324-medium-681",
-          "q-physics-1780692005057-medium-153",
-          "q-physics-1780692005074-medium-185",
-          "q-physics-1780692005185-medium-405",
-          "q-physics-1780692005199-medium-434",
-          "q-physics-1780692005066-medium-170",
-          "q-physics-1780692005055-medium-148",
-          "q-physics-1780692005172-medium-380",
-          "q-physics-1780692005051-medium-141",
-          "q-physics-1780692005059-medium-156",
-          "q-physics-1780692005056-medium-151",
-          "q-physics-1780692005194-medium-423",
-          "q-physics-1780692005068-medium-175",
-          "q-physics-1780692005109-medium-256",
-          "q-physics-1780692005194-medium-424",
-          "q-physics-1780692005045-medium-130",
-          "q-physics-1780692005123-medium-283",
-          "q-physics-1780692005052-medium-143",
-          "q-physics-1780692005121-medium-279",
-          "q-physics-1780692005052-medium-142",
-          "q-physics-1780692005050-medium-138",
-          "q-physics-1780692004997-medium-40",
-          "q-physics-1780692005067-medium-172",
-          "q-physics-1780692005047-medium-133",
-          "q-physics-1780692005058-medium-155",
-          "q-physics-1780692005581-hard-190",
-          "q-physics-1780692005825-hard-672",
-          "q-physics-1780692005925-hard-850",
-          "q-physics-1780692005759-hard-541",
-          "q-physics-1780692005783-hard-590",
-          "q-physics-1780692005845-hard-712",
-          "q-physics-1780692005788-hard-599",
-          "q-physics-1780692005802-hard-628",
-          "q-physics-1780692005785-hard-594",
-          "q-physics-1780692005803-hard-630",
-          "q-physics-1780692005831-hard-685",
-          "q-physics-1780692005848-hard-719",
-          "q-physics-1780692005863-hard-737",
-          "q-physics-1780692005817-hard-657",
-          "q-physics-1780692005834-hard-690",
-          "q-physics-1780692005771-hard-566",
-          "q-physics-1780692005832-hard-687",
-          "q-physics-1780692005772-hard-568",
-          "q-physics-1780692005789-hard-602",
-          "q-physics-1780692005818-hard-658",
-          "q-physics-1780692005877-hard-764",
-          "q-physics-1780692005776-hard-575",
-          "q-physics-1780692005859-hard-731",
-          "q-physics-1780692005864-hard-740"
-        ],
-        "userAgent": "curl/8.7.1"
-      }
+      "createdAt": 1779816975692
     },
     {
       "id": "stu-1779817182456",
@@ -82659,6 +82601,2684 @@
             "D": "23 rad/s"
           },
           "correctOption": "B"
+        }
+      ]
+    },
+    {
+      "id": "sub-1781246478849-312",
+      "studentId": "STU-2026-2670",
+      "studentName": "Ashish Test",
+      "subject": "Physics",
+      "score": 0,
+      "maxMarks": 320,
+      "submittedAt": 1781246478849,
+      "answers": {},
+      "questions": [
+        {
+          "id": "q-physics-1780692004484-easy-32",
+          "description": "Physics NEET Concept #32: A constant force of 42 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "11.50 m/s^2",
+            "B": "8.40 m/s^2",
+            "C": "10.50 m/s^2",
+            "D": "14.00 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004486-easy-37",
+          "description": "Physics NEET Concept #37: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004705-easy-463",
+          "description": "Physics NEET Concept #463: If the temperature of a gas is raised from 23°C to 123°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004495-easy-54",
+          "description": "Physics NEET Concept #54: Two resistors of values 5 ohms and 8 ohms are connected in series. Find their equivalent resistance in ohms.",
+          "options": {
+            "A": "13 ohms",
+            "B": "3.076923076923077 ohms",
+            "C": "18 ohms",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004703-easy-458",
+          "description": "Physics NEET Concept #458: An electromagnetic wave has wavelength 358 nm. This wavelength lies in which region of the spectrum?",
+          "options": {
+            "A": "Infrared",
+            "B": "X-rays",
+            "C": "Ultraviolet",
+            "D": "Microwave"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004469-easy-4",
+          "description": "Physics NEET Concept #4: Two resistors of values 5 ohms and 6 ohms are connected in series. Find their equivalent resistance in ohms.",
+          "options": {
+            "A": "11 ohms",
+            "B": "2.727272727272727 ohms",
+            "C": "16 ohms",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004790-easy-629",
+          "description": "Physics NEET Concept #629: In a semiconductor at absolute zero temperature, the conduction band is:",
+          "options": {
+            "A": "Completely filled",
+            "B": "Half-filled",
+            "C": "Completely empty",
+            "D": "Moderately populated"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004953-easy-953",
+          "description": "Physics NEET Concept #953: If the temperature of a gas is raised from 63°C to 163°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004736-easy-523",
+          "description": "Physics NEET Concept #523: If the temperature of a gas is raised from 83°C to 183°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004733-easy-517",
+          "description": "Physics NEET Concept #517: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004730-easy-511",
+          "description": "Physics NEET Concept #511: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004475-easy-15",
+          "description": "Physics NEET Concept #15: Light wave of wavelength 415 nm travels from vacuum into a medium. Which of the following parameters remains constant?",
+          "options": {
+            "A": "Wavelength",
+            "B": "Velocity",
+            "C": "Frequency",
+            "D": "Amplitude"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004638-easy-331",
+          "description": "Physics NEET Concept #331: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004747-easy-545",
+          "description": "Physics NEET Concept #545: Light wave of wavelength 645 nm travels from vacuum into a medium. Which of the following parameters remains constant?",
+          "options": {
+            "A": "Wavelength",
+            "B": "Velocity",
+            "C": "Frequency",
+            "D": "Amplitude"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004488-easy-40",
+          "description": "Physics NEET Concept #40: What is the standard SI unit of Magnetic Flux?",
+          "options": {
+            "A": "Weber",
+            "B": "Tesla",
+            "C": "Joule-second",
+            "D": "Coulomb-meter"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004756-easy-562",
+          "description": "Physics NEET Concept #562: A constant force of 22 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "6.50 m/s^2",
+            "B": "4.40 m/s^2",
+            "C": "5.50 m/s^2",
+            "D": "9.00 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004623-easy-302",
+          "description": "Physics NEET Concept #302: A constant force of 12 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "4.00 m/s^2",
+            "B": "2.40 m/s^2",
+            "C": "3.00 m/s^2",
+            "D": "6.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004735-easy-521",
+          "description": "Physics NEET Concept #521: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004474-easy-13",
+          "description": "Physics NEET Concept #13: If the temperature of a gas is raised from 23°C to 123°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004484-easy-33",
+          "description": "Physics NEET Concept #33: If the temperature of a gas is raised from 43°C to 143°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004590-easy-237",
+          "description": "Physics NEET Concept #237: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004677-easy-408",
+          "description": "Physics NEET Concept #408: An electromagnetic wave has wavelength 308 nm. This wavelength lies in which region of the spectrum?",
+          "options": {
+            "A": "Infrared",
+            "B": "X-rays",
+            "C": "Ultraviolet",
+            "D": "Microwave"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004671-easy-397",
+          "description": "Physics NEET Concept #397: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004746-easy-542",
+          "description": "Physics NEET Concept #542: A constant force of 52 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "14.00 m/s^2",
+            "B": "10.40 m/s^2",
+            "C": "13.00 m/s^2",
+            "D": "16.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005108-medium-253",
+          "description": "Physics NEET Concept #253: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 153 V?",
+          "options": {
+            "A": "1.492 Å",
+            "B": "1.488 Å",
+            "C": "0.992 Å",
+            "D": "0.892 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005001-medium-47",
+          "description": "Physics NEET Concept #47: In a double-slit experiment, the slits are separated by 0.4 mm and the screen is placed 1.5 m away. For light of wavelength 600 nm, find the fringe width in mm.",
+          "options": {
+            "A": "1.200 mm",
+            "B": "2.250 mm",
+            "C": "0.450 mm",
+            "D": "2.500 mm"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005215-medium-465",
+          "description": "Physics NEET Concept #465: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005166-medium-368",
+          "description": "Physics NEET Concept #368: A spring of spring constant 468 N/m is stretched by 13 cm from its equilibrium position. Calculate the potential energy stored.",
+          "options": {
+            "A": "7.910 J",
+            "B": "3.955 J",
+            "C": "3.905 J",
+            "D": "5.205 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005198-medium-432",
+          "description": "Physics NEET Concept #432: A solenoid of length 0.7 m has 932 turns and carries a steady current of 2 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "3.346e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005045-medium-129",
+          "description": "Physics NEET Concept #129: A block slides down a smooth inclined plane of inclination 39 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.29 m/s^2",
+            "C": "7.77 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005129-medium-294",
+          "description": "Physics NEET Concept #294: An AC generator voltage is given by v = 154 sin(100 pi t) Volts. It is connected to a resistance of 24 ohms. The RMS current value is:",
+          "options": {
+            "A": "6.42 A",
+            "B": "4.54 A",
+            "C": "2.27 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005324-medium-681",
+          "description": "Physics NEET Concept #681: A Carnot engine operates between reservoirs at temperatures T1 = 612 K and T2 = 381 K. Determine the thermodynamic efficiency.",
+          "options": {
+            "A": "37.7%",
+            "B": "27.7%",
+            "C": "45.7%",
+            "D": "100%"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005057-medium-153",
+          "description": "Physics NEET Concept #153: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 53 V?",
+          "options": {
+            "A": "2.185 Å",
+            "B": "2.527 Å",
+            "C": "1.685 Å",
+            "D": "1.585 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005074-medium-185",
+          "description": "Physics NEET Concept #185: A radioactive isotope has a half-life of 9 days. What fraction of the original sample remains undecayed after 27 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005185-medium-405",
+          "description": "Physics NEET Concept #405: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005199-medium-434",
+          "description": "Physics NEET Concept #434: An AC generator voltage is given by v = 174 sin(100 pi t) Volts. It is connected to a resistance of 44 ohms. The RMS current value is:",
+          "options": {
+            "A": "3.96 A",
+            "B": "2.80 A",
+            "C": "1.40 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005066-medium-170",
+          "description": "Physics NEET Concept #170: A projectile is fired from the ground with an initial velocity of 40 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "30.62 m",
+            "B": "20.41 m",
+            "C": "15.41 m",
+            "D": "32.71 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005055-medium-148",
+          "description": "Physics NEET Concept #148: A spring of spring constant 248 N/m is stretched by 13 cm from its equilibrium position. Calculate the potential energy stored.",
+          "options": {
+            "A": "4.192 J",
+            "B": "2.096 J",
+            "C": "2.046 J",
+            "D": "3.346 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005172-medium-380",
+          "description": "Physics NEET Concept #380: A projectile is fired from the ground with an initial velocity of 40 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "30.62 m",
+            "B": "20.41 m",
+            "C": "15.41 m",
+            "D": "32.71 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005051-medium-141",
+          "description": "Physics NEET Concept #141: A Carnot engine operates between reservoirs at temperatures T1 = 632 K and T2 = 341 K. Determine the thermodynamic efficiency.",
+          "options": {
+            "A": "46.0%",
+            "B": "36.0%",
+            "C": "54.0%",
+            "D": "100%"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005059-medium-156",
+          "description": "Physics NEET Concept #156: A concave mirror of focal length 26 cm forms a real image magnified 2 times. Find the object distance from the mirror pole.",
+          "options": {
+            "A": "39.0 cm",
+            "B": "26 cm",
+            "C": "52 cm",
+            "D": "49.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005056-medium-151",
+          "description": "Physics NEET Concept #151: A Carnot engine operates between reservoirs at temperatures T1 = 502 K and T2 = 351 K. Determine the thermodynamic efficiency.",
+          "options": {
+            "A": "30.1%",
+            "B": "20.1%",
+            "C": "38.1%",
+            "D": "100%"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005194-medium-423",
+          "description": "Physics NEET Concept #423: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 173 V?",
+          "options": {
+            "A": "1.433 Å",
+            "B": "1.400 Å",
+            "C": "0.933 Å",
+            "D": "0.833 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005068-medium-175",
+          "description": "Physics NEET Concept #175: A radioactive isotope has a half-life of 5 days. What fraction of the original sample remains undecayed after 15 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005109-medium-256",
+          "description": "Physics NEET Concept #256: A concave mirror of focal length 26 cm forms a real image magnified 2 times. Find the object distance from the mirror pole.",
+          "options": {
+            "A": "39.0 cm",
+            "B": "26 cm",
+            "C": "52 cm",
+            "D": "49.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005194-medium-424",
+          "description": "Physics NEET Concept #424: An AC generator voltage is given by v = 164 sin(100 pi t) Volts. It is connected to a resistance of 34 ohms. The RMS current value is:",
+          "options": {
+            "A": "4.82 A",
+            "B": "3.41 A",
+            "C": "1.71 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005045-medium-130",
+          "description": "Physics NEET Concept #130: A projectile is fired from the ground with an initial velocity of 30 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "17.22 m",
+            "B": "11.48 m",
+            "C": "6.48 m",
+            "D": "23.78 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005123-medium-283",
+          "description": "Physics NEET Concept #283: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 183 V?",
+          "options": {
+            "A": "1.407 Å",
+            "B": "1.361 Å",
+            "C": "0.907 Å",
+            "D": "0.807 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005052-medium-143",
+          "description": "Physics NEET Concept #143: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 193 V?",
+          "options": {
+            "A": "1.383 Å",
+            "B": "1.325 Å",
+            "C": "0.883 Å",
+            "D": "0.783 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005121-medium-279",
+          "description": "Physics NEET Concept #279: A block slides down a smooth inclined plane of inclination 39 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.29 m/s^2",
+            "C": "7.77 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005052-medium-142",
+          "description": "Physics NEET Concept #142: A solenoid of length 0.7 m has 642 turns and carries a steady current of 4 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "4.610e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005050-medium-138",
+          "description": "Physics NEET Concept #138: A spring of spring constant 238 N/m is stretched by 13 cm from its equilibrium position. Calculate the potential energy stored.",
+          "options": {
+            "A": "4.022 J",
+            "B": "2.011 J",
+            "C": "1.961 J",
+            "D": "3.261 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004997-medium-40",
+          "description": "Physics NEET Concept #40: A projectile is fired from the ground with an initial velocity of 30 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "17.22 m",
+            "B": "11.48 m",
+            "C": "6.48 m",
+            "D": "23.78 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005067-medium-172",
+          "description": "Physics NEET Concept #172: A solenoid of length 0.7 m has 672 turns and carries a steady current of 2 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "2.413e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005047-medium-133",
+          "description": "Physics NEET Concept #133: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 183 V?",
+          "options": {
+            "A": "1.407 Å",
+            "B": "1.361 Å",
+            "C": "0.907 Å",
+            "D": "0.807 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005058-medium-155",
+          "description": "Physics NEET Concept #155: A radioactive isotope has a half-life of 9 days. What fraction of the original sample remains undecayed after 27 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005581-hard-190",
+          "description": "Physics NEET Concept #190: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005825-hard-672",
+          "description": "Physics NEET Concept #672: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 17 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "3.72",
+            "B": "5.58",
+            "C": "1.86",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005925-hard-850",
+          "description": "Physics NEET Concept #850: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005759-hard-541",
+          "description": "Physics NEET Concept #541: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005783-hard-590",
+          "description": "Physics NEET Concept #590: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005845-hard-712",
+          "description": "Physics NEET Concept #712: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 12 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "5.27",
+            "B": "7.90",
+            "C": "2.63",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005788-hard-599",
+          "description": "Physics NEET Concept #599: A string of length 0.7 m and mass per unit length 1.40e-3 kg/m is kept under a tension of 49 N. Find the fundamental frequency of transverse waves.",
+          "options": {
+            "A": "150 Hz",
+            "B": "133.6 Hz",
+            "C": "267.2 Hz",
+            "D": "50 Hz"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005802-hard-628",
+          "description": "Physics NEET Concept #628: An astronomical telescope has an objective focal length of 128 cm and eyepiece of focal length 2 cm. Find its magnifying power and tube length respectively in normal adjustment.",
+          "options": {
+            "A": "Magnification: 64.0, Length: 130.0 cm",
+            "B": "Magnification: 2, Length: 128 cm",
+            "C": "Magnification: 64.0, Length: 126.0 cm",
+            "D": "Magnification: 1.0, Length: 130.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005785-hard-594",
+          "description": "Physics NEET Concept #594: Calculate the electrical potential in Volts at a distance of 5 m on the axial line of an electric dipole of dipole moment 5 x 10^-9 C-m in free space.",
+          "options": {
+            "A": "1.8 V",
+            "B": "3.6 V",
+            "C": "0.9 V",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005803-hard-630",
+          "description": "Physics NEET Concept #630: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005831-hard-685",
+          "description": "Physics NEET Concept #685: In a hydrogen atom, an electron falls from orbit n = 3 to orbit n = 2. Find the wavelength of the emitted spectral line.",
+          "options": {
+            "A": "121.6 nm",
+            "B": "486.1 nm",
+            "C": "656.3 nm",
+            "D": "91.2 nm"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005848-hard-719",
+          "description": "Physics NEET Concept #719: A string of length 0.7 m and mass per unit length 1.40e-3 kg/m is kept under a tension of 49 N. Find the fundamental frequency of transverse waves.",
+          "options": {
+            "A": "150 Hz",
+            "B": "133.6 Hz",
+            "C": "267.2 Hz",
+            "D": "50 Hz"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005863-hard-737",
+          "description": "Physics NEET Concept #737: Find the speed of sound in helium gas at a temperature of 64°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "1030.5 m/s",
+            "B": "1080.5 m/s",
+            "C": "1200.5 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005817-hard-657",
+          "description": "Physics NEET Concept #657: Find the speed of sound in helium gas at a temperature of 84°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "1062.1 m/s",
+            "B": "1112.1 m/s",
+            "C": "1232.1 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005834-hard-690",
+          "description": "Physics NEET Concept #690: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005771-hard-566",
+          "description": "Physics NEET Concept #566: The magnetic flux linked with a coil is given by the relation phi = 4t^2 + 2t + 5 (in milliwebers). What is the magnitude of induced EMF in mV at t = 2 seconds?",
+          "options": {
+            "A": "18 mV",
+            "B": "28 mV",
+            "C": "15 mV",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005832-hard-687",
+          "description": "Physics NEET Concept #687: Find the speed of sound in helium gas at a temperature of 114°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "1107.9 m/s",
+            "B": "1157.9 m/s",
+            "C": "1277.9 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005772-hard-568",
+          "description": "Physics NEET Concept #568: An astronomical telescope has an objective focal length of 118 cm and eyepiece of focal length 2 cm. Find its magnifying power and tube length respectively in normal adjustment.",
+          "options": {
+            "A": "Magnification: 59.0, Length: 120.0 cm",
+            "B": "Magnification: 2, Length: 118 cm",
+            "C": "Magnification: 59.0, Length: 116.0 cm",
+            "D": "Magnification: 1.0, Length: 120.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005789-hard-602",
+          "description": "Physics NEET Concept #602: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 7 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "9.04",
+            "B": "13.56",
+            "C": "4.52",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005818-hard-658",
+          "description": "Physics NEET Concept #658: An astronomical telescope has an objective focal length of 108 cm and eyepiece of focal length 4 cm. Find its magnifying power and tube length respectively in normal adjustment.",
+          "options": {
+            "A": "Magnification: 27.0, Length: 112.0 cm",
+            "B": "Magnification: 4, Length: 108 cm",
+            "C": "Magnification: 27.0, Length: 104.0 cm",
+            "D": "Magnification: 1.0, Length: 112.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005877-hard-764",
+          "description": "Physics NEET Concept #764: Calculate the electrical potential in Volts at a distance of 5 m on the axial line of an electric dipole of dipole moment 5 x 10^-9 C-m in free space.",
+          "options": {
+            "A": "1.8 V",
+            "B": "3.6 V",
+            "C": "0.9 V",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005776-hard-575",
+          "description": "Physics NEET Concept #575: In a hydrogen atom, an electron falls from orbit n = 3 to orbit n = 2. Find the wavelength of the emitted spectral line.",
+          "options": {
+            "A": "121.6 nm",
+            "B": "486.1 nm",
+            "C": "656.3 nm",
+            "D": "91.2 nm"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005859-hard-731",
+          "description": "Physics NEET Concept #731: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005864-hard-740",
+          "description": "Physics NEET Concept #740: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        }
+      ]
+    },
+    {
+      "id": "sub-1781246478912-240",
+      "studentId": "STU-2026-2670",
+      "studentName": "Ashish Test",
+      "subject": "Physics",
+      "score": 0,
+      "maxMarks": 320,
+      "submittedAt": 1781246478912,
+      "answers": {},
+      "questions": [
+        {
+          "id": "q-physics-1780692004484-easy-32",
+          "description": "Physics NEET Concept #32: A constant force of 42 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "11.50 m/s^2",
+            "B": "8.40 m/s^2",
+            "C": "10.50 m/s^2",
+            "D": "14.00 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004486-easy-37",
+          "description": "Physics NEET Concept #37: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004705-easy-463",
+          "description": "Physics NEET Concept #463: If the temperature of a gas is raised from 23°C to 123°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004495-easy-54",
+          "description": "Physics NEET Concept #54: Two resistors of values 5 ohms and 8 ohms are connected in series. Find their equivalent resistance in ohms.",
+          "options": {
+            "A": "13 ohms",
+            "B": "3.076923076923077 ohms",
+            "C": "18 ohms",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004703-easy-458",
+          "description": "Physics NEET Concept #458: An electromagnetic wave has wavelength 358 nm. This wavelength lies in which region of the spectrum?",
+          "options": {
+            "A": "Infrared",
+            "B": "X-rays",
+            "C": "Ultraviolet",
+            "D": "Microwave"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004469-easy-4",
+          "description": "Physics NEET Concept #4: Two resistors of values 5 ohms and 6 ohms are connected in series. Find their equivalent resistance in ohms.",
+          "options": {
+            "A": "11 ohms",
+            "B": "2.727272727272727 ohms",
+            "C": "16 ohms",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004790-easy-629",
+          "description": "Physics NEET Concept #629: In a semiconductor at absolute zero temperature, the conduction band is:",
+          "options": {
+            "A": "Completely filled",
+            "B": "Half-filled",
+            "C": "Completely empty",
+            "D": "Moderately populated"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004953-easy-953",
+          "description": "Physics NEET Concept #953: If the temperature of a gas is raised from 63°C to 163°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004736-easy-523",
+          "description": "Physics NEET Concept #523: If the temperature of a gas is raised from 83°C to 183°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004733-easy-517",
+          "description": "Physics NEET Concept #517: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004730-easy-511",
+          "description": "Physics NEET Concept #511: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004475-easy-15",
+          "description": "Physics NEET Concept #15: Light wave of wavelength 415 nm travels from vacuum into a medium. Which of the following parameters remains constant?",
+          "options": {
+            "A": "Wavelength",
+            "B": "Velocity",
+            "C": "Frequency",
+            "D": "Amplitude"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004638-easy-331",
+          "description": "Physics NEET Concept #331: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004747-easy-545",
+          "description": "Physics NEET Concept #545: Light wave of wavelength 645 nm travels from vacuum into a medium. Which of the following parameters remains constant?",
+          "options": {
+            "A": "Wavelength",
+            "B": "Velocity",
+            "C": "Frequency",
+            "D": "Amplitude"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004488-easy-40",
+          "description": "Physics NEET Concept #40: What is the standard SI unit of Magnetic Flux?",
+          "options": {
+            "A": "Weber",
+            "B": "Tesla",
+            "C": "Joule-second",
+            "D": "Coulomb-meter"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004756-easy-562",
+          "description": "Physics NEET Concept #562: A constant force of 22 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "6.50 m/s^2",
+            "B": "4.40 m/s^2",
+            "C": "5.50 m/s^2",
+            "D": "9.00 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004623-easy-302",
+          "description": "Physics NEET Concept #302: A constant force of 12 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "4.00 m/s^2",
+            "B": "2.40 m/s^2",
+            "C": "3.00 m/s^2",
+            "D": "6.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004735-easy-521",
+          "description": "Physics NEET Concept #521: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004474-easy-13",
+          "description": "Physics NEET Concept #13: If the temperature of a gas is raised from 23°C to 123°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004484-easy-33",
+          "description": "Physics NEET Concept #33: If the temperature of a gas is raised from 43°C to 143°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004590-easy-237",
+          "description": "Physics NEET Concept #237: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004677-easy-408",
+          "description": "Physics NEET Concept #408: An electromagnetic wave has wavelength 308 nm. This wavelength lies in which region of the spectrum?",
+          "options": {
+            "A": "Infrared",
+            "B": "X-rays",
+            "C": "Ultraviolet",
+            "D": "Microwave"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004671-easy-397",
+          "description": "Physics NEET Concept #397: If a person's weight on Earth is 77 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "38.5 kg-wt",
+            "B": "12.8 kg-wt",
+            "C": "Zero",
+            "D": "77 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004746-easy-542",
+          "description": "Physics NEET Concept #542: A constant force of 52 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "14.00 m/s^2",
+            "B": "10.40 m/s^2",
+            "C": "13.00 m/s^2",
+            "D": "16.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005108-medium-253",
+          "description": "Physics NEET Concept #253: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 153 V?",
+          "options": {
+            "A": "1.492 Å",
+            "B": "1.488 Å",
+            "C": "0.992 Å",
+            "D": "0.892 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005001-medium-47",
+          "description": "Physics NEET Concept #47: In a double-slit experiment, the slits are separated by 0.4 mm and the screen is placed 1.5 m away. For light of wavelength 600 nm, find the fringe width in mm.",
+          "options": {
+            "A": "1.200 mm",
+            "B": "2.250 mm",
+            "C": "0.450 mm",
+            "D": "2.500 mm"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005215-medium-465",
+          "description": "Physics NEET Concept #465: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005166-medium-368",
+          "description": "Physics NEET Concept #368: A spring of spring constant 468 N/m is stretched by 13 cm from its equilibrium position. Calculate the potential energy stored.",
+          "options": {
+            "A": "7.910 J",
+            "B": "3.955 J",
+            "C": "3.905 J",
+            "D": "5.205 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005198-medium-432",
+          "description": "Physics NEET Concept #432: A solenoid of length 0.7 m has 932 turns and carries a steady current of 2 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "3.346e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005045-medium-129",
+          "description": "Physics NEET Concept #129: A block slides down a smooth inclined plane of inclination 39 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.29 m/s^2",
+            "C": "7.77 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005129-medium-294",
+          "description": "Physics NEET Concept #294: An AC generator voltage is given by v = 154 sin(100 pi t) Volts. It is connected to a resistance of 24 ohms. The RMS current value is:",
+          "options": {
+            "A": "6.42 A",
+            "B": "4.54 A",
+            "C": "2.27 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005324-medium-681",
+          "description": "Physics NEET Concept #681: A Carnot engine operates between reservoirs at temperatures T1 = 612 K and T2 = 381 K. Determine the thermodynamic efficiency.",
+          "options": {
+            "A": "37.7%",
+            "B": "27.7%",
+            "C": "45.7%",
+            "D": "100%"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005057-medium-153",
+          "description": "Physics NEET Concept #153: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 53 V?",
+          "options": {
+            "A": "2.185 Å",
+            "B": "2.527 Å",
+            "C": "1.685 Å",
+            "D": "1.585 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005074-medium-185",
+          "description": "Physics NEET Concept #185: A radioactive isotope has a half-life of 9 days. What fraction of the original sample remains undecayed after 27 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005185-medium-405",
+          "description": "Physics NEET Concept #405: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005199-medium-434",
+          "description": "Physics NEET Concept #434: An AC generator voltage is given by v = 174 sin(100 pi t) Volts. It is connected to a resistance of 44 ohms. The RMS current value is:",
+          "options": {
+            "A": "3.96 A",
+            "B": "2.80 A",
+            "C": "1.40 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005066-medium-170",
+          "description": "Physics NEET Concept #170: A projectile is fired from the ground with an initial velocity of 40 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "30.62 m",
+            "B": "20.41 m",
+            "C": "15.41 m",
+            "D": "32.71 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005055-medium-148",
+          "description": "Physics NEET Concept #148: A spring of spring constant 248 N/m is stretched by 13 cm from its equilibrium position. Calculate the potential energy stored.",
+          "options": {
+            "A": "4.192 J",
+            "B": "2.096 J",
+            "C": "2.046 J",
+            "D": "3.346 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005172-medium-380",
+          "description": "Physics NEET Concept #380: A projectile is fired from the ground with an initial velocity of 40 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "30.62 m",
+            "B": "20.41 m",
+            "C": "15.41 m",
+            "D": "32.71 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005051-medium-141",
+          "description": "Physics NEET Concept #141: A Carnot engine operates between reservoirs at temperatures T1 = 632 K and T2 = 341 K. Determine the thermodynamic efficiency.",
+          "options": {
+            "A": "46.0%",
+            "B": "36.0%",
+            "C": "54.0%",
+            "D": "100%"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005059-medium-156",
+          "description": "Physics NEET Concept #156: A concave mirror of focal length 26 cm forms a real image magnified 2 times. Find the object distance from the mirror pole.",
+          "options": {
+            "A": "39.0 cm",
+            "B": "26 cm",
+            "C": "52 cm",
+            "D": "49.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005056-medium-151",
+          "description": "Physics NEET Concept #151: A Carnot engine operates between reservoirs at temperatures T1 = 502 K and T2 = 351 K. Determine the thermodynamic efficiency.",
+          "options": {
+            "A": "30.1%",
+            "B": "20.1%",
+            "C": "38.1%",
+            "D": "100%"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005194-medium-423",
+          "description": "Physics NEET Concept #423: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 173 V?",
+          "options": {
+            "A": "1.433 Å",
+            "B": "1.400 Å",
+            "C": "0.933 Å",
+            "D": "0.833 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005068-medium-175",
+          "description": "Physics NEET Concept #175: A radioactive isotope has a half-life of 5 days. What fraction of the original sample remains undecayed after 15 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005109-medium-256",
+          "description": "Physics NEET Concept #256: A concave mirror of focal length 26 cm forms a real image magnified 2 times. Find the object distance from the mirror pole.",
+          "options": {
+            "A": "39.0 cm",
+            "B": "26 cm",
+            "C": "52 cm",
+            "D": "49.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005194-medium-424",
+          "description": "Physics NEET Concept #424: An AC generator voltage is given by v = 164 sin(100 pi t) Volts. It is connected to a resistance of 34 ohms. The RMS current value is:",
+          "options": {
+            "A": "4.82 A",
+            "B": "3.41 A",
+            "C": "1.71 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005045-medium-130",
+          "description": "Physics NEET Concept #130: A projectile is fired from the ground with an initial velocity of 30 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "17.22 m",
+            "B": "11.48 m",
+            "C": "6.48 m",
+            "D": "23.78 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005123-medium-283",
+          "description": "Physics NEET Concept #283: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 183 V?",
+          "options": {
+            "A": "1.407 Å",
+            "B": "1.361 Å",
+            "C": "0.907 Å",
+            "D": "0.807 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005052-medium-143",
+          "description": "Physics NEET Concept #143: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 193 V?",
+          "options": {
+            "A": "1.383 Å",
+            "B": "1.325 Å",
+            "C": "0.883 Å",
+            "D": "0.783 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005121-medium-279",
+          "description": "Physics NEET Concept #279: A block slides down a smooth inclined plane of inclination 39 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.29 m/s^2",
+            "C": "7.77 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005052-medium-142",
+          "description": "Physics NEET Concept #142: A solenoid of length 0.7 m has 642 turns and carries a steady current of 4 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "4.610e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005050-medium-138",
+          "description": "Physics NEET Concept #138: A spring of spring constant 238 N/m is stretched by 13 cm from its equilibrium position. Calculate the potential energy stored.",
+          "options": {
+            "A": "4.022 J",
+            "B": "2.011 J",
+            "C": "1.961 J",
+            "D": "3.261 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004997-medium-40",
+          "description": "Physics NEET Concept #40: A projectile is fired from the ground with an initial velocity of 30 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "17.22 m",
+            "B": "11.48 m",
+            "C": "6.48 m",
+            "D": "23.78 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005067-medium-172",
+          "description": "Physics NEET Concept #172: A solenoid of length 0.7 m has 672 turns and carries a steady current of 2 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "2.413e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005047-medium-133",
+          "description": "Physics NEET Concept #133: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 183 V?",
+          "options": {
+            "A": "1.407 Å",
+            "B": "1.361 Å",
+            "C": "0.907 Å",
+            "D": "0.807 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005058-medium-155",
+          "description": "Physics NEET Concept #155: A radioactive isotope has a half-life of 9 days. What fraction of the original sample remains undecayed after 27 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005581-hard-190",
+          "description": "Physics NEET Concept #190: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005825-hard-672",
+          "description": "Physics NEET Concept #672: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 17 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "3.72",
+            "B": "5.58",
+            "C": "1.86",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005925-hard-850",
+          "description": "Physics NEET Concept #850: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005759-hard-541",
+          "description": "Physics NEET Concept #541: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005783-hard-590",
+          "description": "Physics NEET Concept #590: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005845-hard-712",
+          "description": "Physics NEET Concept #712: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 12 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "5.27",
+            "B": "7.90",
+            "C": "2.63",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005788-hard-599",
+          "description": "Physics NEET Concept #599: A string of length 0.7 m and mass per unit length 1.40e-3 kg/m is kept under a tension of 49 N. Find the fundamental frequency of transverse waves.",
+          "options": {
+            "A": "150 Hz",
+            "B": "133.6 Hz",
+            "C": "267.2 Hz",
+            "D": "50 Hz"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005802-hard-628",
+          "description": "Physics NEET Concept #628: An astronomical telescope has an objective focal length of 128 cm and eyepiece of focal length 2 cm. Find its magnifying power and tube length respectively in normal adjustment.",
+          "options": {
+            "A": "Magnification: 64.0, Length: 130.0 cm",
+            "B": "Magnification: 2, Length: 128 cm",
+            "C": "Magnification: 64.0, Length: 126.0 cm",
+            "D": "Magnification: 1.0, Length: 130.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005785-hard-594",
+          "description": "Physics NEET Concept #594: Calculate the electrical potential in Volts at a distance of 5 m on the axial line of an electric dipole of dipole moment 5 x 10^-9 C-m in free space.",
+          "options": {
+            "A": "1.8 V",
+            "B": "3.6 V",
+            "C": "0.9 V",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005803-hard-630",
+          "description": "Physics NEET Concept #630: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005831-hard-685",
+          "description": "Physics NEET Concept #685: In a hydrogen atom, an electron falls from orbit n = 3 to orbit n = 2. Find the wavelength of the emitted spectral line.",
+          "options": {
+            "A": "121.6 nm",
+            "B": "486.1 nm",
+            "C": "656.3 nm",
+            "D": "91.2 nm"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005848-hard-719",
+          "description": "Physics NEET Concept #719: A string of length 0.7 m and mass per unit length 1.40e-3 kg/m is kept under a tension of 49 N. Find the fundamental frequency of transverse waves.",
+          "options": {
+            "A": "150 Hz",
+            "B": "133.6 Hz",
+            "C": "267.2 Hz",
+            "D": "50 Hz"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005863-hard-737",
+          "description": "Physics NEET Concept #737: Find the speed of sound in helium gas at a temperature of 64°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "1030.5 m/s",
+            "B": "1080.5 m/s",
+            "C": "1200.5 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005817-hard-657",
+          "description": "Physics NEET Concept #657: Find the speed of sound in helium gas at a temperature of 84°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "1062.1 m/s",
+            "B": "1112.1 m/s",
+            "C": "1232.1 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005834-hard-690",
+          "description": "Physics NEET Concept #690: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005771-hard-566",
+          "description": "Physics NEET Concept #566: The magnetic flux linked with a coil is given by the relation phi = 4t^2 + 2t + 5 (in milliwebers). What is the magnitude of induced EMF in mV at t = 2 seconds?",
+          "options": {
+            "A": "18 mV",
+            "B": "28 mV",
+            "C": "15 mV",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005832-hard-687",
+          "description": "Physics NEET Concept #687: Find the speed of sound in helium gas at a temperature of 114°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "1107.9 m/s",
+            "B": "1157.9 m/s",
+            "C": "1277.9 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005772-hard-568",
+          "description": "Physics NEET Concept #568: An astronomical telescope has an objective focal length of 118 cm and eyepiece of focal length 2 cm. Find its magnifying power and tube length respectively in normal adjustment.",
+          "options": {
+            "A": "Magnification: 59.0, Length: 120.0 cm",
+            "B": "Magnification: 2, Length: 118 cm",
+            "C": "Magnification: 59.0, Length: 116.0 cm",
+            "D": "Magnification: 1.0, Length: 120.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005789-hard-602",
+          "description": "Physics NEET Concept #602: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 7 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "9.04",
+            "B": "13.56",
+            "C": "4.52",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005818-hard-658",
+          "description": "Physics NEET Concept #658: An astronomical telescope has an objective focal length of 108 cm and eyepiece of focal length 4 cm. Find its magnifying power and tube length respectively in normal adjustment.",
+          "options": {
+            "A": "Magnification: 27.0, Length: 112.0 cm",
+            "B": "Magnification: 4, Length: 108 cm",
+            "C": "Magnification: 27.0, Length: 104.0 cm",
+            "D": "Magnification: 1.0, Length: 112.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005877-hard-764",
+          "description": "Physics NEET Concept #764: Calculate the electrical potential in Volts at a distance of 5 m on the axial line of an electric dipole of dipole moment 5 x 10^-9 C-m in free space.",
+          "options": {
+            "A": "1.8 V",
+            "B": "3.6 V",
+            "C": "0.9 V",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005776-hard-575",
+          "description": "Physics NEET Concept #575: In a hydrogen atom, an electron falls from orbit n = 3 to orbit n = 2. Find the wavelength of the emitted spectral line.",
+          "options": {
+            "A": "121.6 nm",
+            "B": "486.1 nm",
+            "C": "656.3 nm",
+            "D": "91.2 nm"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005859-hard-731",
+          "description": "Physics NEET Concept #731: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005864-hard-740",
+          "description": "Physics NEET Concept #740: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        }
+      ]
+    },
+    {
+      "id": "sub-1781247254517-462",
+      "studentId": "STU-2026-5119",
+      "studentName": "Ashish",
+      "subject": "Physics",
+      "score": -1,
+      "maxMarks": 320,
+      "submittedAt": 1781247254517,
+      "answers": {
+        "q-physics-1780692004731-easy-513": "B"
+      },
+      "questions": [
+        {
+          "id": "q-physics-1780692004731-easy-513",
+          "description": "Physics NEET Concept #513: If the temperature of a gas is raised from 73°C to 173°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004772-easy-594",
+          "description": "Physics NEET Concept #594: Two resistors of values 5 ohms and 4 ohms are connected in series. Find their equivalent resistance in ohms.",
+          "options": {
+            "A": "9 ohms",
+            "B": "2.2222222222222223 ohms",
+            "C": "14 ohms",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004963-easy-972",
+          "description": "Physics NEET Concept #972: A constant force of 32 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "9.00 m/s^2",
+            "B": "6.40 m/s^2",
+            "C": "8.00 m/s^2",
+            "D": "11.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004563-easy-184",
+          "description": "Physics NEET Concept #184: Two resistors of values 5 ohms and 2 ohms are connected in series. Find their equivalent resistance in ohms.",
+          "options": {
+            "A": "7 ohms",
+            "B": "1.4285714285714286 ohms",
+            "C": "12 ohms",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004746-easy-543",
+          "description": "Physics NEET Concept #543: If the temperature of a gas is raised from 13°C to 113°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004708-easy-469",
+          "description": "Physics NEET Concept #469: In a semiconductor at absolute zero temperature, the conduction band is:",
+          "options": {
+            "A": "Completely filled",
+            "B": "Half-filled",
+            "C": "Completely empty",
+            "D": "Moderately populated"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004659-easy-372",
+          "description": "Physics NEET Concept #372: A constant force of 32 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "9.00 m/s^2",
+            "B": "6.40 m/s^2",
+            "C": "8.00 m/s^2",
+            "D": "11.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004473-easy-12",
+          "description": "Physics NEET Concept #12: A constant force of 22 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "6.50 m/s^2",
+            "B": "4.40 m/s^2",
+            "C": "5.50 m/s^2",
+            "D": "9.00 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004515-easy-91",
+          "description": "Physics NEET Concept #91: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004934-easy-915",
+          "description": "Physics NEET Concept #915: Light wave of wavelength 415 nm travels from vacuum into a medium. Which of the following parameters remains constant?",
+          "options": {
+            "A": "Wavelength",
+            "B": "Velocity",
+            "C": "Frequency",
+            "D": "Amplitude"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004767-easy-585",
+          "description": "Physics NEET Concept #585: Light wave of wavelength 685 nm travels from vacuum into a medium. Which of the following parameters remains constant?",
+          "options": {
+            "A": "Wavelength",
+            "B": "Velocity",
+            "C": "Frequency",
+            "D": "Amplitude"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004649-easy-353",
+          "description": "Physics NEET Concept #353: If the temperature of a gas is raised from 93°C to 193°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004786-easy-621",
+          "description": "Physics NEET Concept #621: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004597-easy-252",
+          "description": "Physics NEET Concept #252: A constant force of 12 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "4.00 m/s^2",
+            "B": "2.40 m/s^2",
+            "C": "3.00 m/s^2",
+            "D": "6.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004589-easy-236",
+          "description": "Physics NEET Concept #236: The magnetic flux linked with a coil of 136 turns changes from 2 Wb to 6 Wb. Calculate the change in total flux linkage.",
+          "options": {
+            "A": "544 Wb",
+            "B": "4 Wb",
+            "C": "272 Wb",
+            "D": "136 Wb"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004958-easy-963",
+          "description": "Physics NEET Concept #963: If the temperature of a gas is raised from 73°C to 173°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004529-easy-119",
+          "description": "Physics NEET Concept #119: In a semiconductor at absolute zero temperature, the conduction band is:",
+          "options": {
+            "A": "Completely filled",
+            "B": "Half-filled",
+            "C": "Completely empty",
+            "D": "Moderately populated"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004625-easy-306",
+          "description": "Physics NEET Concept #306: The magnetic flux linked with a coil of 206 turns changes from 2 Wb to 6 Wb. Calculate the change in total flux linkage.",
+          "options": {
+            "A": "824 Wb",
+            "B": "4 Wb",
+            "C": "412 Wb",
+            "D": "206 Wb"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004642-easy-340",
+          "description": "Physics NEET Concept #340: What is the standard SI unit of Magnetic Flux?",
+          "options": {
+            "A": "Weber",
+            "B": "Tesla",
+            "C": "Joule-second",
+            "D": "Coulomb-meter"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004649-easy-352",
+          "description": "Physics NEET Concept #352: A constant force of 12 N acts on a mass of 4 kg starting from rest. What is the acceleration produced in m/s^2?",
+          "options": {
+            "A": "4.00 m/s^2",
+            "B": "2.40 m/s^2",
+            "C": "3.00 m/s^2",
+            "D": "6.50 m/s^2"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692004816-easy-681",
+          "description": "Physics NEET Concept #681: A body of mass 2 kg is moving with a constant speed of 3 m/s. Calculate the kinetic energy of the body in Joules.",
+          "options": {
+            "A": "13.5 J",
+            "B": "9 J",
+            "C": "7 J",
+            "D": "19 J"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004839-easy-727",
+          "description": "Physics NEET Concept #727: If a person's weight on Earth is 47 kg-wt, what will be their approximate weight on the surface of the Moon?",
+          "options": {
+            "A": "23.5 kg-wt",
+            "B": "7.8 kg-wt",
+            "C": "Zero",
+            "D": "47 kg-wt"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692004936-easy-920",
+          "description": "Physics NEET Concept #920: What is the standard SI unit of Magnetic Flux?",
+          "options": {
+            "A": "Weber",
+            "B": "Tesla",
+            "C": "Joule-second",
+            "D": "Coulomb-meter"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692004898-easy-843",
+          "description": "Physics NEET Concept #843: If the temperature of a gas is raised from 43°C to 143°C, what is the absolute change in temperature in Kelvin?",
+          "options": {
+            "A": "100 K",
+            "B": "273 K",
+            "C": "373 K",
+            "D": "0 K"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005231-medium-496",
+          "description": "Physics NEET Concept #496: A concave mirror of focal length 26 cm forms a real image magnified 2 times. Find the object distance from the mirror pole.",
+          "options": {
+            "A": "39.0 cm",
+            "B": "26 cm",
+            "C": "52 cm",
+            "D": "49.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005438-medium-909",
+          "description": "Physics NEET Concept #909: A block slides down a smooth inclined plane of inclination 39 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.29 m/s^2",
+            "C": "7.77 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005251-medium-537",
+          "description": "Physics NEET Concept #537: In a double-slit experiment, the slits are separated by 0.4 mm and the screen is placed 1.5 m away. For light of wavelength 600 nm, find the fringe width in mm.",
+          "options": {
+            "A": "1.200 mm",
+            "B": "2.250 mm",
+            "C": "0.450 mm",
+            "D": "2.500 mm"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005085-medium-207",
+          "description": "Physics NEET Concept #207: In a double-slit experiment, the slits are separated by 0.4 mm and the screen is placed 1.5 m away. For light of wavelength 600 nm, find the fringe width in mm.",
+          "options": {
+            "A": "1.200 mm",
+            "B": "2.250 mm",
+            "C": "0.450 mm",
+            "D": "2.500 mm"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005185-medium-405",
+          "description": "Physics NEET Concept #405: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005272-medium-579",
+          "description": "Physics NEET Concept #579: A block slides down a smooth inclined plane of inclination 39 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.29 m/s^2",
+            "C": "7.77 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005472-medium-975",
+          "description": "Physics NEET Concept #975: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005057-medium-153",
+          "description": "Physics NEET Concept #153: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 53 V?",
+          "options": {
+            "A": "2.185 Å",
+            "B": "2.527 Å",
+            "C": "1.685 Å",
+            "D": "1.585 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005281-medium-595",
+          "description": "Physics NEET Concept #595: A radioactive isotope has a half-life of 5 days. What fraction of the original sample remains undecayed after 15 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005256-medium-547",
+          "description": "Physics NEET Concept #547: In a double-slit experiment, the slits are separated by 0.4 mm and the screen is placed 1.5 m away. For light of wavelength 600 nm, find the fringe width in mm.",
+          "options": {
+            "A": "1.200 mm",
+            "B": "2.250 mm",
+            "C": "0.450 mm",
+            "D": "2.500 mm"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005182-medium-399",
+          "description": "Physics NEET Concept #399: A block slides down a smooth inclined plane of inclination 39 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.29 m/s^2",
+            "C": "7.77 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005457-medium-945",
+          "description": "Physics NEET Concept #945: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005146-medium-329",
+          "description": "Physics NEET Concept #329: A block slides down a smooth inclined plane of inclination 44 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.95 m/s^2",
+            "C": "7.19 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005054-medium-146",
+          "description": "Physics NEET Concept #146: A concave mirror of focal length 16 cm forms a real image magnified 2 times. Find the object distance from the mirror pole.",
+          "options": {
+            "A": "24.0 cm",
+            "B": "16 cm",
+            "C": "32 cm",
+            "D": "34.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005445-medium-922",
+          "description": "Physics NEET Concept #922: A solenoid of length 0.7 m has 922 turns and carries a steady current of 4 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "6.621e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005347-medium-727",
+          "description": "Physics NEET Concept #727: In a double-slit experiment, the slits are separated by 0.4 mm and the screen is placed 1.5 m away. For light of wavelength 600 nm, find the fringe width in mm.",
+          "options": {
+            "A": "1.200 mm",
+            "B": "2.250 mm",
+            "C": "0.450 mm",
+            "D": "2.500 mm"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005305-medium-644",
+          "description": "Physics NEET Concept #644: An AC generator voltage is given by v = 144 sin(100 pi t) Volts. It is connected to a resistance of 14 ohms. The RMS current value is:",
+          "options": {
+            "A": "10.28 A",
+            "B": "7.27 A",
+            "C": "3.63 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005148-medium-332",
+          "description": "Physics NEET Concept #332: A solenoid of length 0.7 m has 832 turns and carries a steady current of 2 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "2.987e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005433-medium-899",
+          "description": "Physics NEET Concept #899: A block slides down a smooth inclined plane of inclination 44 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "6.95 m/s^2",
+            "C": "7.19 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005217-medium-469",
+          "description": "Physics NEET Concept #469: A block slides down a smooth inclined plane of inclination 34 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "5.59 m/s^2",
+            "C": "8.29 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005398-medium-829",
+          "description": "Physics NEET Concept #829: A block slides down a smooth inclined plane of inclination 34 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "5.59 m/s^2",
+            "C": "8.29 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005071-medium-180",
+          "description": "Physics NEET Concept #180: A projectile is fired from the ground with an initial velocity of 20 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "7.65 m",
+            "B": "5.10 m",
+            "C": "0.10 m",
+            "D": "17.40 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005113-medium-264",
+          "description": "Physics NEET Concept #264: An AC generator voltage is given by v = 124 sin(100 pi t) Volts. It is connected to a resistance of 34 ohms. The RMS current value is:",
+          "options": {
+            "A": "3.65 A",
+            "B": "2.58 A",
+            "C": "1.29 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005409-medium-850",
+          "description": "Physics NEET Concept #850: A projectile is fired from the ground with an initial velocity of 30 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "17.22 m",
+            "B": "11.48 m",
+            "C": "6.48 m",
+            "D": "23.78 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005004-medium-54",
+          "description": "Physics NEET Concept #54: An AC generator voltage is given by v = 154 sin(100 pi t) Volts. It is connected to a resistance of 24 ohms. The RMS current value is:",
+          "options": {
+            "A": "6.42 A",
+            "B": "4.54 A",
+            "C": "2.27 A",
+            "D": "0 A"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005323-medium-679",
+          "description": "Physics NEET Concept #679: A block slides down a smooth inclined plane of inclination 34 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "5.59 m/s^2",
+            "C": "8.29 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005168-medium-372",
+          "description": "Physics NEET Concept #372: A solenoid of length 0.7 m has 872 turns and carries a steady current of 2 A. Find the magnetic field strength at the center.",
+          "options": {
+            "A": "3.131e-3 T",
+            "B": "1.2 x 10^-5 T",
+            "C": "3.4 x 10^-2 T",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005088-medium-213",
+          "description": "Physics NEET Concept #213: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 113 V?",
+          "options": {
+            "A": "1.654 Å",
+            "B": "1.731 Å",
+            "C": "1.154 Å",
+            "D": "1.054 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005307-medium-649",
+          "description": "Physics NEET Concept #649: A block slides down a smooth inclined plane of inclination 34 degrees. What is the acceleration of the block down the incline? (take g = 10 m/s^2)",
+          "options": {
+            "A": "10 m/s^2",
+            "B": "5.59 m/s^2",
+            "C": "8.29 m/s^2",
+            "D": "5 m/s^2"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005441-medium-915",
+          "description": "Physics NEET Concept #915: A radioactive isotope has a half-life of 7 days. What fraction of the original sample remains undecayed after 21 days?",
+          "options": {
+            "A": "1/2",
+            "B": "1/4",
+            "C": "1/8",
+            "D": "1/16"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005434-medium-900",
+          "description": "Physics NEET Concept #900: A projectile is fired from the ground with an initial velocity of 20 m/s at an angle of 30 degrees to the horizontal. Calculate the maximum height reached (take g = 9.8 m/s^2).",
+          "options": {
+            "A": "7.65 m",
+            "B": "5.10 m",
+            "C": "0.10 m",
+            "D": "17.40 m"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005330-medium-693",
+          "description": "Physics NEET Concept #693: What is the de Broglie wavelength of an electron accelerated through an electric potential difference of 143 V?",
+          "options": {
+            "A": "1.526 Å",
+            "B": "1.539 Å",
+            "C": "1.026 Å",
+            "D": "0.926 Å"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005633-hard-293",
+          "description": "Physics NEET Concept #293: A thin circular ring of mass 4 kg and radius 0.7 m is rotating about its axis with angular velocity 23 rad/s. Two point masses of 0.25 kg each are gently attached to opposite ends of its diameter. Find the new angular velocity.",
+          "options": {
+            "A": "22.44 rad/s",
+            "B": "20.44 rad/s",
+            "C": "26.57 rad/s",
+            "D": "23 rad/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005954-hard-907",
+          "description": "Physics NEET Concept #907: Find the speed of sound in helium gas at a temperature of 34°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "981.3 m/s",
+            "B": "1031.3 m/s",
+            "C": "1151.3 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005499-hard-30",
+          "description": "Physics NEET Concept #30: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005978-hard-956",
+          "description": "Physics NEET Concept #956: The magnetic flux linked with a coil is given by the relation phi = 4t^2 + 2t + 5 (in milliwebers). What is the magnitude of induced EMF in mV at t = 2 seconds?",
+          "options": {
+            "A": "18 mV",
+            "B": "28 mV",
+            "C": "15 mV",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005564-hard-156",
+          "description": "Physics NEET Concept #156: The magnetic flux linked with a coil is given by the relation phi = 2t^2 + 2t + 5 (in milliwebers). What is the magnitude of induced EMF in mV at t = 2 seconds?",
+          "options": {
+            "A": "10 mV",
+            "B": "20 mV",
+            "C": "7 mV",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005733-hard-491",
+          "description": "Physics NEET Concept #491: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005749-hard-521",
+          "description": "Physics NEET Concept #521: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005490-hard-12",
+          "description": "Physics NEET Concept #12: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 17 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "3.72",
+            "B": "5.58",
+            "C": "1.86",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005718-hard-461",
+          "description": "Physics NEET Concept #461: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005919-hard-838",
+          "description": "Physics NEET Concept #838: An astronomical telescope has an objective focal length of 138 cm and eyepiece of focal length 4 cm. Find its magnifying power and tube length respectively in normal adjustment.",
+          "options": {
+            "A": "Magnification: 34.5, Length: 142.0 cm",
+            "B": "Magnification: 4, Length: 138 cm",
+            "C": "Magnification: 34.5, Length: 134.0 cm",
+            "D": "Magnification: 1.0, Length: 142.0 cm"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005685-hard-395",
+          "description": "Physics NEET Concept #395: In a hydrogen atom, an electron falls from orbit n = 3 to orbit n = 2. Find the wavelength of the emitted spectral line.",
+          "options": {
+            "A": "121.6 nm",
+            "B": "486.1 nm",
+            "C": "656.3 nm",
+            "D": "91.2 nm"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005713-hard-450",
+          "description": "Physics NEET Concept #450: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005515-hard-61",
+          "description": "Physics NEET Concept #61: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
+        },
+        {
+          "id": "q-physics-1780692005845-hard-712",
+          "description": "Physics NEET Concept #712: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 12 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "5.27",
+            "B": "7.90",
+            "C": "2.63",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005567-hard-163",
+          "description": "Physics NEET Concept #163: A thin circular ring of mass 3 kg and radius 0.6 m is rotating about its axis with angular velocity 13 rad/s. Two point masses of 0.25 kg each are gently attached to opposite ends of its diameter. Find the new angular velocity.",
+          "options": {
+            "A": "13.14 rad/s",
+            "B": "11.14 rad/s",
+            "C": "14.48 rad/s",
+            "D": "13 rad/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005536-hard-102",
+          "description": "Physics NEET Concept #102: An LCR circuit contains L = 12 mH, C = 3 uF, and R = 17 ohms connected in series. Calculate the quality factor Q of the circuit at resonance.",
+          "options": {
+            "A": "3.72",
+            "B": "5.58",
+            "C": "1.86",
+            "D": "1.0"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005977-hard-954",
+          "description": "Physics NEET Concept #954: Calculate the electrical potential in Volts at a distance of 5 m on the axial line of an electric dipole of dipole moment 5 x 10^-9 C-m in free space.",
+          "options": {
+            "A": "1.8 V",
+            "B": "3.6 V",
+            "C": "0.9 V",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005822-hard-667",
+          "description": "Physics NEET Concept #667: Find the speed of sound in helium gas at a temperature of 94°C (take gamma = 5/3, R = 8.314 J/mol-K, Molar mass of Helium = 4 g/mol).",
+          "options": {
+            "A": "1077.5 m/s",
+            "B": "1127.5 m/s",
+            "C": "1247.5 m/s",
+            "D": "330 m/s"
+          },
+          "correctOption": "B"
+        },
+        {
+          "id": "q-physics-1780692005811-hard-646",
+          "description": "Physics NEET Concept #646: The magnetic flux linked with a coil is given by the relation phi = 3t^2 + 2t + 5 (in milliwebers). What is the magnitude of induced EMF in mV at t = 2 seconds?",
+          "options": {
+            "A": "14 mV",
+            "B": "24 mV",
+            "C": "11 mV",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005993-hard-984",
+          "description": "Physics NEET Concept #984: Calculate the electrical potential in Volts at a distance of 5 m on the axial line of an electric dipole of dipole moment 5 x 10^-9 C-m in free space.",
+          "options": {
+            "A": "1.8 V",
+            "B": "3.6 V",
+            "C": "0.9 V",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005897-hard-794",
+          "description": "Physics NEET Concept #794: Calculate the electrical potential in Volts at a distance of 5 m on the axial line of an electric dipole of dipole moment 5 x 10^-9 C-m in free space.",
+          "options": {
+            "A": "1.8 V",
+            "B": "3.6 V",
+            "C": "0.9 V",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005718-hard-460",
+          "description": "Physics NEET Concept #460: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005808-hard-640",
+          "description": "Physics NEET Concept #640: A block of mass 5 kg is placed on a rough inclined plane of angle 30 degrees. If the coefficient of static friction is 0.30, find the minimum force required to slide the block up the plane.",
+          "options": {
+            "A": "37.99 N",
+            "B": "26.59 N",
+            "C": "53.19 N",
+            "D": "Zero"
+          },
+          "correctOption": "A"
+        },
+        {
+          "id": "q-physics-1780692005900-hard-801",
+          "description": "Physics NEET Concept #801: A particle is executing simple harmonic motion (SHM) with amplitude 11 cm. At what displacement from the mean position is its kinetic energy 3 times its potential energy?",
+          "options": {
+            "A": "11 cm",
+            "B": "7.78 cm",
+            "C": "5.5 cm",
+            "D": "Zero"
+          },
+          "correctOption": "C"
         }
       ]
     }
