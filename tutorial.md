@@ -14,7 +14,7 @@ Open your **Command Prompt (cmd)** or **PowerShell** and navigate to the folder 
 
 ```powershell
 cd Desktop
-git clone https://github.com/hello-ashish/ZeroLeak.git)
+git clone https://github.com/hello-ashish/ZeroLeak.git
 cd ZeroLeak
 ```
 ---
