@@ -13,12 +13,10 @@ Before you begin, ensure you have the following installed on your Windows machin
 Open your **Command Prompt (cmd)** or **PowerShell** and navigate to the folder where you want to store the project. Then, clone the repository:
 
 ```powershell
-git clone <YOUR_GITHUB_REPOSITORY_URL_HERE>
+cd Desktop
+git clone https://github.com/hello-ashish/ZeroLeak.git)
 cd ZeroLeak
 ```
-
-*(Replace `<YOUR_GITHUB_REPOSITORY_URL_HERE>` with the actual link to your GitHub repository.)*
-
 ---
 
 ## Step 2: Set Up and Run the Backend (NestJS)
@@ -35,7 +33,7 @@ The backend handles the data, questions, and tests. It needs to be running for t
    ```
 3. Start the backend development server:
    ```powershell
-   npm run start:dev
+   npm start
    ```
 4. You should see logs indicating the NestJS server is running. **Leave this terminal window open and running.**
 
@@ -48,7 +46,7 @@ The frontend is the web application interface. You will need to open a **new ter
 1. Open a **new** Command Prompt or PowerShell window.
 2. Navigate to the `ZeroLeak/frontend` folder:
    ```powershell
-   cd path\to\ZeroLeak\frontend
+   cd frontend
    ```
 3. Install the required dependencies:
    ```powershell
